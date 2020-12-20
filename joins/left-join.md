@@ -3,10 +3,12 @@
 ## General 
 
   * Show all entries from the left table and only from the right if available 
+  * Examples are based on sakila database. 
 
 ## Example 
 
 ```
+use sakila 
 SELECT 
     c.customer_id, 
     c.first_name, 
