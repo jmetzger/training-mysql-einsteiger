@@ -39,7 +39,8 @@ SELECT * from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='people' AND TABLE_SCH
 
 ```
 --- We want to add a field before name 
-ALTER TABLE people ADD first_name VARCHAR(10) BEFORE name;
+--- IMPORTANT: BEFORE does not exist 
+ALTER TABLE people ADD first_name VARCHAR(10) AFTER id;
 ```
 
 ### Modify a field in table (Change property) 
@@ -53,6 +54,6 @@ ALTER TABLE people
 
 ```
 ALTER TABLE people ADD middle_name VARCHAR(25) BEFORE name; 
-DESCRIBE people 
-ALTER TABLE people DROP COLUMN middle_name 
+DESCRIBE people;
+ALTER TABLE people DROP COLUMN middle_name;
 ```  
