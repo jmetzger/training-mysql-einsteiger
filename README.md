@@ -7,10 +7,12 @@
 ## Agenda 
 
   1. Technical Background 
-
      * [Technical Structure](/technical-background/basics.md)
  
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
+     
+  1. Working with database objects 
+     * [Working with databases](/database-objects/databases.md) 
      
   
