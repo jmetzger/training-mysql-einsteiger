@@ -22,4 +22,8 @@
   1. Working with Joins 
      * [Working with LEFT JOIN](/joins/left-join.md)
      
+  1. References 
+     * [Examples Left Join]](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
+    
+     
   
