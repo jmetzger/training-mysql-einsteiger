@@ -11,6 +11,6 @@
      * [Technical Structure](/technical-background/basics.md)
  
   1. Basics 
-     * [Connection to DB](/basics/connection-db.md) 
+     * [Connection to DB + exit](/basics/connection-db.md) 
      
   
