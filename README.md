@@ -14,5 +14,6 @@
      
   1. Working with database objects 
      * [Working with databases](/database-objects/databases.md) 
+     * [Working with tables](/database-objects/tables.md) 
      
   
