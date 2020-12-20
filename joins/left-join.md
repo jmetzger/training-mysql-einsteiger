@@ -1,8 +1,14 @@
 # LEFT JOIN 
 
+## General 
+
+  * Show all entries from the left table and only from the right if available 
+
+## Example 
+
 ```
 SELECT 
-	c.customer_id, 
+    c.customer_id, 
     c.first_name, 
     c.last_name,
     a.actor_id,
