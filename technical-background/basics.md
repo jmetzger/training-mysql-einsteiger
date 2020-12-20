@@ -1,3 +1,3 @@
 # Technical Background / Basics 
 
-![images/mysql-architecture.jpg]
+![Overview](images/mysql-architecture.jpg)
