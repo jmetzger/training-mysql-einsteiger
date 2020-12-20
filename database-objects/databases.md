@@ -21,7 +21,7 @@ mysql>
 mysql
 mysql>
 ;; from here i leave out mysql> 
-;; so you can easily copy & paste the lines here 
+;; so you can easily copy & paste the lines hereafter 
 show databases 
 
 --
