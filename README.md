@@ -8,7 +8,7 @@
 
   1. Technical Background / Basics  
 
-     * [Technical Structure](technical-structure.md)
+     * [Technical Structure](technical-structure/basics.md)
  
   1. Installation
      * [Installation (Ubuntu 20.04 LTS)](installation-ubuntu-20-04.md)
