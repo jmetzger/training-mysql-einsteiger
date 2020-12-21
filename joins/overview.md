@@ -7,7 +7,7 @@
 
 ## MySQL (Inner) Join 
 
-¡[Inner Join](/images/img_innerjoin.gif)
+![Inner Join](/images/img_innerjoin.gif)
 
 ## MySQL (Inner) Join (explained) 
 
