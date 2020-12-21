@@ -22,4 +22,11 @@ root
 mysql 
 ```
 
+## Connection with credentials
+
+```
+mysql -uroot -p  
+# passwort auf der Kommandozeile eingeben 
+
+```
 
