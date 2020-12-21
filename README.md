@@ -26,6 +26,6 @@
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
-    
+     * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      
   
