@@ -83,14 +83,14 @@ where film_actor.actor_id = actor.actor_id
 and film_actor.film_id = film.film_id;
 ```
 
-## In Detail: Left Join ====
+## In Detail: Left Join
 
   * Return all rows from the left side
     * even if there is not result on the right side
   * Example 
 ```
 SELECT 
-	c.customer_id, 
+    c.customer_id, 
     c.first_name, 
     c.last_name,
     a.actor_id,
