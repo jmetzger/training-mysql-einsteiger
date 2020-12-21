@@ -41,3 +41,11 @@ mysql>show variables like 'innodb%buffer%';
 
   * https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool-resize.html
   
+
+## Privilegs for show engine innodb status 
+
+```
+ show engine innodb status \G
+ERROR 1227 (42000): Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+
+```
