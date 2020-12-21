@@ -30,7 +30,7 @@
 
 ## MySQL Right Join 
 
-{{:img_rightjoin.gif?nolink&200|}}
+![Image Right Join](/images/img_rightjoin.gif)
 
 ## MySQL Right Join (explained)  
 
