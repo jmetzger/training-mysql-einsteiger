@@ -159,4 +159,13 @@ for each row in t1 matching range {
 
   * Can be seen in explain 
   * ![Image Proof Nested Loop](proof-nested-loop.png)
-  * explain select * from t1, t2 where t1.col < 10 and t2.col < 'bar';
+
+```
+
+explain select * from t1, t2 where t1.col < 10 and t2.col < 'bar';
+
+```
+
+## BNL's - Refs:
+
+  * https://www.burnison.ca/notes/fun-mysql-fact-of-the-day-block-nested-loop-joins
