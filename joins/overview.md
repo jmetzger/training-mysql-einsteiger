@@ -18,7 +18,7 @@
  
 ## MySQL Left Join 
 
-{{:img_leftjoin.gif?nolink&200|}}
+![Image Left Join](/images/img_leftjoin.gif)
 
 ## MySQL Left (outer) Join (explained) 
 
