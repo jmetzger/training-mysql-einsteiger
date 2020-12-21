@@ -17,3 +17,8 @@ Free buffers       7905
 1 row in set (0.00 sec)
 ```
 
+## Overview innodb server variables / settings 
+
+  * https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html
+
+## Change innodb_buffer_pool 
