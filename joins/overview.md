@@ -162,12 +162,19 @@ for each row in t1 matching range {
 
 ```
 
-explain select * from t1, t2 where t1.col < 10 and t2.col < 'bar';
+explain SELECT a.* FROM actor a  INNER JOIN actor b where a.actor_id > 20 and b.actor_id < 20
 
 ```
 
 ```
-When using a Block Nested-Loop Join, MySQL will, instead of automatically joining t2, insert as many rows from t1 that it can into a join buffer and then scan the appropriate range of t2 once, matching each record in t2 to the join buffer. From here, each matched row is then sent to the next join, which, as previously discussed, may be another table, t3, or, if t2 is the last table in the query, the rows may be sent to the network.
+When using a Block Nested-Loop Join, MySQL will, instead of automatically joining t2, 
+insert as many rows from t1 that it can into a join buffer 
+and then scan the appropriate range of t2 once, 
+matching each record in t2 to the join buffer. 
+From here, each matched row is then sent to the next join, 
+which, as previously discussed, may be another table, 
+t3, or, if t2 is the last table in the query, 
+the rows may be sent to the network.
 ```
 
 ## BNL's - Refs:
