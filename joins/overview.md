@@ -7,7 +7,7 @@
 
 ## MySQL (Inner) Join 
 
-{{:img_innerjoin.gif?nolink&200|}}
+¡[Inner Join](/images/img_innerjoin.gif)
 
 ## MySQL (Inner) Join (explained) 
 
