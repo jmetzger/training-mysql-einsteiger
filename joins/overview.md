@@ -155,7 +155,7 @@ for each row in t1 matching range {
       * -> determines the size of each join buffer used to process a query. 
   * https://dev.mysql.com/doc/refman/5.7/en/nested-loop-joins.html
 
-## BNL - Who can I see, if it is used ? ====
+## BNL - Who can I see, if it is used ? 
 
   * Can be seen in explain 
 ![Image Proof Nested Loop](/images/proof-nested-loop.png)
@@ -164,6 +164,10 @@ for each row in t1 matching range {
 
 explain select * from t1, t2 where t1.col < 10 and t2.col < 'bar';
 
+```
+
+```
+When using a Block Nested-Loop Join, MySQL will, instead of automatically joining t2, insert as many rows from t1 that it can into a join buffer and then scan the appropriate range of t2 once, matching each record in t2 to the join buffer. From here, each matched row is then sent to the next join, which, as previously discussed, may be another table, t3, or, if t2 is the last table in the query, the rows may be sent to the network.
 ```
 
 ## BNL's - Refs:
