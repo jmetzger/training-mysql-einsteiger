@@ -57,3 +57,43 @@ ALTER TABLE people ADD middle_name VARCHAR(25) BEFORE name;
 DESCRIBE people;
 ALTER TABLE people DROP COLUMN middle_name;
 ```  
+
+### Deleting table data (truncate) 
+
+```
+USE sakila
+-- Create table based on other table 
+CREATE TABLE actorcopy as SELECT * FROM actor;
+-- Fields ? 
+SELECT * FROM actorcopy; 
+-- Empty it 
+TRUNCATE TABLE actorcopy; 
+-- Emptry ?
+SELECT COUNT(*) FROM actorcopy; 
+```
+
+### Delete table data (with delete) 
+
+#### Explanation 
+
+  * Do not use delete when you want to use data of complete table
+    * truncate is quicker in this case.
+  * DELETE FROM ... WHERE ... does a SELECT first 
+  
+#### Example 
+
+```
+USE sakila
+CREATE TABLE actorbackup AS SELECT * FROM actor;
+SELECT COUNT(*) FROM actorbackup; 
+DELETE FROM actorbackup WHERE actor_id > 100; 
+SELECT COUNT(*) FROM actorbackup; 
+```
+
+### Delete complete table 
+
+```
+USE sakila
+DROP TABLE actorbackup;
+```
+
