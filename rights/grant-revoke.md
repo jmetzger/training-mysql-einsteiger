@@ -1,5 +1,14 @@
 # Grant / Revoke 
 
+# Rights on the different levels 
+
+```
+GLOBAL: for all databases -> mysql.user 
+DATBASES: mysql.db
+TABLES: mysql.tables_priv 
+FIELDS: mysql.columns_priv 
+```
+
 # Grant Privileges (all) 
 
 ```
