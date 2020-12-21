@@ -21,6 +21,10 @@
      
   1. Storage Engines 
      * [Which engine is used](storage-engine-used.md) 
+     * [InnoDB Basics/Buffer Pool](/basics/innodb.md)
+     
+  1. Query-Cache 
+     * [Query cache](/basics/query-cache.md) 
      
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
