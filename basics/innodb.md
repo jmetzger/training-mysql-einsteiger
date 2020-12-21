@@ -22,3 +22,17 @@ Free buffers       7905
   * https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html
 
 ## Change innodb_buffer_pool 
+
+```
+# /etc/mysql/mysql.conf.d/mysqld.cnf 
+# 70-80% of memory on dedicated mysql
+[mysqld]
+innodb-buffer-pool-size=6G
+
+#
+systemctl restart mysql
+
+# 
+mysql
+mysql>show variables like 'innodb%buffer%';
+```
