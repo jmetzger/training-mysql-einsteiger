@@ -30,3 +30,9 @@ mysql -uroot -p
 
 ```
 
+## Connection to remote mysql - server 
+
+```
+mysql -u root -p -h 10.10.9.117
+```
+
