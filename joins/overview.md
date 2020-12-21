@@ -158,5 +158,5 @@ for each row in t1 matching range {
 ## BNL - Who can I see, if it is used ? ====
 
   * Can be seen in explain 
-  * {{:proof-nested-loop.png?nolink&1000|}}
+  * ![Image Proof Nested Loop](proof-nested-loop.png)
   * explain select * from t1, t2 where t1.col < 10 and t2.col < 'bar';
