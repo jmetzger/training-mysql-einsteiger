@@ -158,7 +158,7 @@ for each row in t1 matching range {
 ## BNL - Who can I see, if it is used ? ====
 
   * Can be seen in explain 
-  * ![Image Proof Nested Loop](proof-nested-loop.png)
+  * ![Image Proof Nested Loop](/images/proof-nested-loop.png)
 
 ```
 
