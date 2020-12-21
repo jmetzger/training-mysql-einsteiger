@@ -36,3 +36,8 @@ systemctl restart mysql
 mysql
 mysql>show variables like 'innodb%buffer%';
 ```
+
+## Ref:
+
+  * https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool-resize.html
+  
