@@ -12,6 +12,7 @@
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
      * [mysql-client](mysql-client.md) 
+     * [server system variablen abfragen]() 
      
   1. Working with database objects 
      * [Working with databases](/database-objects/databases.md) 
