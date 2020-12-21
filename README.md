@@ -20,7 +20,7 @@
      * [Working with INSERT](/data-modelling-commands/insert.md)
      
   1. Working with Joins 
-     * [Basics of Joins](joins/general.md) 
+     * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
      
   1. References 
