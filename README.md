@@ -33,6 +33,9 @@
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
      
+  1. Rights (Grant/Revoke) 
+     * [Grant/Revoke](/rights/grant-revoke.md)
+  
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
