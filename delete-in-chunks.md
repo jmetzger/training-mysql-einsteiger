@@ -1,5 +1,11 @@
 # Delete in chunks 
 
+## Why 
+
+  * Delete in chunks does not block so much 
+
+## Example 
+
 ```
 DROP PROCEDURE IF EXISTS archive_table;
 
