@@ -45,6 +45,7 @@
      
   1. Performance 
      * [Delete in chunks](delete-in-chunks.md)
+     * [Explan](explain.md) 
    
   1. Helpers 
      * [1.000.000 Million rows](/helpers/create-dummy-data.md)
