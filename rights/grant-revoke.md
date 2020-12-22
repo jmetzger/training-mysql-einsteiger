@@ -1,5 +1,15 @@
 # Grant / Revoke 
 
+# Creating user first 
+
+  * The user needs to be created, otherwice it is not working 
+  
+```
+# 
+CREATE USER training@localhost identfied by '123xy6aT';
+
+```
+
 # Rights on the different levels 
 
 ```
@@ -24,4 +34,11 @@ mysql> show grants for training@localhost;
 1 row in set (0.00 sec)
 
 mysql>
+```
+
+# Grant privileges on a specific database 
+
+```
+revoke all on *.* to training@localhost 
+grant all on training.* to training@localhost; 
 ```
