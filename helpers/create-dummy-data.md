@@ -1,4 +1,4 @@
-# Create dummy data (10.000.000 Million datasets)
+# Create dummy data (4.500.000 Million datasets)
 
 ```
 CREATE TABLE `data` 
