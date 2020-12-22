@@ -57,3 +57,19 @@ They will acquire "X" locks at this time, by hanging a little sign up saying "ex
 The serious art fans want to see the art presented in a proper manner, with nice lighting and some descriptive placque. 
 They'll wait for the redesign to be done before they approach (they get a lock wait if they try).
 ```
+
+
+
+## MySQL 8: Can I see which locks currently are active/requested in InnoDB (Only from mysql 8) 
+
+```
+SELECT 
+    ENGINE_TRANSACTION_ID as trx_id,
+    LOCK_DATA as row,
+    OBJECT_NAME as `table`,
+    LOCK_MODE,
+    LOCK_STATUS 
+  FROM performance_schema.data_locks WHERE LOCK_TYPE='RECORD';
+```
+
+
