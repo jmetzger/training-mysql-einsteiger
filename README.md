@@ -35,7 +35,7 @@
      
   1. Locks  
      * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
-   
+     * [Select for update](/locks/select-for-update.md)
      
   1. Rights (Grant/Revoke) 
      * [Grant/Revoke](/rights/grant-revoke.md)
