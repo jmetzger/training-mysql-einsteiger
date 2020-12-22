@@ -20,8 +20,7 @@ insert into rooms (room) values ('Sunset');
 
 # Session 1:
 BEGIN;
-select room_id from rooms where room='Washington' for update;
-
+select room_id from rooms where room_id = 1 for update;
 
 # Session 2: 
 BEGIN 
