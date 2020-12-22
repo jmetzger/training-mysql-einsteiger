@@ -44,6 +44,9 @@ mysql -e 'SHOW VARIABLES LIKE "secure_file_priv";'
 mysqldump --tab=/var/lib/mysql-files sakila data 
 ```
 
+  * You will find the structure of the table here [Play data structure](/helpers/data/data.sql) 
+  * You will find this data here: [Play data](/helpers/data/data.txt.bz2)
+
 ## Import from csv
 
 ```
