@@ -1,4 +1,4 @@
-# Create dummy data 
+# Create dummy data (10.000.000 Million datasets)
 
 ```
 CREATE TABLE `data` 
@@ -23,6 +23,7 @@ BEGIN
       1
     );
     SET i = i + 1;
+    SELECT i as iteration,now(); 
   END WHILE;
 END$$
 DELIMITER ;
