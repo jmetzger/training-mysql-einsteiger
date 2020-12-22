@@ -39,7 +39,10 @@
      
   1. Rights (Grant/Revoke) 
      * [Grant/Revoke](/rights/grant-revoke.md)
-     
+   
+  1. Tipps & Tricks 
+     * [Schnellster Import von Daten mit csv](/tricks/load-datainfile.txt)
+   
   1. Helpers 
      * [1.000.000 Million rows](/helpers/create-dummy-data.md)
   
