@@ -33,6 +33,10 @@
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
      
+  1. Locks  
+     * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
+   
+     
   1. Rights (Grant/Revoke) 
      * [Grant/Revoke](/rights/grant-revoke.md)
      
