@@ -1,4 +1,6 @@
-# Create dummy data (4.500.000 Million datasets)
+# Create and export dummy data (4.500.000 Million datasets)
+
+## Creation 
 
 ```
 CREATE TABLE `data` 
@@ -31,6 +33,39 @@ DELIMITER ;
 CALL generate_data();
 DROP PROCEDURE generate_data;
 
+```
 
+## Export as csv 
 
+```
+# there is a secure path, where it is allowed to export 
+mysql -e 'SHOW VARIABLES LIKE "secure_file_priv";'
+# assuming we created the procedure inside database sakila 
+mysqldump --tab=/var/lib/mysql-files sakila data 
+```
+
+## Import from csv
+
+```
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-12-22 06:45:12 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> LOAD DATA INFILE '/var/lib/mysql-files/data.txt' INTO TABLE sakila.data;
+Query OK, 5585240 rows affected (22.11 sec)
+Records: 5585240  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> select now();
++---------------------+
+| now()               |
++---------------------+
+| 2020-12-22 06:45:56 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> 
 ```
