@@ -35,6 +35,9 @@
      
   1. Rights (Grant/Revoke) 
      * [Grant/Revoke](/rights/grant-revoke.md)
+     
+  1. Helpers 
+     * [1.000.000 Million rows](/helpers/create-dummy-data.md)
   
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
