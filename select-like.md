@@ -15,3 +15,9 @@ select first_name,last_name,' ist der/die Beste' as bewertung from actor where l
 ```
 select first_name,last_name from actor where last_name like '%n'
 ```
+
+## Name beinhaltet 'q'  
+
+```
+select first_name,last_name from actor where last_name like '%n'
+```
