@@ -15,6 +15,14 @@ mysql>
 ---
 ```
 
+
+## Create database 
+
+```
+create database training
+create schema training2
+```
+
 ## Show databases
 
 ```
