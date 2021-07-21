@@ -28,5 +28,5 @@ SELECT last_name,first_name,actor_id FROM sakila.actor ORDER BY last_name,first_
 ## Beispiel mit where 
 
 ```
-
+SELECT last_name,first_name,actor_id FROM sakila.actor WHERE last_name like 'J%' ORDER BY last_name ASC,first_name DESC 
 ```
