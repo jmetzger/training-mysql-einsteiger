@@ -22,3 +22,13 @@ use sakila
 SELECT * FROM actor 
 
 ```
+
+## Einfaches Beispiel mit Bedingung 
+
+```
+# SYNTAX
+use sakila;
+SELECT <welche_felder> FROM <welche_tabelle> WHERE <wo_welches_feld_welchen_wert_hat>
+# Beispiel 
+SELECT actor_id, last_name FROM actor where actor_id = 5
+```
