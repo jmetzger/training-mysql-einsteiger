@@ -22,7 +22,7 @@
      * [Unterschiede einfache und doppelte Hochkommas bei Oracle/MySQL](unterschiede-hochkommas-mysql-oracle.md)
  
   1. INSERT 
-     * [Praktisches Beispiel - INSERT](insert.md) 
+     * [Praktisches Beispiel und erweitertes insert - INSERT](insert.md) 
  
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
