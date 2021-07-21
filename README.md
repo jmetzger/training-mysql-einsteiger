@@ -18,6 +18,9 @@
   1. SELECTS 
      * [Select Beispiele](table-select.md) 
  
+  1. Datentypen 
+     * [Integer - INT - Datentypen](int.md)
+ 
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
      * [mysql-client](mysql-client.md) 
