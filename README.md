@@ -8,7 +8,9 @@
 
   1. Technical Background 
      * [Technical Structure](/technical-background/basics.md)
- 
+  1. Installation on Windows 
+     * [Installation MySQL 8 under Windows](installation-mysql-windows-8.md)
+  
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
      * [mysql-client](mysql-client.md) 
