@@ -11,15 +11,15 @@
   1. Installation on Windows 
      * [Installation MySQL 8 under Windows](installation-mysql-windows-8.md)
   
+  1. Working with database objects 
+     * [Working with databases](/database-objects/databases.md) 
+     * [Working with tables](/database-objects/tables.md) 
+ 
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
      * [mysql-client](mysql-client.md) 
      * [Charset-Collations](basic/charset-collation.md)
      * [server system variablen abfragen](server-system-variables.md) 
-     
-  1. Working with database objects 
-     * [Working with databases](/database-objects/databases.md) 
-     * [Working with tables](/database-objects/tables.md) 
      
   1. Storage Engines 
      * [Which engine is used](storage-engine-used.md) 
