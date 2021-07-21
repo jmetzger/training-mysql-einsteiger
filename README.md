@@ -53,6 +53,9 @@
   1. Helpers 
      * [1.000.000 Million rows](/helpers/create-dummy-data.md)
   
+  1. Tools 
+     * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
+  
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
