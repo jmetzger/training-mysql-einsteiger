@@ -52,4 +52,7 @@ SELECT * FROM actor where actor_id > 8 and actor_id < 50;
 
 ## Zwei Bereiche abfragen 
 
-
+```
+# Brackets are not necessary, works the same 
+select * from actor where (actor_id >= 8  and actor_id <=50) or (actor_id >= 100 and actor_id <= 150)
+```
