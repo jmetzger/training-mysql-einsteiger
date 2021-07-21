@@ -33,5 +33,17 @@ use sakila;
 SELECT actor_id, last_name FROM actor where actor_id = 5;
 -- Beispiel 2
 SELECT * FROM actor where actor_id = 5;
+```
+
+## Einfache Bedingung mit Bereich 
 
 ```
+-- SYNTAX
+use sakila;
+-- SELECT <welche_felder> FROM <welche_tabelle> WHERE <wo_welches_feld_welchen_wert_hat>
+-- Beispiel 1 
+SELECT actor_id, last_name FROM actor where actor_id > 8;
+-- Beispiel 2
+SELECT * FROM actor where actor_id > 8;
+```
+
