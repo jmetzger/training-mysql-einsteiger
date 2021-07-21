@@ -21,8 +21,9 @@
      * [SELECT ORDER BY](select-order-by.md)
      * [Unterschiede einfache und doppelte Hochkommas bei Oracle/MySQL](unterschiede-hochkommas-mysql-oracle.md)
  
-  1. INSERT 
+  1. INSERT/UPDATE
      * [Praktisches Beispiel und erweitertes insert - INSERT](insert.md) 
+     * [Praktisches Beispiel - Update](update.md) 
  
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
