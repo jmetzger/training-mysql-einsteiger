@@ -15,11 +15,14 @@
      * [Working with databases](/database-objects/databases.md) 
      * [Working with tables](/database-objects/tables.md) 
  
-  1. SELECTS 
+  1. SELECT 
      * [Select Beispiele](table-select.md) 
      * [Select Beispiele mit Like](select-like.md)
      * [SELECT ORDER BY](select-order-by.md)
      * [Unterschiede einfache und doppelte Hochkommas bei Oracle/MySQL](unterschiede-hochkommas-mysql-oracle.md)
+ 
+  1. INSERT 
+     * [Praktisches Beispiel - INSERT](insert.md) 
  
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
