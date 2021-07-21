@@ -15,6 +15,18 @@
 ## Beispiel ohne where 
 
 ```
+# feld aufsteigend 
+SELECT last_name,first_name,actor_id FROM sakila.actor ORDER BY last_name
 
+# feld absteigend 
+SELECT last_name,first_name,actor_id FROM sakila.actor ORDER BY last_name desc
+
+# erstes feld aufsteigend, zweites feld absteigend
+SELECT last_name,first_name,actor_id FROM sakila.actor ORDER BY last_name,first_name DESC 
+```
+
+## Beispiel mit where 
+
+```
 
 ```
