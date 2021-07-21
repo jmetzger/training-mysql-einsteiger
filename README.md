@@ -47,6 +47,7 @@
    
   1. Tipps & Tricks 
      * [Schnellster Import von Daten mit csv](/tricks/load-datainfile.txt)
+     * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
      
   1. Performance 
      * [Delete in chunks](delete-in-chunks.md)
