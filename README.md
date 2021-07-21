@@ -17,6 +17,7 @@
  
   1. SELECTS 
      * [Select Beispiele](table-select.md) 
+     * [Select Beispiele mit Like](select-like.md)
      * [Unterschiede einfache und doppelte Hochkommas bei Oracle/MySQL](unterschiede-hochkommas-mysql-oracle.md)
  
   1. Datentypen 
