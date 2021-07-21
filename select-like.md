@@ -1,5 +1,9 @@
 # Select mit Like 
 
+## Hintergrund Platzhalter '%' und '_' 
+
+  * https://elearn.inf.tu-dresden.de/sqlkurs/lektion01/01_07_03_einschr_like.html
+
 ## Name fängt mit J an 
 
 ```
