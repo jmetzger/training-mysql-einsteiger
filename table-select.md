@@ -35,7 +35,7 @@ SELECT actor_id, last_name FROM actor where actor_id = 5;
 SELECT * FROM actor where actor_id = 5;
 ```
 
-## Einfache Bedingung mit Bereich 
+## Einfache Bedingung mit Bereich(en)
 
 ```
 -- SYNTAX
@@ -45,5 +45,11 @@ use sakila;
 SELECT actor_id, last_name FROM actor where actor_id > 8;
 -- Beispiel 2
 SELECT * FROM actor where actor_id > 8;
+-- Beispiel 3
+SELECT * FROM actor where actor_id > 8 and actor_id < 50;
+
 ```
+
+## Zwei Bereiche abfragen 
+
 
