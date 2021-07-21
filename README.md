@@ -15,6 +15,9 @@
      * [Working with databases](/database-objects/databases.md) 
      * [Working with tables](/database-objects/tables.md) 
  
+  1. SELECTS 
+     * [Select Beispiele](table-select.md) 
+ 
   1. Basics 
      * [Connection to DB + exit](/basics/connection-db.md) 
      * [mysql-client](mysql-client.md) 
