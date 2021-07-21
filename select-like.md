@@ -25,3 +25,11 @@ select first_name,last_name from actor where last_name like '%n'
 ```
 select first_name,last_name from actor where last_name like '%q%'
 ```
+
+## PLatzhalter für genau ein Zeichen (Linux/Windows -> ?) 
+
+```
+# Alle Zeilen mit Last name McQ, dann genau einem beliebigen Zeichen und dann 'een' 
+SELECT * FROM sakila.actor where last_name like 'McQ_een'
+
+```
