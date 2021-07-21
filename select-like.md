@@ -19,5 +19,5 @@ select first_name,last_name from actor where last_name like '%n'
 ## Name beinhaltet 'q'  
 
 ```
-select first_name,last_name from actor where last_name like '%n'
+select first_name,last_name from actor where last_name like '%q%'
 ```
