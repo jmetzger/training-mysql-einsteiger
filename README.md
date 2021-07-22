@@ -25,6 +25,8 @@
      * [Praktisches Beispiel und erweitertes insert - INSERT](insert.md) 
      * [Praktisches Beispiel - Update](update.md) 
  
+  1. DELETE 
+     * [Einfaches Delete Beispiel](delete-example.md) 
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
  
