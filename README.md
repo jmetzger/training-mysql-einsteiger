@@ -26,7 +26,9 @@
      * [Praktisches Beispiel - Update](update.md) 
  
   1. DELETE 
-     * [Einfaches Delete Beispiel](delete-example.md) 
+     * [Einfaches Delete Beispiel](delete-example.md)
+     * [Delete mit Transaktion](delete-transaktion.md)
+
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
  
