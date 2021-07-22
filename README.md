@@ -55,6 +55,7 @@
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Sakila Testdatenbank](https://dev.mysql.com/doc/index-other.html)
+     * [SQLplus Oracle Commandline - Client](https://docs.oracle.com/cd/B10501_01/server.920/a90842/qstart.htm)
      
   1. Extra (Optional)
      * [Explain](explain.md) 
