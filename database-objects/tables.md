@@ -48,6 +48,10 @@ SHOW INDEXES FROM ACTOR
 --- We want to add a field before name 
 --- IMPORTANT: BEFORE does not exist 
 ALTER TABLE people ADD first_name VARCHAR(10) AFTER id;
+
+ALTER TABLE schulungen ADD seats TINYINT unsigned DEFAULT 1, ADD price DECIMAL(6,2);
+ALTER TABLE schulungen ADD (room TINYINT unsigned DEFAULT 1,  discount DECIMAL(6,2));
+
 ```
 
 ### Modify a field in table (Change property) 
