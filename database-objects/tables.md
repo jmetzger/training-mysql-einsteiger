@@ -35,6 +35,13 @@ SHOW CREATE TABLE people
 SELECT * from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='people' AND TABLE_SCHEMA='training' \G
 ```
 
+### Show indexes 
+
+```
+SHOW INDEX FROM actor 
+SHOW INDEXES FROM ACTOR 
+```
+
 ### Change table (Add field)  
 
 ```
