@@ -36,10 +36,6 @@
      
   1. Storage Engines 
      * [Which engine is used](storage-engine-used.md) 
-     * [InnoDB Basics/Buffer Pool](/basics/innodb.md)
-     
-  1. Query-Cache 
-     * [Query cache](/basics/query-cache.md) 
      
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
@@ -47,26 +43,10 @@
   1. Working with Joins 
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
-     
-  1. Locks  
-     * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
-     * [Select for update](/locks/select-for-update.md)
-     
-  1. Rights (Grant/Revoke) 
-     * [Grant/Revoke](/rights/grant-revoke.md)
    
-  1. Tipps & Tricks 
-     * [Schnellster Import von Daten mit csv](/tricks/load-datainfile.txt)
+  1. Tipps & Tricks  
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
-     
-  1. Performance 
-     * [Delete in chunks](delete-in-chunks.md)
-     * [Explan](explain.md) 
-     * [Indizes](indexes.md)
-   
-  1. Helpers 
-     * [1.000.000 Million rows](/helpers/create-dummy-data.md)
-  
+    
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
   
@@ -76,4 +56,8 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Sakila Testdatenbank](https://dev.mysql.com/doc/index-other.html)
      
+   1. Extra (Optional)
+     * [Explain](explain.md) 
+     * [Indizes](indexes.md)
+     * [Schnellster Import von Daten mit csv](/tricks/load-datainfile.txt)
   
