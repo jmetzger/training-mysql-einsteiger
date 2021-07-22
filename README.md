@@ -56,8 +56,12 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Sakila Testdatenbank](https://dev.mysql.com/doc/index-other.html)
      
-   1. Extra (Optional)
+  1. Extra (Optional)
      * [Explain](explain.md) 
      * [Indizes](indexes.md)
      * [Schnellster Import von Daten mit csv](/tricks/load-datainfile.txt)
+
+  1. Übungen 
+     * [Übung Update/Insert](uebung-insert-update.md)
+
   
