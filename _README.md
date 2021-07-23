@@ -30,6 +30,15 @@
      * [Einfaches Delete Beispiel](#einfaches-delete-beispiel)
      * [Delete mit Transaktion](#delete-mit-transaktion)
 
+  1. JOINS 
+     * [Basics of Joins](#basics-of-joins)
+     * [Working with LEFT JOIN](#working-with-left-join)
+     * [Join examples](#join-examples)
+
+  1. GROUP BY
+     * [Simple Group By Example](#simple-group-by-example)
+     * [Join and group - example](#join-and-group---example)
+
   1. Datentypen 
      * [Integer - INT - Datentypen](#integer---int---datentypen)
  
@@ -44,15 +53,12 @@
      
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](#working-with-insert)
-     
-  1. Working with Joins 
-     * [Basics of Joins](#basics-of-joins)
-     * [Working with LEFT JOIN](#working-with-left-join)
-   
+    
   1. Tipps & Tricks / Do Not 
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](#sql-query-im-query-tab-mysql-workbench-direkt-ausführen)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](#dumpsql-file-einspielen-auf-der-kommandozeile---windows)
      * [Möglichst keine Funktion in where (spalte) verwenden](#möglichst-keine-funktion-in-where-spalte-verwenden)
+     * [Export Partial Columns in MYSQL with INTO OUTFILE](#export-partial-columns-in-mysql-with-into-outfile)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
@@ -65,6 +71,7 @@
      * [SQLplus Oracle Commandline - Client](https://docs.oracle.com/cd/B10501_01/server.920/a90842/qstart.htm)
      * [Welche Datentypen (aus anderen Datenbank-Systemen z.B. Oracle) in MySQL verwenden](https://dev.mysql.com/doc/refman/8.0/en/other-vendor-data-types.html)
      * [MySQL Performance - pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
   1. Extra (Optional)
      * [Explain](#explain)
@@ -559,148 +566,7 @@ ROLLBOCK;
 
 <div class="page-break"></div>
 
-## Datentypen 
-
-### Integer - INT - Datentypen
-
-
-### Reference 
-
-  * https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
-
-<div class="page-break"></div>
-
-## Basics 
-
-### Connection to DB + exit
-
-
-### General Explanation 
-
- * Step 1: connection to db 
- * Step 2: using specific database 
- * 1. + 2. can be done in one step 
- 
-### Connection as Root (without using -u/--user and db) 
-
-```
-## If you are root and are connecting locally (socket), you do not need to enter a passwort on root
-## Why ? 
-mysql> use mysql
-mysql> select user,host,plugin from user where user = 'root' and host = 'localhost';
-```
-```
-root@mysql-server:~#whoami 
-root 
-## this work, because we are connecting locally
-## by default mysql uses the user we are logged in with 
-mysql 
-```
-
-### Connection with credentials
-
-```
-mysql -uroot -p  
-## passwort auf der Kommandozeile eingeben 
-
-```
-
-### Connection to remote mysql - server 
-
-```
-mysql -u root -p -h 10.10.9.117
-```
-
-
-<div class="page-break"></div>
-
-### mysql-client
-
-
-### Basics 
-
-```
-mysql
-mysql>
-
-## Wie kommen wie raus ? 
-exit; 
-
-```
-
-### Delimiter 
-```
-Normalerweise ";" 
-
-Ist zum Trennen von Befehlen 
-```
-
-### Use user and password automatically 
-
-```
-nano /root/.my.cnf 
-## BE CAREFUL EVERYBODY CAN LOGIN AS ROOT TO MYSQL NOW 
-## in there
-[mysql]
-user=root
-password=root-password-on-your-system 
-```
-
-<div class="page-break"></div>
-
-### Charset-Collations
-
-### server system variablen abfragen
-
-
-```
-mysql> show session variables like '%hostname%';
-+---------------+-------+
-| Variable_name | Value |
-+---------------+-------+
-| hostname      | trn01 |
-+---------------+-------+
-1 row in set (0.00 sec)
-
-mysql> select @@hostname;
-+------------+
-| @@hostname |
-+------------+
-| trn01      |
-+------------+
-1 row in set (0.00 sec)
-```
-
-<div class="page-break"></div>
-
-## Storage Engines 
-
-### Which engine is used
-
-
-```
-show variables like '%default%'; 
-```
-
-
-<div class="page-break"></div>
-
-## Working with the data modelling language (DML's)
-
-### Working with INSERT
-
-
-```
-## Always use the field-names
-INSERT INTO actor (first_name,last_name) values ('John','Smith');
-
-## Extended inserts are quick (better than single inserts) 
-INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','Johnsson');
-```
-
-<div class="page-break"></div>
-
-## Working with Joins 
+## JOINS 
 
 ### Basics of Joins
 
@@ -896,6 +762,16 @@ the rows may be sent to the network.
   * Show all entries from the left table and only from the right if available 
   * Examples are based on sakila database. 
 
+### Example - new language / not in language table
+
+```
+SELECT @@foreign_key_checks;
+SET FOREIGN_KEY_CHECKS=0
+UPDATE film  SET language_id = 99 WHERE film_id >= 800 and film_id <= 899
+SELECT f.film_id,f.title,f.description,l.name FROM film f LEFT JOIN language l ON f.language_id = l.language_id;
+SET FOREIGN_KEY_CHECKS=1
+```
+
 ### Example 
 
 ```
@@ -911,6 +787,189 @@ FROM customer c
 LEFT JOIN actor a 
 ON c.last_name = a.last_name
 ORDER BY c.last_name;
+```
+
+<div class="page-break"></div>
+
+### Join examples
+
+
+```
+## Work - step by step. 
+SELECT * FROM film f;
+SELECT f.title FROM film f;
+SELECT f.language_id FROM film f JOIN language l ON f.language_id = l.language_id; 
+-- aus film-tabelle alle felder - f.* 
+SELECT f.*,l.name FROM film f JOIN language l ON f.language_id = l.language_id; 
+SELECT f.film_id,f.title,l.name,f.description FROM film f JOIN language l ON f.language_id = l.language_id;
+```
+
+<div class="page-break"></div>
+
+## GROUP BY
+
+### Simple Group By Example
+
+
+```
+## Variante 1 
+SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name 
+
+## Variante 2: ohne Group - akroyd zählen -> geht nur bei einem Namen 
+SELECT last_name,COUNT(last_name) as cnt FROM actor WHERE last_name = 'AKROYD' 
+
+## Das ist falsch - weil mehrere Namen, Ausgabe nur eine Zeile  
+SELECT last_name,COUNT(last_name) as cnt FROM actor WHERE last_name = 'AKROYD' or last_name = 'ALLEN' 
+
+## Variante 2a (Erst Daten holen - 6 Datensätze, dann aggregieren (group by) 
+## Für grosse Datenmengen besser ! 
+SELECT last_name,COUNT(last_name) as cnt FROM actor WHERE last_name = 'AKROYD' or last_name = 'ALLEN' GROUP BY last_name
+## Variante 2b (Alle Daten holen - 200 Datensätze, dann alles aggregieren) 
+SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name HAVING last_name = 'AKROYD' or last_name = 'ALLEN'
+
+```
+
+<div class="page-break"></div>
+
+### Join and group - example
+
+## Datentypen 
+
+### Integer - INT - Datentypen
+
+
+### Reference 
+
+  * https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
+
+<div class="page-break"></div>
+
+## Basics 
+
+### Connection to DB + exit
+
+
+### General Explanation 
+
+ * Step 1: connection to db 
+ * Step 2: using specific database 
+ * 1. + 2. can be done in one step 
+ 
+### Connection as Root (without using -u/--user and db) 
+
+```
+## If you are root and are connecting locally (socket), you do not need to enter a passwort on root
+## Why ? 
+mysql> use mysql
+mysql> select user,host,plugin from user where user = 'root' and host = 'localhost';
+```
+```
+root@mysql-server:~#whoami 
+root 
+## this work, because we are connecting locally
+## by default mysql uses the user we are logged in with 
+mysql 
+```
+
+### Connection with credentials
+
+```
+mysql -uroot -p  
+## passwort auf der Kommandozeile eingeben 
+
+```
+
+### Connection to remote mysql - server 
+
+```
+mysql -u root -p -h 10.10.9.117
+```
+
+
+<div class="page-break"></div>
+
+### mysql-client
+
+
+### Basics 
+
+```
+mysql
+mysql>
+
+## Wie kommen wie raus ? 
+exit; 
+
+```
+
+### Delimiter 
+```
+Normalerweise ";" 
+
+Ist zum Trennen von Befehlen 
+```
+
+### Use user and password automatically 
+
+```
+nano /root/.my.cnf 
+## BE CAREFUL EVERYBODY CAN LOGIN AS ROOT TO MYSQL NOW 
+## in there
+[mysql]
+user=root
+password=root-password-on-your-system 
+```
+
+<div class="page-break"></div>
+
+### Charset-Collations
+
+### server system variablen abfragen
+
+
+```
+mysql> show session variables like '%hostname%';
++---------------+-------+
+| Variable_name | Value |
++---------------+-------+
+| hostname      | trn01 |
++---------------+-------+
+1 row in set (0.00 sec)
+
+mysql> select @@hostname;
++------------+
+| @@hostname |
++------------+
+| trn01      |
++------------+
+1 row in set (0.00 sec)
+```
+
+<div class="page-break"></div>
+
+## Storage Engines 
+
+### Which engine is used
+
+
+```
+show variables like '%default%'; 
+```
+
+
+<div class="page-break"></div>
+
+## Working with the data modelling language (DML's)
+
+### Working with INSERT
+
+
+```
+## Always use the field-names
+INSERT INTO actor (first_name,last_name) values ('John','Smith');
+
+## Extended inserts are quick (better than single inserts) 
+INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','Johnsson');
 ```
 
 <div class="page-break"></div>
@@ -951,6 +1010,23 @@ mysql -u root -p < C:\Users\Admin\Downloads\test.sql
 
 <div class="page-break"></div>
 
+### Export Partial Columns in MYSQL with INTO OUTFILE
+
+
+```
+-- zeig mir das Datenverzeichnis
+SELECT @@datadir;
+-- der secure-path - nur dort darf hin exportiert werden 
+show variables like '%secure%';
+
+SELECT actor_id,last_name 
+INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\result.txt'
+FROM actor;
+
+```
+
+<div class="page-break"></div>
+
 ## Tools 
 
 ### HeidiSQL Portable - works for windows
@@ -986,6 +1062,10 @@ mysql -u root -p < C:\Users\Admin\Downloads\test.sql
 ### MySQL Performance - pdf
 
   * https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf
+
+### Helpful Examples
+
+  * https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm
 
 ## Extra (Optional)
 
