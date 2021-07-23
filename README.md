@@ -36,6 +36,7 @@
      * [Join examples](/joins/join-examples.md)
 
   1. GROUP BY
+     * [Simple Group By Example](group-by-example.md)
      * [Join and group - example](/joins/join-and-group.md)
 
   1. Datentypen 
