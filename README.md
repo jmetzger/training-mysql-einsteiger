@@ -49,9 +49,10 @@
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
    
-  1. Tipps & Tricks  
+  1. Tipps & Tricks / Do Not 
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
+     * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
