@@ -50,6 +50,7 @@
    
   1. Tipps & Tricks  
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
+     * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql -u root -p < C:\Users\Admin\Downloads\test.sql)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
