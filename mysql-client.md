@@ -27,3 +27,4 @@ nano /root/.my.cnf
 [mysql]
 user=root
 password=root-password-on-your-system 
+```
