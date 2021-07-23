@@ -53,13 +53,12 @@
      
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
-     
- 
-   
+    
   1. Tipps & Tricks / Do Not 
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
+     * [Export Partial Columns in MYSQL with INTO OUTFILE](mysql-select-into-outfile.md)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
