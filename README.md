@@ -61,6 +61,7 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Sakila Testdatenbank](https://dev.mysql.com/doc/index-other.html)
      * [SQLplus Oracle Commandline - Client](https://docs.oracle.com/cd/B10501_01/server.920/a90842/qstart.htm)
+     * [Welche Datentypen (aus anderen Datenbank-Systemen z.B. Oracle) in MySQL verwenden](https://dev.mysql.com/doc/refman/8.0/en/other-vendor-data-types.html)
      
   1. Extra (Optional)
      * [Explain](explain.md) 
