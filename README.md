@@ -30,6 +30,13 @@
      * [Einfaches Delete Beispiel](delete-example.md)
      * [Delete mit Transaktion](delete-transaktion.md)
 
+  1. JOINS 
+     * [Basics of Joins](joins/overview.md) 
+     * [Working with LEFT JOIN](/joins/left-join.md)
+
+  1. GROUP BY
+     * [Join and group - example](/joins/join-and-group.md)
+
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
  
@@ -45,9 +52,7 @@
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
      
-  1. Working with Joins 
-     * [Basics of Joins](joins/overview.md) 
-     * [Working with LEFT JOIN](/joins/left-join.md)
+ 
    
   1. Tipps & Tricks / Do Not 
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
