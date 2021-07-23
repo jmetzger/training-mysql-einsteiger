@@ -68,7 +68,7 @@
   1. Extra (Optional)
      * [Explain](explain.md) 
      * [Indizes](indexes.md)
-     * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.txt)
+     * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.md)
 
   1. Übungen 
      * [Übung Update/Insert](uebung-insert-update.md)
