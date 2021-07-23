@@ -5,6 +5,16 @@
   * Show all entries from the left table and only from the right if available 
   * Examples are based on sakila database. 
 
+## Example - new language / not in language table
+
+```
+SELECT @@foreign_key_checks;
+SET FOREIGN_KEY_CHECKS=0
+UPDATE film  SET language_id = 99 WHERE film_id >= 800 and film_id <= 899
+SELECT f.film_id,f.title,f.description,l.name FROM film f LEFT JOIN language l ON f.language_id = l.language_id;
+SET FOREIGN_KEY_CHECKS=1
+```
+
 ## Example 
 
 ```
