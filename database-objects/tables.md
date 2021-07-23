@@ -69,6 +69,17 @@ DESCRIBE people;
 ALTER TABLE people DROP COLUMN middle_name;
 ```  
 
+```
+# More Examples
+-- 
+ALTER TABLE actor ADD in_rente BOOLEAN default true 
+INSERT INTO actor (first_name,last_name,in_rente) values ('Jochen','Metzger',false)
+-- Wieder loswerden 
+ALTER TABLE actor DROP in_rente;
+# add and drop in once command 
+ALTER TABLE actor ADD in_rente2 BOOLEAN default true, DROP in_rente;
+```
+
 ### Deleting table data (truncate) 
 
 ```
