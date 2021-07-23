@@ -33,6 +33,7 @@
   1. JOINS 
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
+     * [Join examples](/joins/join-examples.md)
 
   1. GROUP BY
      * [Join and group - example](/joins/join-and-group.md)
