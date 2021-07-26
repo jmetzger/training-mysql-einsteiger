@@ -1,3 +1,3 @@
 # MariaDB - Server - Architektur 
 
-![MariaDB Server Architektur](/images/mysql-server-architecture.png)
+![MariaDB Server Architektur](mysql-server-architecture.png)
