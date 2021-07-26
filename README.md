@@ -1,4 +1,4 @@
-# Training: MySQL Developers Basics 
+# Training: MySQL Grundlagen (Hannover)
 
 ## Purpose 
 
