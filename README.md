@@ -6,8 +6,8 @@
      * [Technical Structure](/technical-background/basics.md)
      * [Process of Queries](/performance/mysql-server-architecture.md)
 
-  1. Installation 
-
+  1. CONSTRAINTS
+     * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
 
 
   1. Working with database objects 
