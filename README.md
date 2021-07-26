@@ -1,16 +1,15 @@
 # Training: MySQL Grundlagen (Hannover)
 
-## Purpose 
-
-  * Get a basic foundation for working with MySQL as a developer 
-
 ## Agenda 
 
   1. Technical Background 
      * [Technical Structure](/technical-background/basics.md)
-  1. Installation on Windows 
-     * [Installation MySQL 8 under Windows](installation-mysql-windows-8.md)
-  
+     * 
+
+  1. Installation 
+
+
+
   1. Working with database objects 
      * [Working with databases](/database-objects/databases.md) 
      * [Working with tables](/database-objects/tables.md) 
