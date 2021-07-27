@@ -1,16 +1,15 @@
-# Training: MySQL Developers Basics 
-
-## Purpose 
-
-  * Get a basic foundation for working with MySQL as a developer 
+# Training: MySQL Grundlagen (Hannover)
 
 
 ## Agenda
   1. Technical Background 
      * [Technical Structure](#technical-structure)
-  1. Installation on Windows 
-     * [Installation MySQL 8 under Windows](#installation-mysql-8-under-windows)
-  
+     * [Process of Queries](#process-of-queries)
+
+  1. CONSTRAINTS
+     * [Foreign Key Constraints - Example](#foreign-key-constraints---example)
+
+
   1. Working with database objects 
      * [Working with databases](#working-with-databases)
      * [Working with tables](#working-with-tables)
@@ -94,22 +93,31 @@
 
 <div class="page-break"></div>
 
-## Installation on Windows 
+### Process of Queries
 
-### Installation MySQL 8 under Windows
+
+![MariaDB Server Architektur](/mysql-server-architecture.png)
+
+<div class="page-break"></div>
+
+## CONSTRAINTS
+
+### Foreign Key Constraints - Example
 
 
 ```
-1. Installationspaket runterladen und installieren
-https://dev.mysql.com/downloads/mysql/
+## Walkthrough 
+create filmcopy as select * from film:
+set foreign_key_checks = 0;
+trunate film 
+set foreign_key_checks = 1
+alter table actorcopy add constraint (fk_language_id) references language (language_id) 
 
-Wichtig bei Konfiguration:
-(Wenn andere Clients eingesetzt werden ausser MySQL Workbench),dann 
-Use Legacy Authentication Method
-
-Please set Start as Service (Windows) 
-Standard System Account 
+## Test it 
+## language.language_id needs to have an index 
+delete from language where language_id = 1
 ```
+
 
 <div class="page-break"></div>
 
