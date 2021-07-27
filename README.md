@@ -70,9 +70,6 @@
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
-     * [Sakila Testdatenbank](https://dev.mysql.com/doc/index-other.html)
-     * [SQLplus Oracle Commandline - Client](https://docs.oracle.com/cd/B10501_01/server.920/a90842/qstart.htm)
-     * [Welche Datentypen (aus anderen Datenbank-Systemen z.B. Oracle) in MySQL verwenden](https://dev.mysql.com/doc/refman/8.0/en/other-vendor-data-types.html)
      * [MySQL Performance - pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
