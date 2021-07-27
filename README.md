@@ -8,7 +8,7 @@
 
   1. Beispieldaten 
      * [Sakila](sakila.md)
-     * [Spendenliste](contributions.md)
+     * [Spendenliste](setup-training-data-contributions.md)
 
   1. CONSTRAINTS
      * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
