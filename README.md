@@ -1,4 +1,4 @@
-# Training: MySQL Grundlagen (Hannover)
+# Training: MySQL Grundlagen/Performance (Hannover)
 
 ## Agenda 
 
