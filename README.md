@@ -49,15 +49,6 @@
      * [Einfaches Delete Beispiel](delete-example.md)
      * [Delete mit Transaktion](delete-transaktion.md)
 
-  1. JOINS 
-     * [Basics of Joins](joins/overview.md) 
-     * [Working with LEFT JOIN](/joins/left-join.md)
-     * [Join examples](/joins/join-examples.md)
-
-  1. GROUP BY
-     * [Simple Group By Example](group-by-example.md)
-     * [Join and group - example](/joins/join-and-group.md)
-
   1. Datentypen 
      * [Integer - INT - Datentypen](int.md)
  
@@ -86,7 +77,6 @@
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
-     * [MySQL Performance - pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
   1. Extra (Optional)
