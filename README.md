@@ -10,6 +10,15 @@
      * [Sakila](sakila.md)
      * [Spendenliste](setup-training-data-contributions.md)
 
+  1. JOINS 
+     * [Basics of Joins](joins/overview.md) 
+     * [Working with LEFT JOIN](/joins/left-join.md)
+     * [Join examples](/joins/join-examples.md)
+
+  1. GROUP BY
+     * [Simple Group By Example](group-by-example.md)
+     * [Join and group - example](/joins/join-and-group.md)
+
   1. CONSTRAINTS
      * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
 
