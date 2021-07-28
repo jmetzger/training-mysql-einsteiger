@@ -13,6 +13,11 @@
   1. CONSTRAINTS
      * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
 
+  1. Performance 
+     * [* vs. specific field](performance/all-vs-field.md)
+
+
+## Backlog 
 
   1. Working with database objects 
      * [Working with databases](/database-objects/databases.md) 
