@@ -16,6 +16,10 @@
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
 
+  1. References 
+     * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+      
+
 
 ## Backlog 
 
