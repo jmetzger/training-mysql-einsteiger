@@ -14,7 +14,7 @@
      * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
 
   1. Performance 
-     * [* vs. specific field](performance/all-vs-field.md)
+     * [* vs. specific field in field list - select](performance/all-vs-field.md)
 
 
 ## Backlog 
