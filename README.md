@@ -24,6 +24,13 @@
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
+     * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
+
+  1. Analyzing Slow Queries 
+   
+  1. Indexes 
+     * [Indizes](indexes.md)]
+     * [Explain](explain.md) 
 
   1. References 
      * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
@@ -67,7 +74,7 @@
   1. Tipps & Tricks / Do Not 
      * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
-     * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
+     
      * [Export Partial Columns in MYSQL with INTO OUTFILE](mysql-select-into-outfile.md)
     
   1. Tools 
@@ -79,9 +86,7 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
-  1. Extra (Optional)
-     * [Explain](explain.md) 
-     * [Indizes](indexes.md)
+  1. Extra (Optional)  
      * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.md)
 
   1. Übungen 
