@@ -96,6 +96,10 @@
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
   
+  1. Tipps & Tricks 
+     * [Best Practice DBAL - Kochrezept](recipe-dbal.md) 
+  
+  
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
      * [Notes on Specific MySQL Knowledge](https://www.burnison.ca/notes)
