@@ -6,9 +6,10 @@
      * [Technical Structure](/technical-background/basics.md)
      * [Process of Queries](/performance/mysql-server-architecture.md)
 
-  1. Beispieldaten 
+  1. Beispieldaten / Testserver
      * [Sakila](sakila.md)
      * [Spendenliste](setup-training-data-contributions.md)
+     * [Server Vagrant](server-vagrant.md)
 
   1. JOINS 
      * [Basics of Joins](joins/overview.md) 
