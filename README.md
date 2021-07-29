@@ -29,6 +29,7 @@
 
   1. Analyzing Slow Queries / Indexes
      * [Find indexes](indexes/findout-indexes.md)
+     * [Create Index](create-index.md)
      * [Indizes](indexes.md)
      * [Explain](explain.md) 
      * [profiling-get-time-for-execution-of.query](/indexes/profiling.md)
