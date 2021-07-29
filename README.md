@@ -27,12 +27,25 @@
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
 
-  1. Analyzing Slow Queries 
-   
-  1. Indexes 
+  1. Analyzing Slow Queries / Indexes
      * [Find indexes](indexes/findout-indexes.md)
      * [Indizes](indexes.md)]
      * [Explain](explain.md) 
+     * [profiling-get-time-for-execution-of.query](/indexes/profiling.md)
+     * [Kein function in where verwenden](/performance/no-function-in-where.md)
+     * [Optimizer-hints (and why you should not use them)](performance/optimizer-hints.md)
+     * [Query-Plans aka Explains](performance/query-plans.md)
+     * [Query Pläne und die Key-Länge](query-plans-explain-keylen.md)
+     * [Index und Likes](indexes/like-index-not-index.md)
+     * [Index und Joins](indexes/join-index.md)
+     * [Find out cardinality without index](/indexes/cardinality.md)
+     * [Index and Functions](index-and-functions.md) 
+ 
+  1. Tools 
+     * [Percona Toolkit](/tools/percona-toolkit.md) 
+     * [pt-query-digest - analyze slow logs](/tools/pt-query-digest.md)
+     * [pt-online-schema-change howto](/tools/pt-online-schema-change.md)
+     * [Example sys-schema and Reference](/tools/sys.md)
 
   1. References 
      * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
