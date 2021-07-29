@@ -1,26 +1,29 @@
-# pt-query-digest 
+# pt-online-schema-change 
 
-## Requires
+## Requirements 
 
   * Install percona-toolkit 
-  
-## Usage 
+
+## Documentation 
+
+  * https://www.percona.com/doc/percona-toolkit/3.0/pt-online-schema-change.html
+
+## What does it do ?
 
 ```
-# first enable slow_query_log 
-set global slow_query_log = on 
-set global long_query_time = 0.2 
-# to avoid, that i have to reconnect with new session 
-set session long_query_time = 0.2 
-
-# produce slow query - for testing 
-select * from contributions where vendor_last_name like 'W%';
-mysql > quit 
-
+# Altering table without blocking them 
+# Do a dry-run beforehand 
+pt-online-schema-change --alter "ADD INDEX idx_city (city)" --dry-run D=contributions,t=donors
 # 
-cd /var/lib/mysql 
-# look for awhile wih -slow.log - suffix 
-pt-query-digest mysql-slow.log > /usr/src/report-slow.txt
-less report-slow.txt 
+pt-online-schema-change --alter "ADD INDEX idx_city (city)" --execute D=contributions,t=donors
+```
+
+## With foreign - keys 
+
+```
+ # first try 
+ pt-online-schema-change --alter "add column remark varchar(150)" D=sakila,t=actor --alter-foreign-keys-method=auto --dry-run 
+ # then run 
+ pt-online-schema-change --alter "add column remark varchar(150)" D=sakila,t=actor --alter-foreign-keys-method=auto --execute 
 
 ```
