@@ -30,6 +30,7 @@
   1. Analyzing Slow Queries 
    
   1. Indexes 
+     * [Find indexes](indexes/findout-indexes.md)
      * [Indizes](indexes.md)]
      * [Explain](explain.md) 
 
