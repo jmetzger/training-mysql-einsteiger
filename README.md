@@ -29,6 +29,7 @@
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
+     * [SQL-Rewrite Pager- Subselect](mysql-rewrite-subselect.md) 
 
   1. Analyzing Slow Queries / Indexes
      * [Find indexes](indexes/findout-indexes.md)
