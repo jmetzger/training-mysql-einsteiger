@@ -2,11 +2,14 @@
 
 ```
 # Walkthrough 
-create filmcopy as select * from film:
+use sakila;
+create table filmcopy as select * from film;
 set foreign_key_checks = 0;
-trunate film 
+truncate film;
 set foreign_key_checks = 1
-alter table actorcopy add constraint (fk_language_id) references language (language_id) 
+# WRONG
+#alter table filmcopy add constraint fk_language_id references language (language_id) 
+alter table filmcopy add foreign key (language_id) references language (language_id);
 
 # Test it 
 # language.language_id needs to have an index 
