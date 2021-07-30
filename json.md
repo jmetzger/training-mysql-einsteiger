@@ -102,8 +102,8 @@ ERROR 3152 (42000): JSON column 'browser' supports indexing only via generated c
 ## Setting a specific index for json 
 
 ```
-alter table events add browser_resolution_x INT GENERATED ALWAYS AS (browser->"$.resolution.x"),
-# Npt working yet with index, because there is no index 
+alter table events add browser_resolution_x INT GENERATED ALWAYS AS (browser->"$.resolution.x");
+-- Not working yet with index, because there is no index 
 explain select id, browser->'$.name' as browser from events where browser_resolution_x = 1600;
 
 # Set the index
