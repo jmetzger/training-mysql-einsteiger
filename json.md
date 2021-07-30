@@ -81,6 +81,39 @@ select id, browser->'$.resolution.x' browser from events
 
 ```
 
+## Get data using where 
+
+```
+select id, browser->'$.name' as browser from events where browser ->"$.resolution.x" > 1600
+
+# - no index present
+explain select id, browser->'$.name' as browser from events where browser ->"$.resolution.x" > 1600;
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | events | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    6 |   100.00 | Using where |
++----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0.00 sec)
+
+# now creating index .
+create index idx_browser on events (browser);
+ERROR 3152 (42000): JSON column 'browser' supports indexing only via generated columns on a specified JSON path.
+```
+## Setting a specific index for json 
+
+```
+alter table events add browser_resolution_x INT GENERATED ALWAYS AS (browser->"$.resolution.x"),
+# Npt working yet with index, because there is no index 
+explain select id, browser->'$.name' as browser from events where browser_resolution_x = 1600;
+
+# Set the index
+create index idx_browser_resolution_x on events (browser_resolution_x)
+# Now it works !! 
+explain select id, browser->'$.name' as browser from events where browser_resolution_x = 1600;
+```
+
+
+
 ## Reference 
 
   * https://www.mysqltutorial.org/mysql-json/
