@@ -24,10 +24,7 @@
      * [Foreign Key Constraints - Example](foreign-key-constraints.md) 
 
   1. UPDATE 
-     * [Sophisticated Update](update-extended.md) 
-
-  1. JSON 
-     * [Short Introduction working JSON](json.md) 
+     * [Sophisticated Update](update-extended.md)
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
