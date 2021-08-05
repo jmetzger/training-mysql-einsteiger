@@ -96,7 +96,6 @@
     
   1. Tipps & Tricks / Do Not 
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
-     * [Export Partial Columns in MYSQL with INTO OUTFILE](mysql-select-into-outfile.md)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
