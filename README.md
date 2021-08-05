@@ -60,7 +60,6 @@
 
   1. References 
      * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
-     * [MySQL 5.7 was has changed to 8.0](https://severalnines.com/database-blog/moving-mysql-57-mysql-80-what-you-should-know)
 
 ## Backlog 
 
