@@ -95,9 +95,7 @@
      * [Working with INSERT](/data-modelling-commands/insert.md)
     
   1. Tipps & Tricks / Do Not 
-     * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](workbench-strg-enter.md)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
-     
      * [Export Partial Columns in MYSQL with INTO OUTFILE](mysql-select-into-outfile.md)
     
   1. Tools 
@@ -105,7 +103,6 @@
   
   1. Tipps & Tricks 
      * [Best Practice DBAL - Kochrezept](recipe-dbal.md) 
-  
   
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
