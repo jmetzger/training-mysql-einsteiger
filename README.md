@@ -1,4 +1,4 @@
-# Training: MySQL Grundlagen/Performance (Hannover)
+# MariaDB für Entwickler 
 
 ## Agenda 
 
