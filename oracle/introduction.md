@@ -44,6 +44,10 @@ show columns from tasks /  -- automatically converted
 ## Walkthrough create procedure (ORACLE sql_mode) 
 
 ```
-CREATE OR REPLACE PROCEDURE `add_employee` (fname IN VARCHAR2, lname IN VARCHAR2, dept IN VARCHAR2 ) AS 
+CREATE OR REPLACE PROCEDURE `add_employee` (fname IN VARCHAR2, lname IN VARCHAR2, dept IN VARCHAR2, pos_level IN INTEGER ) AS 
 BEGIN 
+  IF ((fname <> '') && (lname <> '') && (dept <> '') && (pos_level > 0) THEN 
+     INSERT INTO employees first_name,last_name,department,position_level
+     VALUES ()
+END
 
