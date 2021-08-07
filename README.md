@@ -60,6 +60,7 @@
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
      * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
+     * [Simple oracle examples pl/sql in mariadb](https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql)
 
   1. Oracle 
      * [Activating Oracle Sql-Mode](oracle/activating.md) 
