@@ -38,3 +38,12 @@ show columns from tasks /  -- automatically converted
 | description | varchar(200)     | NO   |     | NULL    |                |
 | completed   | tinyint(1)       | NO   |     | 0       |                |
 +-------------+------------------+------+-----+---------+----------------+
+
+```
+
+## Walkthrough create procedure (ORACLE sql_mode) 
+
+```
+CREATE OR REPLACE PROCEDURE `add_employee` (fname IN VARCHAR2, lname IN VARCHAR2, dept IN VARCHAR2 ) AS 
+BEGIN 
+
