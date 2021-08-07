@@ -58,6 +58,10 @@
   1. References 
      * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
 
+  1. Oracle 
+     * [Activating Oracle Sql-Mode](oracle/activating.md) 
+
+
 ## Backlog 
 
   1. Working with database objects 
