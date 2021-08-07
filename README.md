@@ -56,7 +56,8 @@
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
 
   1. References 
-     * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
 
   1. Oracle 
      * [Activating Oracle Sql-Mode](oracle/activating.md) 
