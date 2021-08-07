@@ -59,6 +59,7 @@
      * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
+     * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
 
   1. Oracle 
      * [Activating Oracle Sql-Mode](oracle/activating.md) 
