@@ -28,3 +28,13 @@ CREATE TABLE tasks (
    CONSTRAINT `fk_emp` FOREIGN KEY (emp_id) REFERENCES employees(id) ON 
    DELETE CASCADE ON UPDATE CASCADE
 );/
+
+show columns from tasks /  -- automatically converted 
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+| emp_id      | int(11) unsigned | NO   | MUL | NULL    |                |
+| description | varchar(200)     | NO   |     | NULL    |                |
+| completed   | tinyint(1)       | NO   |     | 0       |                |
++-------------+------------------+------+-----+---------+----------------+
