@@ -52,6 +52,9 @@
      * [pt-online-schema-change howto](/tools/pt-online-schema-change.md)
      * [Example sys-schema and Reference](/tools/sys.md)
 
+  1. Tipps & Tricks 
+     * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
+
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
 
