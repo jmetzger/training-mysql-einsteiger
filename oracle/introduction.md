@@ -47,14 +47,13 @@ show columns from tasks /  -- automatically converted
 CREATE OR REPLACE PROCEDURE `add_employee` (fname IN VARCHAR2, lname IN VARCHAR2, dept IN VARCHAR2, pos_level IN INTEGER ) AS 
 BEGIN 
   IF ((fname <> '') && (lname <> '') && (dept <> '') && (pos_level > 0)) THEN 
-     INSERT INTO employees (first_name,last_name,department,position_level)
-     VALUES (fname, lname, dept, pos_level);
+       INSERT INTO employees (first_name,last_name,department,position_level)
+       VALUES (fname, lname, dept, pos_level);
   ELSE 
      SELECT 'Insufficient data entered' AS WARNING;
-EXEPTION 
-  WHEN OTHERS THEN 
-     SELECT 'EXEPTION ' || SQLCODE || ' ' || SQLERRM AS EXECEPTION; 
-
+  END IF;
+EXCEPTION WHEN OTHERS THEN 
+  SELECT 'exception ' || SQLCODE || ' ' || SQLERRM as EXCEPTION;
 END;
 /
 ```
