@@ -38,4 +38,34 @@ END/
 
 ## Example 2:
 
+```
+# Originally like so 
+CREATE OR REPLACE PROCEDURE SP_VAR
+IS
+v_num NUMBER;
+v_int INT:=1;
+v_var VARCHAR2(10);
+v_null VARCHAR2(20) NULL;
+v_date DATE:=SYSDATE;
+v_default INT DEFAULT 5;
+v_type EMP.EMAIL%TYPE;
+v_row_type EMP%ROWTYPE;
+BEGIN
+SELECT v_default INTO v_int
+FROM dual;
+END;
+```
+
+```
+delimiter /
+# We have no table dual, so we create it 
+create table dual (id int,name varchar2) /
+
+CALL SP_VAR/ 
+# or 
+BEGIN 
+  SP_VAR;
+END/
+
+
 
