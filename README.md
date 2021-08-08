@@ -64,6 +64,7 @@
 
   1. Oracle 
      * [Activating Oracle Sql-Mode](oracle/activating.md) 
+     * [Overview Oracle Mode](https://mariadb.com/kb/en/sql_modeoracle/)
 
 
 ## Backlog 
