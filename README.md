@@ -55,6 +55,7 @@
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
      * [Wie kann ich verwendete Storage Engine rausfinden - Table](show-create-table.md) 
+     * [SHOW VARIABLES WITH WHERE](show-variables-with-where-or.md)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
