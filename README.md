@@ -56,6 +56,7 @@
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
      * [Wie kann ich verwendete Storage Engine rausfinden - Table](show-create-table.md) 
      * [SHOW VARIABLES WITH WHERE](show-variables-with-where-or.md)
+     * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.md)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
@@ -126,8 +127,7 @@
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
   1. Extra (Optional)  
-     * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.md)
-
+     
   1. Übungen 
      * [Übung Update/Insert](uebung-insert-update.md)
 
