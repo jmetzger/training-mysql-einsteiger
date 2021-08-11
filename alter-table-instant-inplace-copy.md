@@ -1,4 +1,4 @@
-# MySQL - alter table instant/inplace/copy 
+# MariaDB - alter table instant/inplace/copy 
 
 ## Example 
 
