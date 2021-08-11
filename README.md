@@ -26,6 +26,12 @@
   1. UPDATE 
      * [Sophisticated Update](update-extended.md)
 
+  1. TRIGGERS 
+     * [Triggers](triggers.md) 
+
+  1. VIEWS
+     * [Views with Example Walkthrough](views-with-example.md) 
+
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
