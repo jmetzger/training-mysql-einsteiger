@@ -10,6 +10,7 @@ Before that only indexes were used,
 now it is also possible these stats into account
 
 The stats are saved in the mysql-database 
+mysql.column_stats
 
 These are histogramm stats,
 they are used automatically from 10.4.1 on,
