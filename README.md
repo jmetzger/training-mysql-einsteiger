@@ -40,6 +40,10 @@
      * [Force use of an Index](force-use-index.md) 
      * [Do not use an index if indexes are present](use-index-no.md)
 
+  1. Formatierung Ausgaben / Funktionen 
+     * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
+
+
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
