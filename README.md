@@ -45,6 +45,7 @@
      * [Index und Joins](indexes/join-index.md)
      * [Find out cardinality without index](/indexes/cardinality.md)
      * [Index and Functions](index-and-functions.md) 
+     * [Index neu aufbauen ?](reindex.md) 
  
   1. Tools 
      * [Percona Toolkit](/tools/percona-toolkit.md) 
@@ -75,7 +76,7 @@
      * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
      * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
      * [Simple oracle examples pl/sql in mariadb](https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql)
-
+     
 ## Backlog 
 
   1. Working with database objects 
