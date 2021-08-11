@@ -21,7 +21,8 @@
      * [Join and group - example](/joins/join-and-group.md)
 
   1. CONSTRAINTS
-     * [Foreign Key Constraints - Example](foreign-key-constraints-with-example.md) 
+     * [Foreign Key Constraints - Example](foreign-key-constraints-with-example.md)
+     * [Check constraint with example](check-constraints-with-example.md) 
 
   1. UPDATE 
      * [Sophisticated Update](update-extended.md)
