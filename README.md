@@ -46,6 +46,7 @@
      * [SQL-Rewrite Pager- Subselect](mysql-rewrite-subselect.md) 
 
   1. Analyzing Slow Queries / Indexes
+     * [Create unique index](unique-index.md)
      * [Find indexes](indexes/findout-indexes.md)
      * [Create Index/Delete/Drop Index](create-index.md)
      * [Indizes](indexes.md)
