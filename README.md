@@ -60,6 +60,7 @@
      * [pt-query-digest - analyze slow logs](/tools/pt-query-digest.md)
      * [pt-online-schema-change howto](/tools/pt-online-schema-change.md)
      * [Example sys-schema and Reference](/tools/sys.md)
+     * [Profiling](/performance/profiling.md)
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
