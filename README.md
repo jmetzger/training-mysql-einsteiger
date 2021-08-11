@@ -46,7 +46,8 @@
      * [Find out cardinality without index](/indexes/cardinality.md)
      * [Index and Functions](index-and-functions.md) 
      * [Index neu aufbauen ?](reindex.md) 
- 
+     * [Index Stats](index-stats.md) 
+  
   1. Tools 
      * [Percona Toolkit](/tools/percona-toolkit.md) 
      * [pt-query-digest - analyze slow logs](/tools/pt-query-digest.md)
