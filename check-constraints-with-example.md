@@ -52,6 +52,13 @@ create table classes(
         check(end_date >= begin_date),
     primary key(class_id)
 );
+
+-- Change structure like so 
+ALTER TABLE classes ADD (begin_date date NOT NULL, end_date date NOT NULL,
+CONSTRAINT valid_date CHECK (end_date > begin_date))
+
+-- 
+
 ```
 
 ## Ref:
