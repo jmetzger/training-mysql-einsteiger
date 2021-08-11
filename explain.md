@@ -33,4 +33,4 @@ explain format=json  SELECT a.first_name, a.last_name, fa.film_id FROM film_acto
 
 # What does type say ? 
 
-* https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain-join-types
+* https://mariadb.com/kb/en/explain/
