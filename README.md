@@ -29,8 +29,8 @@
   1. TRIGGERS 
      * [Triggers](triggers.md) 
 
-  1. VIEWS
-     * [Views with Example Walkthrough](views-with-example.md) 
+  1. CONSTRAINTS
+     * [Constrains with Example Walkthrough](constraints-with-example.md) 
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
