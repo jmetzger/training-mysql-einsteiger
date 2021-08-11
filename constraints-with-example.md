@@ -1,4 +1,4 @@
-# Constraints with example 
+# Foreign Key Constraints with example 
 
 ## Walkthrough 
 
