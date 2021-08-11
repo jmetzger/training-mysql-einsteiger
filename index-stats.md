@@ -1,4 +1,4 @@
-# Index Stats 
+# Index Stats (Storage Independent Stats) 
 
 ## General 
 
@@ -27,6 +27,45 @@ These stats are
 Engine-independent Statistics
 
 ```
+
+## Notes
+
+  * Stats are currently used (MariaDB 10.6) by default because of setting
+    * show variables like 'use_stat_tables'
+    * -> preferably_for_queries 
+  * But: They are not created automatically (see Howto how to do that) 
+  * Also: They are not deleted automatically 
+
+
+
+## Howto 
+
+```
+use mysql;
+select * from column_stats;
+select * from index_stats;
+select * from table_stats;
+use contributions;
+ANALYZE TABLE contributions PERSISTENT FOR ALL;
+
+use mysqL;
+select * from column_stats;
+select * from index_stats;
+select * from table_stats;
+
+```
+
+## When will it be used ? 
+
+```
+2021-08-11: Looks like it is currently used for range-scan for the optimizer,
+which table to start with 
+
+An excessive example can be found here: 
+
+
+```
+
 
 ## Refs:
 
