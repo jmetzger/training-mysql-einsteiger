@@ -11,6 +11,8 @@ now it is also possible these stats into account
 
 The stats are saved in the mysql-database 
 mysql.column_stats
+mysql.table_stats
+mysql.index_stats 
 
 These are histogramm stats,
 they are used automatically from 10.4.1 on,
