@@ -70,3 +70,4 @@ An excessive example can be found here:
 ## Refs:
 
   * https://mariadb.com/kb/en/histogram-based-statistics/
+  * https://mariadb.com/kb/en/server-system-variables/#use_stat_tables
