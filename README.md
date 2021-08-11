@@ -42,7 +42,7 @@
 
   1. Formatierung Ausgaben / Funktionen 
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
-
+     * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
