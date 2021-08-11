@@ -55,6 +55,8 @@ select * from table_stats;
 
 ```
 
+
+
 ## When will it be used ? 
 
 ```
@@ -71,3 +73,5 @@ An excessive example can be found here:
 
   * https://mariadb.com/kb/en/histogram-based-statistics/
   * https://mariadb.com/kb/en/server-system-variables/#use_stat_tables
+  * Includes Example for how to index specific columns and indexes or exclude them 
+    * https://mariadb.com/kb/en/engine-independent-table-statistics/
