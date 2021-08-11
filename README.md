@@ -36,8 +36,9 @@
   1. CONSTRAINTS
      * [Constrains with Example Walkthrough](constraints-with-example.md) 
 
-  1. INDEXES 
-     * [Force use of an Index](force-index.md) 
+  1. INDEX HINTS
+     * [Force use of an Index](force-use-index.md) 
+     * [Do not use an index if indexes are present](use-index-no.md)
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
