@@ -38,6 +38,25 @@ CALL my_pr;
 
 ```
 
+## Example 3 
+
+```
+DELIMITER /
+CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, IN enddate DATE) 
+main: BEGIN 
+   IF startdate > enddate 
+   THEN 
+      SELECT 'Das Startdaum liegt nach dem Enddatum';
+      LEAVE main; 
+	END IF;  
+	
+	SELECT 'das passt';
+
+END/ 
+DELIMITER ;
+```
+
+
 ## Reference 
 
 https://mariadb.com/kb/en/if/
