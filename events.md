@@ -137,4 +137,18 @@ systemctl restart mariadb
 
 ```
 
+## Fix timezone problem Linux (when time is displayed wrong) 
+
+```
+# 09:32 UTC should be 11:32 CEST 
+# also root ausführen 
+timedatectl list-timezones  | grep 'Europe/Berlin';
+timedatectl set-timezone Europe/Berlin
+timedatectl
+date
+systemctl restart mariadb 
+mysql
+mysql>select now();
+mysql>--- time should ok now 
+```
 
