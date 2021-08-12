@@ -59,11 +59,11 @@ execute test using @param;
 deallocate prepare test;
 ```
 
-## Finding out number of rows 
+## Finding out number of rows (for select)
 
 ```
-If this function is executed immediately after execute. 
-
+-- If this function is executed immediately after execute. 
+SELECT FOUND_ROWS();
 
 
 ```
