@@ -18,7 +18,7 @@ SELECT * from test;
 
 
 BEGIN;
-SET @d1 = 'BlubTrx';
+SET @d1 = 'Line3 -uncommited';
 EXECUTE stmt2 USING @d1;
 ROLLBACK;
 
