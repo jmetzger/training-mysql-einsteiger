@@ -1,6 +1,6 @@
 # IF in Stored Procedures 
 
-## Example 
+## Example 1
 
 ```
 -- Gibt 1 aus 
@@ -19,6 +19,23 @@ BEGIN
 END $$
 
 CALL my_sproc
+```
+
+## Example 2 
+
+```
+DELIMITER $
+CREATE PROCEDURE my_pr()
+BEGIN
+IF 2 = 2 THEN
+SELECT 'TRUE';
+ELSE
+SELECT 'FALSE';
+END IF;
+END $
+DELIMITER ;
+CALL my_pr;
+
 ```
 
 ## Reference 
