@@ -1,4 +1,4 @@
-# Training: MySQL Grundlagen/Performance (Hannover)
+# MariaDB für Entwickler 
 
 
 ## Agenda
@@ -22,12 +22,30 @@
 
   1. CONSTRAINTS
      * [Foreign Key Constraints - Example](#foreign-key-constraints---example)
+     * [Check constraint with example](#check-constraint-with-example)
 
   1. UPDATE 
      * [Sophisticated Update](#sophisticated-update)
 
-  1. JSON 
-     * [Short Introduction working JSON](#short-introduction-working-json)
+  1. DELETE 
+     * [Delete mit Transaktion](#delete-mit-transaktion)
+
+  1. TRIGGERS 
+     * [Triggers](#triggers)
+
+  1. CONSTRAINTS
+     * [Constrains with Example Walkthrough](#constrains-with-example-walkthrough)
+
+  1. INDEX HINTS
+     * [Force use of an Index](#force-use-of-an-index)
+     * [Do not use an index if indexes are present](#do-not-use-an-index-if-indexes-are-present)
+
+  1. PREPARED STATEMENTS 
+     * [Prepared Statements with examples](#prepared-statements-with-examples)
+
+  1. Formatierung Ausgaben / Funktionen 
+     * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
+     * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
   1. Performance 
      * [* vs. specific field in field list - select](#-vs.-specific-field-in-field-list---select)
@@ -35,6 +53,7 @@
      * [SQL-Rewrite Pager- Subselect](#sql-rewrite-pager--subselect)
 
   1. Analyzing Slow Queries / Indexes
+     * [Create unique index](#create-unique-index)
      * [Find indexes](#find-indexes)
      * [Create Index/Delete/Drop Index](#create-indexdeletedrop-index)
      * [Indizes](#indizes)
@@ -48,20 +67,40 @@
      * [Index und Joins](#index-und-joins)
      * [Find out cardinality without index](#find-out-cardinality-without-index)
      * [Index and Functions](#index-and-functions)
- 
+     * [Index neu aufbauen ?](#index-neu-aufbauen-)
+     * [Index Stats](#index-stats)
+  
   1. Tools 
      * [Percona Toolkit](#percona-toolkit)
      * [pt-query-digest - analyze slow logs](#pt-query-digest---analyze-slow-logs)
      * [pt-online-schema-change howto](#pt-online-schema-change-howto)
      * [Example sys-schema and Reference](#example-sys-schema-and-reference)
+     * [Profiling](#profiling)
+
+  1. Tipps & Tricks 
+     * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
+     * [Wie kann ich verwendete Storage Engine rausfinden - Table](#wie-kann-ich-verwendete-storage-engine-rausfinden---table)
+     * [SHOW VARIABLES WITH WHERE](#show-variables-with-where)
+     * [Schnellster Import von Daten mit csv](#schnellster-import-von-daten-mit-csv)
+     * [Queries in Datenbank (mysql) loggen, die keine Indizes verwenden](#queries-in-datenbank-mysql-loggen,-die-keine-indizes-verwenden)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
 
-  1. References 
-     * [MySQL Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
-     * [MySQL 5.7 was has changed to 8.0](https://severalnines.com/database-blog/moving-mysql-57-mysql-80-what-you-should-know)
-
+  1. References/Documentation 
+     * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
+     * [MySQL/MariaDB - Performance - pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [JDBC-Treiber](https://mariadb.com/kb/en/about-mariadb-connector-j/)
+   
+  1. Oracle 
+     * [Activating Oracle Sql-Mode](#activating-oracle-sql-mode)
+     * [Overview Oracle Mode](https://mariadb.com/kb/en/sql_modeoracle/)
+     * [When Others-Clause](https://www.techonthenet.com/oracle/exceptions/when_others.php)
+     * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
+     * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
+     * [Simple oracle examples pl/sql in mariadb](https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql)
+     
 ## Backlog 
 
   1. Working with database objects 
@@ -81,7 +120,7 @@
  
   1. DELETE 
      * [Einfaches Delete Beispiel](#einfaches-delete-beispiel)
-     * [Delete mit Transaktion](#delete-mit-transaktion)
+
 
   1. Datentypen 
      * [Integer - INT - Datentypen](#integer---int---datentypen)
@@ -99,17 +138,13 @@
      * [Working with INSERT](#working-with-insert)
     
   1. Tipps & Tricks / Do Not 
-     * [SQL-Query im Query Tab (MySQL Workbench) direkt ausführen](#sql-query-im-query-tab-mysql-workbench-direkt-ausführen)
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](#dumpsql-file-einspielen-auf-der-kommandozeile---windows)
-     
-     * [Export Partial Columns in MYSQL with INTO OUTFILE](#export-partial-columns-in-mysql-with-into-outfile)
     
   1. Tools 
      * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
   
   1. Tipps & Tricks 
      * [Best Practice DBAL - Kochrezept](#best-practice-dbal---kochrezept)
-  
   
   1. References 
      * [Examples Left Join](https://www.quackit.com/mysql/examples/mysql_left_join.cfm)
@@ -118,8 +153,7 @@
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
   1. Extra (Optional)  
-     * [Schnellster Import von Daten mit csv](#schnellster-import-von-daten-mit-csv)
-
+     
   1. Übungen 
      * [Übung Update/Insert](#übung-updateinsert)
 
@@ -523,22 +557,217 @@ SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name HAVING la
 ### Foreign Key Constraints - Example
 
 
-```
-## Walkthrough 
-use sakila;
-create table filmcopy as select * from film;
-set foreign_key_checks = 0;
-truncate film;
-set foreign_key_checks = 1
-## WRONG
-##alter table filmcopy add constraint fk_language_id references language (language_id) 
-alter table filmcopy add foreign key (language_id) references language (language_id);
+### Walkthrough 
 
-## Test it 
-## language.language_id needs to have an index 
-delete from language where language_id = 1
+#### Step 1: Sample Table and data 
+
+```
+create table gadget_types(
+    type_id int auto_increment,
+    name varchar(100) not null,
+    primary key(type_id)
+);
+
+insert into gadget_types(name)
+values
+    ('Entertainment'),
+    ('Computing'),
+    ('Communication'),
+    ('Lifestyle'),
+    ('Cameras');
+
+create table gadgets(
+    gadget_id int auto_increment,
+    gadget_name varchar(100) not null,
+    type_id int,
+    primary key(gadget_id),
+    constraint fk_type
+    foreign key(type_id) 
+        references gadget_types(type_id)
+);
 ```
 
+### Step 2: Insert data to gadgets 
+
+```
+insert into 
+    gadgets(gadget_name,type_id)
+values
+    ('Amazon Kindle',1),
+    ('Apple iPod',1),
+    ('Audio Highway Listen Up',1),
+    ('Apple iPad',2),
+    ('MicroSD',2),
+    ('Apple iPhone',3),
+    ('BlackBerry 6210',3),
+    ('Pager',3),
+    ('Air Taser Model 34000',4),
+    ('Credit Card',4),
+    ('Zippo',4),
+    ('Casio G-Shock DW-5000C',4),
+    ('Nikon F',5),
+    ('Canon EOS 5D Mark II',5);
+```
+
+### Step 3 - Try to delete 
+
+```
+delete from gadget_types 
+where type_id = 1;
+
+
+SQL Error (1451): Cannot delete or update a parent row: a foreign key constraint fails (`nation`.`gadgets`, CONSTRAINT `fk_type` FOREIGN KEY (`type_id`) REFERENCES `gadget_types` (`type_id`)) 
+--> To delete a row from the gadget_types table, you need to remove all the referencing rows from the gadgets table first.
+```
+
+### Step 4 - Drop Contrains and set NULL Reference 
+
+```
+alter table gadgets
+drop constraint fk_type;
+
+alter table gadgets 
+add constraint fk_type 
+foreign key(type_id) 
+    references gadget_types(type_id)
+    on delete set null
+    on update set null;
+
+delete from gadget_types
+where type_id = 1;
+
+select * from gadgets;
+--> As shown clearly from the output, the values in the type_id column of rows with type_id 1 from the gadgets table were set to null because of the on delete set null option.
+```
+
+### Step 5 - change id in gadget_types 
+
+```
+update gadget_types
+set type_id = 20
+where type_id = 2;
+
+select * from gadgets;
+
+--> The values in the type_id column of rows with type_id 2 from the gadgets table were set to null because of the on update set null option.
+```
+
+### Step 6 - remove orphans 
+
+```
+delete from gadgets
+where type_id is null;
+```
+
+### Step 7 - cascade reference option 
+
+```
+-- Drop constraint 
+alter table gadgets
+drop constraint fk_type;
+
+alter table gadgets 
+add constraint fk_type 
+foreign key(type_id) 
+    references gadget_types(type_id)
+    on delete cascade
+    on update cascade;
+
+delete from gadget_types
+where type_id = 3;
+--> MariaDB automatically deleted rows from the gadgets table whose type_id is 3 because of the on delete cascade action.
+
+select * from gadgets;
+```
+
+### Step 8 - Update gadget_type id 4 to 40:
+
+```
+update gadget_types
+set type_id = 40
+where type_id = 4
+
+--> MariaDB automatically updated rows from the gadgets table whose type_id is 4 to 40 because of the on update cascade action:
+```
+
+```
+select * from gadgets;
+--> Updated all references 
+```
+
+### Ref:
+
+  * https://www.mariadbtutorial.com/mariadb-basics/mariadb-foreign-key/
+
+<div class="page-break"></div>
+
+### Check constraint with example
+
+
+### Column constraints 
+
+```
+create table classes(
+    class_id int auto_increment,
+    class_name varchar(255) not null,
+    student_count int 
+        constraint positive_student_count 
+        check(student_count >0),
+    primary key(class_id)
+);
+
+
+```
+
+### Table Check Constraint 
+
+```
+create table classes(
+    class_id int auto_increment,
+    class_name varchar(255) not null,
+    student_count int,
+    constraint positive_student_count 
+        check(student_count >0),
+    primary key(class_id)
+);
+
+insert into classes(class_name, student_count)
+values('MariaDB for Developers',0);
+
+SQL Error (4025): CONSTRAINT `positive_student_count` failed for `nation`.`classes`
+
+insert into classes(class_name, student_count)
+values('MariaDB for Developers',100);
+
+```
+
+### Multi Column Constraint 
+
+```
+create table classes(
+    class_id int auto_increment,
+    class_name varchar(100) not null,
+    begin_date date not null,
+    end_date date not null,
+    student_count int,
+    constraint positive_student_count 
+        check(student_count >0),
+    constraint valid_date
+        check(end_date >= begin_date),
+    primary key(class_id)
+);
+
+-- Change structure like so 
+ALTER TABLE classes ADD (begin_date date NOT NULL, end_date date NOT NULL,
+CONSTRAINT valid_date CHECK (end_date > begin_date))
+
+-- 
+
+```
+
+### Ref:
+
+  * https://www.mariadbtutorial.com/mariadb-basics/mariadb-check-constraint/
 
 <div class="page-break"></div>
 
@@ -547,6 +776,14 @@ delete from language where language_id = 1
 ### Sophisticated Update
 
 
+### Aufgabe 
+
+```
+Erhöhe bei allen Datensätzen in film die rental_rate um 1 Euro,
+für die Schauspieler "actor", deren Nachname mit D anfängt 
+```
+
+### Lösung 
 
 ```
 SELECT DISTINCT fc.film_id FROM filmcopy fc JOIN film_actor fa ON fc.film_id = fa.film_id JOIN actor a ON fa.actor_id = a.actor_id where a.last_name like 'D%';
@@ -558,131 +795,231 @@ Rows matched: 432  Changed: 432  Warnings: 0
 
 <div class="page-break"></div>
 
-## JSON 
+## DELETE 
 
-### Short Introduction working JSON
+### Delete mit Transaktion
 
 
-### General
-
-  * Introduced since MySQL 5.7 
-
-### Pitfalls 
-
-  * Luke, use the index properly 
-
-### Step 1: Create structure 
+### Beispiel 
 
 ```
-create schema training;
-use training;
-CREATE TABLE events( 
-  id int auto_increment primary key, 
-  event_name varchar(255), 
-  visitor varchar(255), 
-  properties json, 
-  browser json
-);
-```
+Variante 1: Andere sehen es erst nach commit (andere Sessions/Verbindungen) 
 
-### Step 2: Fill with data 
+BEGIN;
+DELETE FROM actor where actor_id = 200;
+COMMIT;
+
+Variante 2: Aktion mir nicht, ich rolle sie zurück, mache sie rückgängig
+BEGIN;
+DELETE FROM actor where actor_id = 200;
+ROLLBOCK;
 
 ```
-INSERT INTO events(event_name, visitor,properties, browser) 
-VALUES (
-  'pageview', 
-   '1',
-   '{ "page": "/" }',
-   '{ "name": "Safari", "os": "Mac", "resolution": { "x": 1920, "y": 1080 } }'
-),
-('pageview', 
-  '2',
-  '{ "page": "/contact" }',
-  '{ "name": "Firefox", "os": "Windows", "resolution": { "x": 2560, "y": 1600 } }'
-),
-(
-  'pageview', 
-  '1',
-  '{ "page": "/products" }',
-  '{ "name": "Safari", "os": "Mac", "resolution": { "x": 1920, "y": 1080 } }'
-),
-(
-  'purchase', 
-   '3',
-  '{ "amount": 200 }',
-  '{ "name": "Firefox", "os": "Windows", "resolution": { "x": 1600, "y": 900 } }'
-),
-(
-  'purchase', 
-   '4',
-  '{ "amount": 150 }',
-  '{ "name": "Firefox", "os": "Windows", "resolution": { "x": 1280, "y": 800 } }'
-),
-(
-  'purchase', 
-  '4',
-  '{ "amount": 500 }',
-  '{ "name": "Chrome", "os": "Windows", "resolution": { "x": 1680, "y": 1050 } }'
-);
-Code language: SQL (Structured Query Language) (sql)
-To pull values out of the JSON columns, you use the column path operator ( ->).
-```
-
-### Get data (within select)
-
-```
-## mit hochkommas
-SELECT id, browser->'$.name' browser
-FROM events;
-
-## ohne hochkommas 
-SELECT id, browser->'$.name' browser
-FROM events;
-
-## Die x-Auflösung
-select id, browser->'$.resolution.x' browser from events
-
-```
-
-### Get data using where 
-
-```
-select id, browser->'$.name' as browser from events where browser ->"$.resolution.x" > 1600
-
-## - no index present
-explain select id, browser->'$.name' as browser from events where browser ->"$.resolution.x" > 1600;
-+----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
-| id | select_type | table  | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
-+----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
-|  1 | SIMPLE      | events | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    6 |   100.00 | Using where |
-+----+-------------+--------+------------+------+---------------+------+---------+------+------+----------+-------------+
-1 row in set, 1 warning (0.00 sec)
-
-## now creating index .
-create index idx_browser on events (browser);
-ERROR 3152 (42000): JSON column 'browser' supports indexing only via generated columns on a specified JSON path.
-```
-### Setting a specific index for json 
-
-```
-alter table events add browser_resolution_x INT GENERATED ALWAYS AS (browser->"$.resolution.x");
--- Not working yet with index, because there is no index 
-explain select id, browser->'$.name' as browser from events where browser_resolution_x = 1600;
-
-## Set the index
-create index idx_browser_resolution_x on events (browser_resolution_x)
-## Now it works !! 
-explain select id, browser->'$.name' as browser from events where browser_resolution_x = 1600;
-```
-
-
-
-### Reference 
-
-  * https://www.mysqltutorial.org/mysql-json/
-
 
 <div class="page-break"></div>
+
+## TRIGGERS 
+
+### Triggers
+
+
+### Create the structure 
+
+```
+create table countries (
+    country_id int auto_increment,
+    name varchar(50) not null,
+    primary key(country_id) 
+);
+
+INSERT INTO countries (name) values ('Germany'), ('Austria'); 
+
+create table country_stats(
+    country_id int,
+    year int,
+    population int,
+    primary key (country_id, year),
+    foreign key(country_id)
+	references countries(country_id)
+);
+
+INSERT INTO country_stats (country_id, year, population) values (1,2020,100000) 
+
+
+create table population_logs(
+    log_id int auto_increment,
+    country_id int not null,
+    year int not null,
+    old_population int not null,
+    new_population int not null,
+    updated_at timestamp default current_timestamp,
+    primary key(log_id)
+);
+
+```
+
+### Create the trigger 
+
+```
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+
+```
+
+### Run a test 
+
+```
+update 
+    country_reports
+set 
+    population = 1352617399
+where 
+    country_id = 1 and 
+    year = 2020;
+
+-- what's the new result 
+
+select * from population_logs;
+
+```
+
+### Ref:
+
+  * https://mariadb.com/kb/en/trigger-overview/
+
+<div class="page-break"></div>
+
+## CONSTRAINTS
+
+### Constrains with Example Walkthrough
+
+## INDEX HINTS
+
+### Force use of an Index
+
+
+```
+EXPLAIN SELECT Name,CountryCode FROM City FORCE INDEX (Name)
+WHERE name>="A" and CountryCode >="A";
+
+```
+
+```
+EXPLAIN SELECT Name,CountryCode FROM City USE INDEX (Name)
+WHERE name>="A" and CountryCode >="A";
+
+```
+
+<div class="page-break"></div>
+
+### Do not use an index if indexes are present
+
+
+```
+SELECT * FROM actor USE INDEX() WHERE last_name LIKE 'D%';
+-- Identify if really no index is used 
+EXPLAIN SELECT * FROM actor USE INDEX() WHERE last_name LIKE 'D%';
+```
+
+<div class="page-break"></div>
+
+## PREPARED STATEMENTS 
+
+### Prepared Statements with examples
+
+
+### Setup 
+
+```
+CREATE TABLE test (id int auto_increment, data varchar(40) NOT NULL DEFAULT '', PRIMARY KEY(id))
+```
+
+### Single Line (Insert) 
+
+```
+USE sakila;
+PREPARE st1 FROM 'INSERT INTO actor (first_name,last_name) VALUES (?,?)';
+SET @first_name = 'Johan'; 
+SET @last_name = 'Muster';
+EXECUTE st1 USING @first_name,@last_name; 
+DEALLOCATE PREPARE st1;
+
+SELECT * FROM actor ORDER BY order_id DESC;
+```
+
+### Multiline Prepared Statement (Insert)  
+
+```
+-- Statement vorbereiten 
+PREPARE stmt1 FROM 'INSERT INTO test (data) VALUES (?), (?), (?)';
+SET @d1 = 'Line1';
+SET @d2 = 'Line2';
+SET @d3 = 'Line3';
+EXECUTE stmt1 USING @d1, @d2, @d3;
+
+-- If you do not want to use it anymore DEALLOCATE IT 
+DEALLOCATE PREPARE stmt1;
+
+SELECT * from test;
+
+```
+
+### Using it with select 
+
+```
+create table t1 (a int,b char(10));
+insert into t1 values (1,"one"),(2, "two"),(3,"three");
+prepare test from "select * from t1 where a=?";
+set @param=2;
+execute test using @param;
++------+------+
+| a    | b    |
++------+------+
+|    2 | two  |
++------+------+
+set @param=3;
+execute test using @param;
++------+-------+
+| a    | b     |
++------+-------+
+|    3 | three |
++------+-------+
+deallocate prepare test;
+```
+
+### Finding out number of rows 
+
+```
+If this function is executed immediately after execute. 
+
+
+
+```
+
+<div class="page-break"></div>
+
+## Formatierung Ausgaben / Funktionen 
+
+### Datumsausgabe formatieren
+
+  * https://mariadb.com/kb/en/date_format/
+
+### Strings zusammenfügen
+
+  * https://mariadb.com/kb/en/concat/
 
 ## Performance 
 
@@ -769,6 +1106,15 @@ explain SELECT film.film_id, film.description FROM sakila.film INNER JOIN (     
 <div class="page-break"></div>
 
 ## Analyzing Slow Queries / Indexes
+
+### Create unique index
+
+
+```
+CREATE UNIQUE INDEX HomePhone ON Employees(Home_Phone);
+```
+
+<div class="page-break"></div>
 
 ### Find indexes
 
@@ -951,7 +1297,7 @@ explain format=json  SELECT a.first_name, a.last_name, fa.film_id FROM film_acto
 
 ## What does type say ? 
 
-* https://dev.mysql.com/doc/refman/5.7/en/explain-output.html#explain-join-types
+* https://mariadb.com/kb/en/explain/
 
 <div class="page-break"></div>
 
@@ -1319,6 +1665,113 @@ mysql> explain select * from actor where last_name_upper like 'WI%' \G
 
 <div class="page-break"></div>
 
+### Index neu aufbauen ?
+
+
+```
+## Aus meiner Sicht sollte das auch so für die aktuelle MariaDB Version 10.6 gelten 
+
+For basic cleanup and re-analyzing you can run "OPTIMIZE TABLE ...", it will compact out the overhead in the indexes and run ANALYZE TABLE too, but it's not going to re-sort them and make them as small & efficient as they could be.
+
+https://dev.mysql.com/doc/refman/8.0/en/optimize-table.html
+
+However, if you want the indexes completely rebuilt for best performance, you can:
+
+drop / re-add indexes (obviously)
+dump / reload the table
+ALTER TABLE and "change" using the same storage engine
+REPAIR TABLE (only works for MyISAM, ARCHIVE, and CSV)
+https://dev.mysql.com/doc/refman/8.0/en/rebuilding-tables.html
+
+If you do an ALTER TABLE on a field (that is part of an index) and change its type, then it will also fully rebuild the related index(es).
+
+
+
+```
+
+<div class="page-break"></div>
+
+### Index Stats
+
+
+### General 
+
+```
+Index stats where introduced in MariaDB 10.4 
+(These can be used by the query optimizer) 
+
+Before that only indexes were used, 
+now it is also possible these stats into account
+
+The stats are saved in the mysql-database 
+mysql.column_stats
+mysql.table_stats
+mysql.index_stats 
+
+These are histogramm stats,
+they are used automatically from 10.4.1 on,
+but they are not created automatically. 
+
+You have to perform an operation which is 
+cost intensive to create them, because a full
+table scan is done. 
+
+
+These stats are 
+Engine-independent Statistics
+
+```
+
+### Notes
+
+  * Stats are currently used (MariaDB 10.6) by default because of setting
+    * show variables like 'use_stat_tables'
+    * -> preferably_for_queries 
+  * But: They are not created automatically (see Howto how to do that) 
+  * Also: They are not deleted automatically 
+
+
+
+### Howto 
+
+```
+use mysql;
+select * from column_stats;
+select * from index_stats;
+select * from table_stats;
+use contributions;
+ANALYZE TABLE contributions PERSISTENT FOR ALL;
+
+use mysqL;
+select * from column_stats;
+select * from index_stats;
+select * from table_stats;
+
+```
+
+
+
+### When will it be used ? 
+
+```
+2021-08-11: Looks like it is currently used for range-scan for the optimizer,
+which table to start with 
+
+An excessive example can be found here: 
+
+
+```
+
+
+### Refs:
+
+  * https://mariadb.com/kb/en/histogram-based-statistics/
+  * https://mariadb.com/kb/en/server-system-variables/#use_stat_tables
+  * Includes Example for how to index specific columns and indexes or exclude them 
+    * https://mariadb.com/kb/en/engine-independent-table-statistics/
+
+<div class="page-break"></div>
+
 ## Tools 
 
 ### Percona Toolkit
@@ -1449,21 +1902,573 @@ total_memory_allocated: 0 bytes
 
 <div class="page-break"></div>
 
+### Profiling
+
+
+### Example 
+
+```
+MariaDB [(none)]> SET profiling = 1;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [(none)]> select * from actor where last_name like 'D%';
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use sakila;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [sakila]> select * from actor where last_name like 'D%';
++----------+------------+-----------+---------------------+
+| actor_id | first_name | last_name | last_update         |
++----------+------------+-----------+---------------------+
+|        4 | JENNIFER   | DAVIS     | 2006-02-15 04:34:33 |
+|       35 | JUDY       | DEAN      | 2006-02-15 04:34:33 |
+|       36 | BURT       | DUKAKIS   | 2006-02-15 04:34:33 |
+|       41 | JODIE      | DEGENERES | 2006-02-15 04:34:33 |
+|       48 | FRANCES    | DAY-LEWIS | 2006-02-15 04:34:33 |
+|       81 | SCARLETT   | DAMON     | 2006-02-15 04:34:33 |
+|       89 | CHARLIZE   | DENCH     | 2006-02-15 04:34:33 |
+|      100 | SPENCER    | DEPP      | 2006-02-15 04:34:33 |
+|      101 | SUSAN      | DAVIS     | 2006-02-15 04:34:33 |
+|      106 | GROUCHO    | DUNST     | 2006-02-15 04:34:33 |
+|      107 | GINA       | DEGENERES | 2006-02-15 04:34:33 |
+|      109 | SYLVESTER  | DERN      | 2006-02-15 04:34:33 |
+|      110 | SUSAN      | DAVIS     | 2006-02-15 04:34:33 |
+|      123 | JULIANNE   | DENCH     | 2006-02-15 04:34:33 |
+|      138 | LUCILLE    | DEE       | 2006-02-15 04:34:33 |
+|      143 | RIVER      | DEAN      | 2006-02-15 04:34:33 |
+|      148 | EMILY      | DEE       | 2006-02-15 04:34:33 |
+|      160 | CHRIS      | DEPP      | 2006-02-15 04:34:33 |
+|      166 | NICK       | DEGENERES | 2006-02-15 04:34:33 |
+|      173 | ALAN       | DREYFUSS  | 2006-02-15 04:34:33 |
+|      188 | ROCK       | DUKAKIS   | 2006-02-15 04:34:33 |
++----------+------------+-----------+---------------------+
+21 rows in set (0.001 sec)
+
+MariaDB [sakila]> show profiles;
++----------+------------+-----------------------------------------------+
+| Query_ID | Duration   | Query                                         |
++----------+------------+-----------------------------------------------+
+|        1 | 0.00078507 | select * from actor where last_name like 'D%' |
+|        2 | 0.00073284 | SELECT DATABASE()                             |
+|        3 | 0.00074666 | show databases                                |
+|        4 | 0.00117272 | show tables                                   |
+|        5 | 0.00190385 | select * from actor where last_name like 'D%' |
++----------+------------+-----------------------------------------------+
+5 rows in set (0.000 sec)
+
+MariaDB [sakila]> show profile all for query  5 \G
+*************************** 1. row ***************************
+             Status: Starting
+           Duration: 0.000239
+           CPU_user: 0.000000
+         CPU_system: 0.000238
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: NULL
+        Source_file: NULL
+        Source_line: NULL
+*************************** 2. row ***************************
+             Status: checking permissions
+           Duration: 0.000185
+           CPU_user: 0.000000
+         CPU_system: 0.000185
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 6703
+*************************** 3. row ***************************
+             Status: Opening tables
+           Duration: 0.000039
+           CPU_user: 0.000000
+         CPU_system: 0.000038
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_base.cc
+        Source_line: 4222
+*************************** 4. row ***************************
+             Status: After opening tables
+           Duration: 0.000012
+           CPU_user: 0.000000
+         CPU_system: 0.000012
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_base.cc
+        Source_line: 4505
+*************************** 5. row ***************************
+             Status: System lock
+           Duration: 0.000009
+           CPU_user: 0.000000
+         CPU_system: 0.000009
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: lock.cc
+        Source_line: 337
+*************************** 6. row ***************************
+             Status: table lock
+           Duration: 0.000016
+           CPU_user: 0.000000
+         CPU_system: 0.000016
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: lock.cc
+        Source_line: 342
+*************************** 7. row ***************************
+             Status: init
+           Duration: 0.000050
+           CPU_user: 0.000000
+         CPU_system: 0.000050
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 4967
+*************************** 8. row ***************************
+             Status: Optimizing
+           Duration: 0.000022
+           CPU_user: 0.000000
+         CPU_system: 0.000022
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 1973
+*************************** 9. row ***************************
+             Status: Statistics
+           Duration: 0.000088
+           CPU_user: 0.000000
+         CPU_system: 0.000090
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 2451
+*************************** 10. row ***************************
+             Status: Preparing
+           Duration: 0.000038
+           CPU_user: 0.000000
+         CPU_system: 0.000037
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 2526
+*************************** 11. row ***************************
+             Status: Executing
+           Duration: 0.000009
+           CPU_user: 0.000000
+         CPU_system: 0.000009
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 4533
+*************************** 12. row ***************************
+             Status: Sending data
+           Duration: 0.000299
+           CPU_user: 0.000000
+         CPU_system: 0.000301
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 4731
+*************************** 13. row ***************************
+             Status: End of update loop
+           Duration: 0.000016
+           CPU_user: 0.000000
+         CPU_system: 0.000013
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_select.cc
+        Source_line: 5011
+*************************** 14. row ***************************
+             Status: Query end
+           Duration: 0.000007
+           CPU_user: 0.000000
+         CPU_system: 0.000008
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 6009
+*************************** 15. row ***************************
+             Status: Commit
+           Duration: 0.000010
+           CPU_user: 0.000000
+         CPU_system: 0.000010
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 6055
+*************************** 16. row ***************************
+             Status: closing tables
+           Duration: 0.000008
+           CPU_user: 0.000000
+         CPU_system: 0.000008
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_base.cc
+        Source_line: 786
+*************************** 17. row ***************************
+             Status: Unlocking tables
+           Duration: 0.000006
+           CPU_user: 0.000000
+         CPU_system: 0.000006
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: lock.cc
+        Source_line: 429
+*************************** 18. row ***************************
+             Status: closing tables
+           Duration: 0.000015
+           CPU_user: 0.000000
+         CPU_system: 0.000016
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: lock.cc
+        Source_line: 442
+*************************** 19. row ***************************
+             Status: Starting cleanup
+           Duration: 0.000007
+           CPU_user: 0.000000
+         CPU_system: 0.000007
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 6121
+*************************** 20. row ***************************
+             Status: Freeing items
+           Duration: 0.000011
+           CPU_user: 0.000000
+         CPU_system: 0.000011
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 8047
+*************************** 21. row ***************************
+             Status: Updating status
+           Duration: 0.000803
+           CPU_user: 0.000000
+         CPU_system: 0.000040
+  Context_voluntary: 0
+Context_involuntary: 1
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 2400
+*************************** 22. row ***************************
+             Status: Reset for next command
+           Duration: 0.000012
+           CPU_user: 0.000000
+         CPU_system: 0.000011
+  Context_voluntary: 0
+Context_involuntary: 0
+       Block_ops_in: 0
+      Block_ops_out: 0
+      Messages_sent: 0
+  Messages_received: 0
+  Page_faults_major: 0
+  Page_faults_minor: 0
+              Swaps: 0
+    Source_function: <unknown>
+        Source_file: sql_parse.cc
+        Source_line: 2432
+22 rows in set (0.001 sec)
+
+MariaDB [sakila]> 
+
+
+
+```
+
+<div class="page-break"></div>
+
+## Tipps & Tricks 
+
+### Dummy table DUAL
+
+  * https://mariadb.com/kb/en/dual/
+
+### Wie kann ich verwendete Storage Engine rausfinden - Table
+
+
+```
+use sakila;
+show create table actor;  
+
+```
+
+<div class="page-break"></div>
+
+### SHOW VARIABLES WITH WHERE
+
+
+```
+SHOW VARIABLES WHERE VARIABLE_NAME like '%slow%' OR VARIABLE_NAME LIKE '%long%'
+```
+
+<div class="page-break"></div>
+
+### Schnellster Import von Daten mit csv
+
+
+### Example 
+
+```
+LOAD DATA INFILE '/tmp/test.txt' INTO TABLE test
+  FIELDS TERMINATED BY ','  LINES STARTING BY 'xxx';
+
+LOAD DATA INFILE 'data.txt' INTO TABLE tbl_name
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES;
+
+```
+ 
+### General/Ref  
+ 
+  * Is the quickest way
+  * Performance Ref: https://jynus.com/dbahire/testing-the-fastest-way-to-import-a-table-into-mysql-and-some-interesting-5-7-performance-results/
+
+<div class="page-break"></div>
+
+### Queries in Datenbank (mysql) loggen, die keine Indizes verwenden
+
+
+```
+
+-- long_query_time can auf 10 sec bleiben 
+SET GLOBAL log_queries_not_using_indexes = 1; 
+SET GLOBAL log_output = 'TABLE';
+-- last setting  
+SET slow_query_log = 1; 
+```
+
+<div class="page-break"></div>
+
 ## Storage Engines 
 
 ### MyISAM Key Buffer
 
   * http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200
 
-## References 
+## References/Documentation 
 
-### MySQL Performance Document
+### MySQL/MariaDB Performance Document
 
   * https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf
 
-### MySQL 5.7 was has changed to 8.0
+### MariaDB - Changes in 10.6
 
-  * https://severalnines.com/database-blog/moving-mysql-57-mysql-80-what-you-should-know
+  * https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088
+
+### MySQL/MariaDB - Performance - pdf
+
+  * https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf
+
+### JDBC-Treiber
+
+  * https://mariadb.com/kb/en/about-mariadb-connector-j/
+
+## Oracle 
+
+### Activating Oracle Sql-Mode
+
+
+```
+## ACTIVATE GLOBALLY (for complete server) - not persistent 
+## if you want to activate it globally 
+## this will not be available in the current session though 
+mysql>SET GLOBAL sql_mode='ORACLE'
+mysql> SELECT @@GLOBAL.sql_mode -- available globally 
+mysql> SELECT @@sql_mode -- in session. not present yet.
+
+## FOR THE session to be active, either reconnect or set it explicitly 
+mysql>SET sql_mode='ORACLE'
+mysql>SELECT @@sql_mode 
+```
+
+<div class="page-break"></div>
+
+### Overview Oracle Mode
+
+  * https://mariadb.com/kb/en/sql_modeoracle/
+
+### When Others-Clause
+
+  * https://www.techonthenet.com/oracle/exceptions/when_others.php
+
+### Demo Oracle sql_mode from MariaDB
+
+  * https://www.youtube.com/watch?v=ntO2x4XHfUE
+
+### What is implemented in Oracle sql-mode - fromdual
+
+  * https://fromdual.com/mariadb-sql-mode-oracle
+
+### Simple oracle examples pl/sql in mariadb
+
+  * https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql
 
 ## Working with database objects 
 
@@ -1897,27 +2902,6 @@ DELETE FROM actor WHERE id = 200
 
 <div class="page-break"></div>
 
-### Delete mit Transaktion
-
-
-### Beispiel 
-
-```
-Variante 1: Andere sehen es erst nach commit (andere Sessions/Verbindungen) 
-
-BEGIN;
-DELETE FROM actor where actor_id = 200;
-COMMIT;
-
-Variante 2: Aktion mir nicht, ich rolle sie zurück, mache sie rückgängig
-BEGIN;
-DELETE FROM actor where actor_id = 200;
-ROLLBOCK;
-
-```
-
-<div class="page-break"></div>
-
 ## Datentypen 
 
 ### Integer - INT - Datentypen
@@ -2061,38 +3045,11 @@ INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','John
 
 ## Tipps & Tricks / Do Not 
 
-### SQL-Query im Query Tab (MySQL Workbench) direkt ausführen
-
-
-```
-## Statt Blitz-Symbol anzuklicken, kann man einfach die Tastenkombination 
-## STRG + ENTER - verwenden (dann wir es direkt ausgeführt) 
-```
-
-<div class="page-break"></div>
-
 ### Dump/SQL-File einspielen auf der Kommandozeile - Windows
 
 
 ```
 mysql -u root -p < C:\Users\Admin\Downloads\test.sql
-```
-
-<div class="page-break"></div>
-
-### Export Partial Columns in MYSQL with INTO OUTFILE
-
-
-```
--- zeig mir das Datenverzeichnis
-SELECT @@datadir;
--- der secure-path - nur dort darf hin exportiert werden 
-show variables like '%secure%';
-
-SELECT actor_id,last_name 
-INTO OUTFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\result.txt'
-FROM actor;
-
 ```
 
 <div class="page-break"></div>
@@ -2182,29 +3139,6 @@ index hint.
   * https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm
 
 ## Extra (Optional)  
-
-### Schnellster Import von Daten mit csv
-
-
-### Example 
-
-```
-LOAD DATA INFILE '/tmp/test.txt' INTO TABLE test
-  FIELDS TERMINATED BY ','  LINES STARTING BY 'xxx';
-
-LOAD DATA INFILE 'data.txt' INTO TABLE tbl_name
-  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-  LINES TERMINATED BY '\r\n'
-  IGNORE 1 LINES;
-
-```
- 
-### General/Ref  
- 
-  * Is the quickest way
-  * Performance Ref: https://jynus.com/dbahire/testing-the-fastest-way-to-import-a-table-into-mysql-and-some-interesting-5-7-performance-results/
-
-<div class="page-break"></div>
 
 ## Übungen 
 
