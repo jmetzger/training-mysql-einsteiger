@@ -55,6 +55,7 @@
      * [If](/stored-procedures/if.md)
      * [Cursors](/stored-procedures/cursor.md) 
      * [Loop](/stored-procedures/loop.md)
+     * [Case](/stored-procedures/case.md) 
      * [Continue Handler Example](/stored-procedures/continue-handler.md)
 
   1. Formatierung Ausgaben / Funktionen 
