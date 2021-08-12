@@ -24,3 +24,8 @@ ROLLBACK;
 DEALLOCATE PREPARE stmt2;
 SELECT * FROM test;
 ```
+
+
+## References 
+
+  * https://mariadb.com/kb/en/prepare-statement/
