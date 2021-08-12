@@ -40,6 +40,9 @@
      * [Force use of an Index](force-use-index.md) 
      * [Do not use an index if indexes are present](use-index-no.md)
 
+  1. PREPARED STATEMENTS 
+     * [Prepared Statements with examples](prepared-statements.md) 
+
   1. Formatierung Ausgaben / Funktionen 
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
