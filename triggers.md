@@ -56,11 +56,36 @@ create trigger before_country_stats_update
 
 ```
 
+# Create trigger (the same) but with BEGIN/END - Block 
+
+```
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+
+    BEGIN
+    SET @anfang = 1;
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+    END
+
+```
+
 ## Run a test 
 
 ```
 update 
-    country_reports
+    country_stats
 set 
     population = 1352617399
 where 
