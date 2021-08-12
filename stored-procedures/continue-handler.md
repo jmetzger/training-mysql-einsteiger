@@ -1,40 +1,27 @@
 # Continue Handler 
 
 ```
-USE `test`;
-DROP PROCEDURE IF EXISTS `sp1`;
-DELIMITER ||
-CREATE PROCEDURE `sp1`()
+USE `sakila`;
+DROP PROCEDURE IF EXISTS actortest;
+DELIMITER /
+CREATE OR REPLACE PROCEDURE actortest()
 BEGIN
-    DECLARE `cur` CURSOR FOR
-        SELECT 1 LIMIT 0;
-    
-    DECLARE CONTINUE HANDLER
-        FOR 1326
-    BEGIN
-        SELECT 'cursor not open';
-        -- no loop here
-        CALL `sp1`();
-    END;
-    
+     
     DECLARE CONTINUE HANDLER
         FOR 1146
     BEGIN
-        SELECT 'table doesnt exist';
-        CLOSE `cur`;
+        SELECT 'You check the wrong table Mate';
     END;
-    
-    DECLARE CONTINUE HANDLER
-        FOR 1456
-    BEGIN
-        SELECT 'recursion not allowed';
-        SELECT 1 FROM `not-exists`;
-    END;
-    
-    CALL `sp1`();
-END;
-||
+   
+    SELECT actor_id into @foo FROM no_actor_table;
+	 
+END; / 
+
 DELIMITER ;
-CALL `sp1`();
+
+
+CALL actortest();
+-- or
+-- CALL actortest
 
 ```
