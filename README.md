@@ -47,6 +47,9 @@
   1. EVENTS 
      * [Events](events.md) 
 
+  1. FUNCTIONS
+     * [Functions with example](function.md) 
+
   1. STORED PROCEDURES 
      * [Create Procedure](/stored-procedures/create-procedure.md)
      * [If](/stored-procedures/if.md)
