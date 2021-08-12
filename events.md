@@ -46,7 +46,18 @@ SELECT * FROM messages;
 ## Show all events from a specific database 
 
 ```
+
+
+
 SHOW EVENTS FROM schulung;
+```
+
+## Show all events in active database 
+
+```
+USE schulung;
+SHOW EVENTS;
+
 ```
 
 ## One time event but preserved (so runs once every minute) 
@@ -79,7 +90,7 @@ DO
    INSERT INTO messages(message,created_at)
    VALUES('Test MariaDB Event 3',NOW());
    END /
-
+DELIMITER ;
 
 SELECT * FROM messages;
 
