@@ -96,6 +96,7 @@
      * [SHOW VARIABLES WITH WHERE](show-variables-with-where-or.md)
      * [Schnellster Import von Daten mit csv](/tricks/load-data-infile.md)
      * [Queries in Datenbank (mysql) loggen, die keine Indizes verwenden](queries-not-using-indexes.md)
+     * [Workaround Materialized View](materialized-view-workaround.md)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
