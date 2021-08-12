@@ -20,7 +20,7 @@ create table country_stats(
 	references countries(country_id)
 );
 
-INSERT INTO country_stats (country_id, year, population) values (1,2020,100000) 
+INSERT INTO country_stats (country_id, year, population) values (1,2020,100000);
 
 
 create table population_logs(
