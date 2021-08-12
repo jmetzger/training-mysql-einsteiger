@@ -3,7 +3,7 @@
 ## Setup 
 
 ```
-CREATE TABLE test (id int auto_increment, data varchar(40) NOT NULL DEFAULT '', PRIMARY KEY(id))
+CREATE TABLE test (id int auto_increment, data varchar(40) NOT NULL DEFAULT '', PRIMARY KEY(id));
 ```
 
 ## Single Line (Insert) 
@@ -16,7 +16,7 @@ SET @last_name = 'Muster';
 EXECUTE st1 USING @first_name,@last_name; 
 DEALLOCATE PREPARE st1;
 
-SELECT * FROM actor ORDER BY order_id DESC;
+SELECT * FROM actor ORDER BY actor_id DESC;
 ```
 
 ## Multiline Prepared Statement (Insert)  
