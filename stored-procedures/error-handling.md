@@ -3,6 +3,7 @@
 ## Example 
 
 ```
+DELIMITER /
 CREATE PROCEDURE test_error()
 BEGIN
    DECLARE EXIT HANDLER
@@ -14,4 +15,9 @@ BEGIN
    -- this will produce a 1146 error
    SELECT `c` FROM `temptab`;
 END;
+DELIMITER ;
+```
+
+```
+call test_error();
 ```
