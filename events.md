@@ -110,3 +110,20 @@ SELECT * FROM messages;
 DROP EVENT IF EXIST test_event_03;
 ```
 
+
+## Set event-scheduler in config / my.cnf / my.ini
+
+```
+[mysqld]
+event-scheduler
+
+# after that restawrt 
+systemctl restart mariadb 
+
+
+
+
+
+```
+
+
