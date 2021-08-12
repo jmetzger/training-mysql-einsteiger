@@ -30,9 +30,6 @@
   1. DELETE 
      * [Delete mit Transaktion](delete-transaktion.md)]
 
-  1. TRIGGERS 
-     * [Triggers](triggers.md) 
-
   1. CONSTRAINTS
      * [Constrains with Example Walkthrough](constraints-with-example.md) 
 
@@ -43,6 +40,12 @@
   1. PREPARED STATEMENTS 
      * [Prepared Statements with examples](prepared-statements.md) 
      * [Prepared Statements and transactions](prepared-statements-transactions.md)
+
+  1. TRIGGERS 
+     * [Triggers](triggers.md) 
+
+  1. EVENTS 
+     * [Events](events.md) 
 
   1. Formatierung Ausgaben / Funktionen 
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
