@@ -59,6 +59,7 @@
      * [Cursor](/stored-procedures/cursor.md)
      * [Continue Handler Example](/stored-procedures/continue-handler.md)
      * [Exit Handler Example](/stored-procedures/exit-handler.md)
+     * [Custom Error message](/stored-procedures/custom-exception-error.md)
 
   1. LOCKS 
      * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
