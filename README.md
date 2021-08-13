@@ -71,6 +71,9 @@
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
+  1. Partitions
+     * [Maintain Partitions and Explain](/partitions/partition-explain.md)
+
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
