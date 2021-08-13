@@ -57,6 +57,7 @@
      * [Loop](/stored-procedures/loop.md)
      * [Case](/stored-procedures/case.md) 
      * [Continue Handler Example](/stored-procedures/continue-handler.md)
+     * [Exit Handler Example](/stored-procedures/exit-handler.md)
 
   1. Formatierung Ausgaben / Funktionen 
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
