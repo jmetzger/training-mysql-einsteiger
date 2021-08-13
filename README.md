@@ -54,6 +54,7 @@
      * [Create Procedure](/stored-procedures/create-procedure.md)
      * [If](/stored-procedures/if.md)
      * [Cursors](/stored-procedures/cursor.md) 
+     * [Cursor with Params](stored-procedures/cursor-with-params.md)
      * [Loop](/stored-procedures/loop.md)
      * [Case](/stored-procedures/case.md) 
      * [Cursor](/stored-procedures/cursor.md)
