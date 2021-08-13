@@ -72,7 +72,7 @@
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
   1. Partitions
-     * [Maintain Partitions and Explain](/partitions/partition-explain.md)
+     * [Maintain Partitions and Explain](/partitions/partitions-explain.md)
 
   1. Performance 
      * [* vs. specific field in field list - select](performance/all-vs-field.md)
