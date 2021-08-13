@@ -30,9 +30,6 @@
   1. DELETE 
      * [Delete mit Transaktion](#delete-mit-transaktion)
 
-  1. TRIGGERS 
-     * [Triggers](#triggers)
-
   1. CONSTRAINTS
      * [Constrains with Example Walkthrough](#constrains-with-example-walkthrough)
 
@@ -42,10 +39,45 @@
 
   1. PREPARED STATEMENTS 
      * [Prepared Statements with examples](#prepared-statements-with-examples)
+     * [Prepared Statements and transactions](#prepared-statements-and-transactions)
+
+  1. TRIGGERS 
+     * [Triggers](#triggers)
+
+  1. EVENTS 
+     * [Events](#events)
+
+  1. FUNCTIONS
+     * [Functions with example](#functions-with-example)
+
+  1. STORED PROCEDURES 
+     * [Create Procedure](#create-procedure)
+     * [If](#if)
+     * [Cursors](#cursors)
+     * [Cursor with Params](#cursor-with-params)
+     * [Loop](#loop)
+     * [Case](#case)
+     * [Cursor](#cursor)
+     * [Continue Handler Example](#continue-handler-example)
+     * [Exit Handler Example](#exit-handler-example)
+     * [Custom Error message](#custom-error-message)
+
+  1. ERRORS
+     * [Error Codes List](https://mariadb.com/kb/en/mariadb-error-codes/)
+
+  1. LOCKS 
+     * [InnoDB Implicit Locks](#innodb-implicit-locks)
+     * [SELECT FOR UPDATE](#select-for-update)
+
+  1. sys (Database included since MariaDB 10.6 AFAIK) 
+     * [show innodb locks with sys](#show-innodb-locks-with-sys)
 
   1. Formatierung Ausgaben / Funktionen 
      * [Datumsausgabe formatieren](https://mariadb.com/kb/en/date_format/)
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
+
+  1. Partitions
+     * [Maintain Partitions and Explain](#maintain-partitions-and-explain)
 
   1. Performance 
      * [* vs. specific field in field list - select](#-vs.-specific-field-in-field-list---select)
@@ -83,6 +115,8 @@
      * [SHOW VARIABLES WITH WHERE](#show-variables-with-where)
      * [Schnellster Import von Daten mit csv](#schnellster-import-von-daten-mit-csv)
      * [Queries in Datenbank (mysql) loggen, die keine Indizes verwenden](#queries-in-datenbank-mysql-loggen,-die-keine-indizes-verwenden)
+     * [Workaround Materialized View](#workaround-materialized-view)
+     * [Zeichensatz umstellen](#zeichensatz-umstellen)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
@@ -818,90 +852,6 @@ ROLLBOCK;
 
 <div class="page-break"></div>
 
-## TRIGGERS 
-
-### Triggers
-
-
-### Create the structure 
-
-```
-create table countries (
-    country_id int auto_increment,
-    name varchar(50) not null,
-    primary key(country_id) 
-);
-
-INSERT INTO countries (name) values ('Germany'), ('Austria'); 
-
-create table country_stats(
-    country_id int,
-    year int,
-    population int,
-    primary key (country_id, year),
-    foreign key(country_id)
-	references countries(country_id)
-);
-
-INSERT INTO country_stats (country_id, year, population) values (1,2020,100000) 
-
-
-create table population_logs(
-    log_id int auto_increment,
-    country_id int not null,
-    year int not null,
-    old_population int not null,
-    new_population int not null,
-    updated_at timestamp default current_timestamp,
-    primary key(log_id)
-);
-
-```
-
-### Create the trigger 
-
-```
-create trigger before_country_stats_update 
-    before update on country_stats
-    for each row
-    insert into population_logs(
-        country_id, 
-        year, 
-        old_population, 
-        new_population
-    )
-    values(
-        old.country_id,
-        old.year,
-        old.population,
-        new.population
-    );
-
-```
-
-### Run a test 
-
-```
-update 
-    country_reports
-set 
-    population = 1352617399
-where 
-    country_id = 1 and 
-    year = 2020;
-
--- what's the new result 
-
-select * from population_logs;
-
-```
-
-### Ref:
-
-  * https://mariadb.com/kb/en/trigger-overview/
-
-<div class="page-break"></div>
-
 ## CONSTRAINTS
 
 ### Constrains with Example Walkthrough
@@ -944,7 +894,7 @@ EXPLAIN SELECT * FROM actor USE INDEX() WHERE last_name LIKE 'D%';
 ### Setup 
 
 ```
-CREATE TABLE test (id int auto_increment, data varchar(40) NOT NULL DEFAULT '', PRIMARY KEY(id))
+CREATE TABLE test (id int auto_increment, data varchar(40) NOT NULL DEFAULT '', PRIMARY KEY(id));
 ```
 
 ### Single Line (Insert) 
@@ -957,7 +907,7 @@ SET @last_name = 'Muster';
 EXECUTE st1 USING @first_name,@last_name; 
 DEALLOCATE PREPARE st1;
 
-SELECT * FROM actor ORDER BY order_id DESC;
+SELECT * FROM actor ORDER BY actor_id DESC;
 ```
 
 ### Multiline Prepared Statement (Insert)  
@@ -1000,13 +950,1261 @@ execute test using @param;
 deallocate prepare test;
 ```
 
-### Finding out number of rows 
+### Finding out number of rows (for select)
 
 ```
-If this function is executed immediately after execute. 
+-- If this function is executed immediately after execute. 
+SELECT FOUND_ROWS();
+
+
+```
+
+<div class="page-break"></div>
+
+### Prepared Statements and transactions
 
 
 
+```
+use sakila;
+create table test if not exists (id int auto_increment, data varchar(30), primary key(id));
+
+START TRANSACTION;
+PREPARE stmt2 FROM 'INSERT INTO test (`data`) VALUES (?)';
+SET @d1 = 'Line1';
+EXECUTE stmt2 USING @d1;
+SET @d1 = 'Line2';
+EXECUTE stmt2 USING @d1;
+COMMIT;
+
+SELECT * from test;
+
+
+BEGIN;
+SET @d1 = 'Line3 -uncommited';
+EXECUTE stmt2 USING @d1;
+ROLLBACK;
+
+DEALLOCATE PREPARE stmt2;
+SELECT * FROM test;
+```
+
+
+### References 
+
+  * https://mariadb.com/kb/en/prepare-statement/
+
+<div class="page-break"></div>
+
+## TRIGGERS 
+
+### Triggers
+
+
+### Create the structure 
+
+```
+create table countries (
+    country_id int auto_increment,
+    name varchar(50) not null,
+    primary key(country_id) 
+);
+
+INSERT INTO countries (name) values ('Germany'), ('Austria'); 
+
+create table country_stats(
+    country_id int,
+    year int,
+    population int,
+    primary key (country_id, year),
+    foreign key(country_id)
+	references countries(country_id)
+);
+
+INSERT INTO country_stats (country_id, year, population) values (1,2020,100000);
+
+
+create table population_logs(
+    log_id int auto_increment,
+    country_id int not null,
+    year int not null,
+    old_population int not null,
+    new_population int not null,
+    updated_at timestamp default current_timestamp,
+    primary key(log_id)
+);
+
+```
+
+### Create the trigger 
+
+```
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+
+```
+
+## Create trigger (the same) but with BEGIN/END - Block 
+
+```
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+
+    BEGIN
+    SET @anfang = 1;
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+    END
+
+```
+
+### Run a test 
+
+```
+update 
+    country_stats
+set 
+    population = 1352617399
+where 
+    country_id = 1 and 
+    year = 2020;
+
+-- what's the new result 
+
+select * from population_logs;
+
+```
+
+### Ref:
+
+  * https://mariadb.com/kb/en/trigger-overview/
+
+<div class="page-break"></div>
+
+## EVENTS 
+
+### Events
+
+
+### Preparation 
+
+```
+-- scheduler is not there 
+SHOW PROCESSLIST;
+
+-- Prüfen ob scheduler läuft 
+show variables like '%event%';
+set GLOBAL event_scheduler = on; 
+
+-- scheduler appears 
+SHOW PROCESSLIST;
+
+-- Events anzeigen 
+show events; 
+```
+
+### preparation  
+
+```
+
+USE schulung;
+CREATE TABLE messages (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    message VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL
+);
+```
+
+### One time event 
+
+```
+USE schulung 
+CREATE EVENT IF NOT EXISTS test_event_01
+ON SCHEDULE AT CURRENT_TIMESTAMP
+DO
+  INSERT INTO messages(message,created_at)
+  VALUES('Test MariaDB Event 1',NOW());
+  
+SELECT * FROM messages;  
+  
+```
+
+### Show all events from a specific database 
+
+```
+
+
+
+SHOW EVENTS FROM schulung;
+```
+
+### Show all events in active database 
+
+```
+USE schulung;
+SHOW EVENTS;
+
+```
+
+### One time event but preserved (so runs once every minute) 
+
+```
+To keep the event after it is expired, you use the  ON COMPLETION PRESERVE clause.
+
+CREATE EVENT test_event_02
+ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE
+ON COMPLETION PRESERVE
+DO
+   INSERT INTO messages(message,created_at)
+   VALUES('Test MariaDB Event 2',NOW());
+
+
+
+
+
+```
+
+### Same version, but with begin end block 
+
+```
+DELIMITER /
+CREATE EVENT test_event_03
+ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE
+ON COMPLETION PRESERVE
+DO
+   BEGIN
+   INSERT INTO messages(message,created_at)
+   VALUES('Test MariaDB Event 3',NOW());
+   END /
+DELIMITER ;
+
+SELECT * FROM messages;
+
+```
+
+### Recurring Example 
+
+```
+CREATE EVENT test_event_03
+ON SCHEDULE EVERY 1 MINUTE
+STARTS CURRENT_TIMESTAMP
+ENDS CURRENT_TIMESTAMP + INTERVAL 1 HOUR
+DO
+   INSERT INTO messages(message,created_at)
+   VALUES('Test MariaDB recurring Event',NOW());
+
+SELECT * FROM messages;
+
+// after 1 minute 
+SELECT * FROM messages;
+
+
+```
+
+### Drop an event 
+
+```
+DROP EVENT IF EXIST test_event_03;
+```
+
+
+### Set event-scheduler in config / my.cnf / my.ini
+
+```
+[mysqld]
+event-scheduler
+
+## after that restawrt 
+systemctl restart mariadb 
+
+
+
+
+
+```
+
+### Fix timezone problem Linux (when time is displayed wrong) 
+
+```
+## 09:32 UTC should be 11:32 CEST 
+## also root ausführen 
+timedatectl list-timezones  | grep 'Europe/Berlin';
+timedatectl set-timezone Europe/Berlin
+timedatectl
+date
+systemctl restart mariadb 
+mysql
+mysql>select now();
+mysql>--- time should ok now 
+```
+
+
+<div class="page-break"></div>
+
+## FUNCTIONS
+
+### Functions with example
+
+
+### Example 1 
+
+```
+CREATE FUNCTION hello (s CHAR(20))
+    RETURNS CHAR(50) DETERMINISTIC
+    RETURN CONCAT('Hello, ',s,'!');
+
+```
+
+### Example 2
+
+
+```
+DELIMITER //
+
+CREATE FUNCTION CalcValue ( starting_value INT )
+RETURNS INT DETERMINISTIC
+
+BEGIN
+
+   DECLARE total_value INT;
+
+   SET total_value = 0;
+
+   label1: WHILE total_value <= 3000 DO
+     SET total_value = total_value + starting_value;
+   END WHILE label1;
+
+   RETURN total_value;
+
+END; //
+
+DELIMITER ;
+
+-- Use it 
+SELECT CalcValue (1000);
+
+```
+
+### Example 3 (Mit Variable anzahl vorher setzen) 
+
+```
+DELIMITER /
+
+CREATE DEFINER=`ext`@`%` FUNCTION `Anzahl`(
+	`starting_value` INT
+)
+RETURNS INT
+
+BEGIN
+
+   DECLARE total_value INT;
+   DECLARE anzahl INT;
+   -- SET total_value = 0;
+   SELECT COUNT(*) INTO anzahl FROM actor; 
+
+   -- WHILE total_value <= 3000 DO
+   --  SET total_value = total_value + starting_value;
+   -- END WHILE;
+
+   -- RETURN total_value;
+   RETURN anzahl;
+
+END/
+
+
+```
+
+### Example 3 (Direkt in @anzahl schreiben) 
+
+```
+DELIMITER /
+
+CREATE DEFINER=`ext`@`%` FUNCTION `schaupieler`(
+	`starting_value` INT
+)
+RETURNS INT
+
+BEGIN
+
+   DECLARE total_value INT;
+   SELECT COUNT(*) INTO @anzahl FROM actor; 
+   RETURN @anzahl;
+
+END/
+
+
+```
+
+
+
+
+### Ref:
+
+  * https://mariadb.com/kb/en/create-function/
+
+
+
+
+<div class="page-break"></div>
+
+## STORED PROCEDURES 
+
+### Create Procedure
+
+
+### Example 
+
+```
+USE sakila;
+DELIMITER //
+
+CREATE PROCEDURE simpleproc (OUT param1 INT)
+ BEGIN
+  SELECT COUNT(*) INTO param1 FROM actor;
+ END;
+//
+
+DELIMITER ;
+
+CALL simpleproc(@a);
+
+SELECT @a;
++------+
+| @a   |
++------+
+|    1 |
++------+
+
+
+```
+
+### Reference 
+
+  * https://mariadb.com/kb/en/create-procedure/
+
+
+<div class="page-break"></div>
+
+### If
+
+
+### Example 1
+
+```
+-- Gibt 1 aus 
+-- SELECT werden auf dem Bildschirm angezeigt ;o) 
+
+DELIMITER $$
+USE sakila $$
+DROP PROCEDURE IF EXISTS my_sproc $$
+CREATE PROCEDURE
+my_sproc ()
+BEGIN
+   IF 1=1
+   THEN
+     SELECT 1;
+   END IF;
+END $$
+
+CALL my_sproc
+```
+
+### Example 2 
+
+```
+DELIMITER $
+CREATE PROCEDURE my_pr()
+BEGIN
+IF 2 = 2 THEN
+SELECT 'TRUE';
+ELSE
+SELECT 'FALSE';
+END IF;
+END $
+DELIMITER ;
+CALL my_pr;
+
+```
+
+### Example 3 
+
+```
+DELIMITER /
+CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, IN enddate DATE) 
+main: BEGIN 
+   IF startdate > enddate 
+   THEN 
+      SELECT 'Das Startdaum liegt nach dem Enddatum';
+      LEAVE main; 
+	END IF;  
+	
+	SELECT 'das passt';
+
+END/ 
+DELIMITER ;
+```
+
+
+### Reference 
+
+https://mariadb.com/kb/en/if/
+
+<div class="page-break"></div>
+
+### Cursors
+
+
+### Example 1:
+
+```
+CREATE DATABASE IF NOT EXISTS training;
+USE training;
+
+
+CREATE TABLE c1(i INT);
+
+CREATE TABLE c2(i INT);
+
+CREATE TABLE c3(i INT);
+
+DELIMITER //
+
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE x, y INT;
+  DECLARE cur1 CURSOR FOR SELECT i FROM c1;
+  DECLARE cur2 CURSOR FOR SELECT i FROM c2;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  read_loop: LOOP
+    FETCH cur1 INTO x;
+    FETCH cur2 INTO y;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF x < y THEN
+      INSERT INTO c3 VALUES (x);
+    ELSE
+      INSERT INTO c3 VALUES (y);
+    END IF;
+  END LOOP;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END; //
+
+DELIMITER ;
+
+INSERT INTO c1 VALUES(5),(50),(500);
+INSERT INTO c2 VALUES(10),(20),(30);
+
+CALL p1;
+SELECT * FROM c3;
+
+```
+
+### Example 2 
+
+```
+CREATE OR REPLACE PROCEDURE getActorNames(p_ab CHAR(1))
+BEGIN
+  DECLARE d_full_name VARCHAR(90);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE cur1 CURSOR FOR SELECT CONCAT(last_name,',',first_name) FROM actor where last_name LIKE CONCAT(p_ab,'%');
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO d_full_name; 
+
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actorlog (full_name) values (d_full_name);
+      END IF;
+  END LOOP;
+
+  CLOSE cur1;
+END; //
+
+DELIMITER ;
+
+CALL getActorNames('B');
+SELECT * FROM actorlog;
+```
+
+### Reference 
+
+  * https://mariadb.com/kb/en/cursor-overview/
+
+
+<div class="page-break"></div>
+
+### Cursor with Params
+
+
+### Example 1:
+
+```
+USE sakila;
+DROP TABLE IF EXISTS actorlog;
+CREATE TABLE actorlog(id INT auto_increment, full_name VARCHAR (90), primary key(id));
+DELIMITER //
+
+CREATE OR REPLACE PROCEDURE getActorName(p_id INT)
+BEGIN
+  DECLARE d_full_name VARCHAR(90);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE cur1 CURSOR(p_actor_id INT) FOR SELECT CONCAT(last_name,',',first_name) FROM actor where actor_id = p_actor_id;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1(p_id);
+  read_loop: LOOP
+    FETCH cur1 INTO d_full_name; 
+
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actorlog (full_name) values (d_full_name);
+      END IF;
+  END LOOP;
+
+  CLOSE cur1;
+END; //
+
+DELIMITER ;
+
+CALL getActorName(1);
+SELECT * FROM actorlog;
+```
+
+<div class="page-break"></div>
+
+### Loop
+
+
+### Example 
+
+```
+DELIMITER //
+
+CREATE or REPLACE PROCEDURE CalcValue ( starting_value INT )
+
+
+BEGIN
+
+   DECLARE total_value INT;
+
+   SET total_value = 0;
+
+   label1: LOOP
+     SET total_value = total_value + starting_value;
+     IF total_value < 850 THEN
+       ITERATE label1;
+     END IF;
+     LEAVE label1;
+   END LOOP label1;
+
+   SELECT total_value;
+
+END; //
+
+DELIMITER ;
+
+CALL CalcValue(200);
+
+```
+
+### Reference 
+
+
+
+<div class="page-break"></div>
+
+### Case
+
+
+### Example with database insert 
+
+```
+DELIMITER /
+CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, 
+                                      IN enddate DATE, 
+                                      IN first_name VARCHAR(45), 
+				  IN last_name VARCHAR(45),
+				  IN fame VARCHAR(9))
+main: BEGIN
+           
+   DECLARE star_type CHAR(2);
+           
+   IF startdate > enddate 
+   THEN    
+      SELECT 'Das Startdaum liegt nach dem Enddatum';
+      LEAVE main; 
+	END IF; 
+	        
+	IF firstame = ''
+	THEN    
+	   SELEC'Bitte gebe einen First Name ein: ';
+	   LEAVEain;
+	END IF; 
+	        
+	IF last_me = ''
+	THEN    
+	   SELEC'Bitte gebe einen Last Name ein: ';
+	   LEAVEain;
+	END IF; 
+	        
+	CASE fam
+    WHEN 'superstar' THEN 
+	   SET sr_type='ST';
+    WHEN 'megastar' THEN 
+	   SET sr_type='MS';
+	 WHEN 'sr' THEN
+	   SET sr_type='S';  
+	 ELSE   
+	   SELEC'Als Star ist nur superstart,megastart oder star erlaubt'; 
+	   LEAVEain;
+   END CASE;
+	        
+	INSERT IO actor 
+	  (startte,
+	   endda,
+		firste,
+		last_,
+		star_)
+	VALUES (artdate,enddate,first_name,last_name,star_type);
+	        
+	SELECT CCAT ('Schauspieler ',first_name,' ',last_name,' 
+           
+END/       
+DELIMITER ;
+
+
+CALL addActor('2021-12-22','2021-12-31','Peter','Lausitz','megastar');
+
+
+```
+
+
+### Reference 
+
+  * https://mariadb.com/kb/en/case-statement/
+
+<div class="page-break"></div>
+
+### Cursor
+
+
+### Example 1:
+
+```
+CREATE DATABASE IF NOT EXISTS training;
+USE training;
+
+
+CREATE TABLE c1(i INT);
+
+CREATE TABLE c2(i INT);
+
+CREATE TABLE c3(i INT);
+
+DELIMITER //
+
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE x, y INT;
+  DECLARE cur1 CURSOR FOR SELECT i FROM c1;
+  DECLARE cur2 CURSOR FOR SELECT i FROM c2;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  read_loop: LOOP
+    FETCH cur1 INTO x;
+    FETCH cur2 INTO y;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF x < y THEN
+      INSERT INTO c3 VALUES (x);
+    ELSE
+      INSERT INTO c3 VALUES (y);
+    END IF;
+  END LOOP;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END; //
+
+DELIMITER ;
+
+INSERT INTO c1 VALUES(5),(50),(500);
+INSERT INTO c2 VALUES(10),(20),(30);
+
+CALL p1;
+SELECT * FROM c3;
+
+```
+
+### Example 2 
+
+```
+CREATE OR REPLACE PROCEDURE getActorNames(p_ab CHAR(1))
+BEGIN
+  DECLARE d_full_name VARCHAR(90);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE cur1 CURSOR FOR SELECT CONCAT(last_name,',',first_name) FROM actor where last_name LIKE CONCAT(p_ab,'%');
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO d_full_name; 
+
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actorlog (full_name) values (d_full_name);
+      END IF;
+  END LOOP;
+
+  CLOSE cur1;
+END; //
+
+DELIMITER ;
+
+CALL getActorNames('B');
+SELECT * FROM actorlog;
+```
+
+### Reference 
+
+  * https://mariadb.com/kb/en/cursor-overview/
+
+
+<div class="page-break"></div>
+
+### Continue Handler Example
+
+
+### Example 1 (Handler without begin end) 
+
+```
+-- In heidisql 
+
+DELIMITER /
+CREATE OR REPLACE PROCEDURE handlertest()
+BEGIN
+  DECLARE CONTINUE HANDLER FOR 1146 
+    SELECT 'Sorry mate, wrong table';
+  
+  SELECT actor_id FROM wrong_table_name; 
+  SELECT 'continue';
+  SELECT * FROM actor WHERE actor_id = 1;
+
+END /
+
+```
+
+
+```
+-- Execute the CALL in an mysql - client to really see, what is going on 
+-- In heidisql and other guis you will probably only see the output of the first select
+MariaDB [sakila]> CALL handlertest;
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+1 row in set (0.001 sec)
+
++----------+
+| continue |
++----------+
+| continue |
++----------+
+1 row in set (0.001 sec)
+
++----------+------------+-----------+
+| actor_id | first_name | last_name |
++----------+------------+-----------+
+|        1 | PENELOPE   | GUINESS   |
++----------+------------+-----------+
+1 row in set (0.003 sec)
+
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [sakila]> 
+
+```
+
+### Example 2: with begin and end (handler) 
+
+```
+-- Important: At the end of th BEGIN END; block for DECLARE CONTINUE .. 
+-- There has to be an ";" at then end of END -> END; 
+
+DELIMITER /
+CREATE OR REPLACE PROCEDURE handlertest()
+BEGIN
+  DECLARE CONTINUE HANDLER FOR 1146 
+  BEGIN 
+     SELECT 'Sorry mate, wrong table';
+  END;
+  
+  SELECT actor_id FROM wrong_table_name; 
+  SELECT 'continue';
+  SELECT * FROM actor WHERE actor_id = 1;
+
+END /
+
+```
+
+
+
+```
+-- Execute the CALL in an mysql - client to really see, what is going on 
+-- In heidisql and other guis you will probably only see the output of the first select
+MariaDB [sakila]> CALL handlertest;
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+1 row in set (0.001 sec)
+
++----------+
+| continue |
++----------+
+| continue |
++----------+
+1 row in set (0.001 sec)
+
++----------+------------+-----------+
+| actor_id | first_name | last_name |
++----------+------------+-----------+
+|        1 | PENELOPE   | GUINESS   |
++----------+------------+-----------+
+1 row in set (0.003 sec)
+
+Query OK, 0 rows affected (0.003 sec)
+
+MariaDB [sakila]> 
+
+```
+
+
+
+
+<div class="page-break"></div>
+
+### Exit Handler Example
+
+
+### Example 1 (Handler without begin end) 
+
+```
+-- In heidisql 
+
+DELIMITER /
+CREATE OR REPLACE PROCEDURE handlertest()
+BEGIN
+  DECLARE EXIT HANDLER FOR 1146 
+    SELECT 'Sorry mate, wrong table';
+  
+  SELECT actor_id FROM wrong_table_name; 
+  SELECT 'continue';
+  SELECT * FROM actor WHERE actor_id = 1;
+
+END /
+
+```
+
+
+```
+-- Execute the CALL in an mysql - client to really see, what is going on 
+-- In heidisql and other guis you will probably only see the output of the first select
+MariaDB [sakila]();
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+1 row in set (0.001 sec)
+
+Query OK, 0 rows affected (0.002 sec)
+
+```
+
+### Example 2: with begin and end (handler) 
+
+```
+-- Important: At the end of th BEGIN END; block for DECLARE CONTINUE .. 
+-- There has to be an ";" at then end of END -> END; 
+
+DELIMITER /
+CREATE OR REPLACE PROCEDURE handlertest()
+BEGIN
+  DECLARE EXIT HANDLER FOR 1146 
+  BEGIN 
+     SELECT 'Sorry mate, wrong table';
+  END;
+  
+  SELECT actor_id FROM wrong_table_name; 
+  SELECT 'continue';
+  SELECT * FROM actor WHERE actor_id = 1;
+
+END /
+
+```
+
+
+
+```
+-- Execute the CALL in an mysql - client to really see, what is going on 
+-- In heidisql and other guis you will probably only see the output of the first select
+MariaDB [sakila]();
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+| Sorry mate, wrong table |
++-------------------------+
+1 row in set (0.001 sec)
+
+Query OK, 0 rows affected (0.002 sec)
+
+```
+
+
+<div class="page-break"></div>
+
+### Custom Error message
+
+
+### Variante 1
+
+```
+USE `sakila`;
+DROP PROCEDURE IF EXISTS actortest;
+DELIMITER /
+CREATE OR REPLACE PROCEDURE actortest(OUT n_actor_id INT)
+BEGIN
+    
+	 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+         GET DIAGNOSTICS CONDITION 1 @SQLSTATE = RETURNED_SQLSTATE, 
+	 @errno = MYSQL_ERRNO, @TEXT = MESSAGE_TEXT;  
+	 SET @full_error = CONCAT("ERROR ", @errno, " (", @SQLSTATE, "):", @TEXT);
+	 SELECT @full_error;
+    END;
+   
+    SELECT actor_id INTO n_actor_id FROM NOT_actor_ctor WHERE actor_id = 1; 
+	 -- SET n_actor_id = 55;
+    
+	 
+	 
+END; /
+
+DELIMITER ;
+
+```
+
+### Variante 2: Mit Schreiben in log-tabelle 
+
+```
+USE `sakila`;
+CREATE TABLE IF NOT EXISTS applogs (id INT AUTO_INCREMENT, message MEDIUMTEXT, PRIMARY KEY(id));
+
+DROP PROCEDURE IF EXISTS actortest;
+DELIMITER /
+CREATE OR REPLACE PROCEDURE actortest(OUT n_actor_id INT)
+BEGIN
+    
+	 
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+    GET DIAGNOSTICS CONDITION 1 @SQLSTATE = RETURNED_SQLSTATE, 
+	 @errno = MYSQL_ERRNO, @TEXT = MESSAGE_TEXT;  
+	 SET @full_error = CONCAT("ERROR ", @errno, " (", @SQLSTATE, "):", @TEXT);
+	 INSERT INTO applogs (message) VALUES (@full_error); 
+	 SELECT @full_error;
+	 END;
+   
+    SELECT actor_id INTO n_actor_id FROM NOT_actor_ctor WHERE actor_id = 1; 
+	 -- SET n_actor_id = 55;
+    
+	 
+	 
+END; /
+
+DELIMITER ;
+```
+
+<div class="page-break"></div>
+
+## ERRORS
+
+### Error Codes List
+
+  * https://mariadb.com/kb/en/mariadb-error-codes/
+
+## LOCKS 
+
+### InnoDB Implicit Locks
+
+
+### How do the work in general 
+
+  * Implicit locks are done by InnoDB itself 
+  * We can only partly influence them. 
+  
+### Who wants what ? 
+
+```
+<who?, what?, how?, granted?>
+```
+
+### Explanation (a bit clumsy) 
+
+  * IS and IX (intended share an intended write lock) 
+  * IS and IX can be trigged on SQL
+  * IX -> SUFFIX -> FOR UPDATE (this triggers a IX lock) 
+  * IX and IS are the first step (on table layer) 
+  * After that IX -> tries to get an write lock on row-level -> X 
+  * Works unless there is another X 
+  * IX and IS is not retrieved on TABLE spaced operations (construction --- alter) 
+
+### Lock Type compability matrix 
+
+```
+    X           IX          S           IS
+X   Conflict    Conflict    Conflict    Conflict
+IX  Conflict    Compatible  Conflict    Compatible
+S   Conflict    Conflict    Compatible  Compatible
+IS  Conflict    Compatible  Compatible  Compatible
+```
+
+
+### The best explanation across the internet ;o) 
+
+  * http://stackoverflow.com/questions/25903764/why-is-an-ix-lock-compatible-with-another-ix-lock-in-innodb|IX_and_IS-locks
+
+```
+Many people, both visitors and curators, enter the museum. 
+The visitors want to view paintings, so they wear a badge labeled "IS". 
+The curators may replace paintings, so they wear a badge labeled "IX". 
+There can be many people in the museum at the same time, with both types of badges. 
+They don't block each other.
+
+During their visit, the serious art fans will get as close to the painting as they can, 
+and study it for lengthy periods. 
+
+They're happy to let other art fans stand next to them before the same painting. 
+They therefore are doing SELECT ... LOCK IN SHARE MODE and they have "S" lock, 
+because they at least don't want the painting to be replaced while they're studying it.
+
+The curators can replace a painting, but they are courteous to the serious art fans, 
+and they'll wait until these viewers are done and move on. 
+So they are trying to do SELECT ... FOR UPDATE (or else simply UPDATE or DELETE). 
+They will acquire "X" locks at this time, by hanging a little sign up saying "exhibit being redesigned." 
+The serious art fans want to see the art presented in a proper manner, with nice lighting and some descriptive placque. 
+They'll wait for the redesign to be done before they approach (they get a lock wait if they try).
+```
+
+
+
+<div class="page-break"></div>
+
+### SELECT FOR UPDATE
+
+
+### Important 
+
+  * It only locks (X) the rows needed, not the complete table 
+
+
+### When is it used ? 
+
+  * You want to be sure, a specific dataset will not be changed 
+
+### Example 
+```
+create database if not exists training;
+use training;
+create table rooms (room_id tinyint auto_increment, room varchar(20), primary key(room_id));
+create table bookings (booking_id int auto_increment, room_id tinyint, name varchar(20), primary key(booking_id)); 
+insert into rooms (room) values ('Honeymoon');
+insert into rooms (room) values ('Sunset');
+
+## Session 1:
+BEGIN;
+select room_id from rooms where room_id = 1 for update;
+
+## Session 2: 
+BEGIN 
+use training;
+delete from rooms where room_id = 2;
+delete from rooms where room_id = 1;
+-- transaction waiting 
+
+## Session 3:
+SELECT   waiting_trx_id,   waiting_pid,   waiting_query,   blocking_trx_id,   blocking_pid,   blocking_query FROM sys.innodb_lock_waits;
+
+## Session 1:
+COMMIT;
+
+## Session 2:
+## See what happens 
+
+
+
+
+
+```
+
+<div class="page-break"></div>
+
+## sys (Database included since MariaDB 10.6 AFAIK) 
+
+### show innodb locks with sys
+
+
+```
+SELECT waiting_trx_id, waiting_pid, waiting_query, blocking_trx_id, blocking_pid, blocking_query 
+FROM sys.innodb_lock_waits;
 ```
 
 <div class="page-break"></div>
@@ -1020,6 +2218,68 @@ If this function is executed immediately after execute.
 ### Strings zusammenfügen
 
   * https://mariadb.com/kb/en/concat/
+
+## Partitions
+
+### Maintain Partitions and Explain
+
+
+### Walkthrough 
+
+```
+##
+## EXPLAIN PARTITIONS
+##
+DROP TABLE IF EXISTS audit_log;
+CREATE TABLE audit_log (
+  yr    YEAR NOT NULL,
+  msg   VARCHAR(100) NOT NULL)
+ENGINE=InnoDB
+PARTITION BY RANGE (yr) (
+  PARTITION p0 VALUES LESS THAN (2010),
+  PARTITION p1 VALUES LESS THAN (2011),
+  PARTITION p2 VALUES LESS THAN (2012),
+  PARTITION p3 VALUES LESS THAN MAXVALUE);
+INSERT INTO audit_log(yr,msg) VALUES (2005,'2005'),(2006,'2006'),(2011,'2011'),(2020,'2020');
+EXPLAIN PARTITIONS SELECT * from audit_log WHERE yr in (2011,2012)\G
+```
+
+### Example with years 
+
+```
+CREATE TABLE audit_log2 (   yr    YEAR NOT NULL,   msg   VARCHAR(100) NOT NULL) ENGINE=InnoDB PARTITION BY RANGE (yr) (   PARTITION p2009 VALUES LESS THAN (2010),   PARTITION p2010 VALUES LESS THAN (2011),   PARTITION p2011 VALUES LESS THAN (2012),   PARTITION p_current VALUES LESS THAN MAXVALUE);
+INSERT INTO audit_log2(yr,msg) VALUES (2005,'2005'),(2006,'2006'),(2011,'2011'),(2012,'2012');
+
+EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012; 
+
+ALTER TABLE audit_log2 REORGANIZE PARTITION p_current INTO ( 
+   PARTITION p2012 VALUES LESS THAN (2013),
+   PARTITION p_current VALUES LESS THAN MAXVALUE);
+)
+
+--  Where is data now saved 
+EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
+
+```
+### Eine bestehende große Tabelle partitionieren (mariadb) 
+
+```
+Variante 1:
+## Wichtig vorher Daten sichern 
+
+ALTER TABLE `audit_log3` PARTITION BY RANGE (`yr`) ( PARTITION p2009 VALUES LESS THAN (2010) ENGINE=InnoDB, PARTITION p2010 VALUES LESS THAN (2011) ENGINE=InnoDB, PARTITION p2011 VALUES LESS THAN (2012) ENGINE=InnoDB, PARTITION p2012 VALUES LESS THAN (2013) ENGINE=InnoDB, PARTITION p_current VALUES LESS THAN MAXVALUE ENGINE=InnoDB )
+
+Variante 2:
+Daten ausspielen ohne create (dump)  + evtl zur sicherheit Struktur-Dump 
+Tabelle löschen 
+Daten ohne Struktur einspielen 
+```
+
+### Ref:
+
+  * https://mariadb.com/kb/en/partition-maintenance/
+
+<div class="page-break"></div>
 
 ## Performance 
 
@@ -2403,6 +3663,41 @@ SET GLOBAL log_output = 'TABLE';
 -- last setting  
 SET slow_query_log = 1; 
 ```
+
+<div class="page-break"></div>
+
+### Workaround Materialized View
+
+
+```
+CREATE EVENT `tr_sakila_aggregate`
+	ON SCHEDULE
+		EVERY 1 MONTH STARTS '2021-08-12 11:20:00'
+	ON COMPLETION PRESERVE
+	ENABLE
+	COMMENT 'Simulation Materialized View (Light)'
+	DO BEGIN
+   DROP TABLE IF EXISTS sakila_aggregate;
+   CREATE TABLE sakila_aggregate AS SELECT actor_id,last_name,first_name FROM actor WHERE actor_id > 200;
+END
+```
+
+<div class="page-break"></div>
+
+### Zeichensatz umstellen
+
+
+### Example (if it works it is great) 
+
+```
+-- Do this for every table 
+ALTER TABLE Tabellenname CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci
+ALTER DATABASE Datenbankname DEFAULT CHARACTER SET  utf8 COLLATE utf8_general_ci
+```
+
+### Ref. with problems (specific project) 
+
+  * https://fromdual.com/mariadb-and-mysql-character-set-conversion
 
 <div class="page-break"></div>
 
