@@ -110,7 +110,8 @@
      * [Example sys-schema and Reference](/tools/sys.md)
      * [Profiling](/performance/profiling.md)
 
-  1. * [Backup und Restore](/backup-restore.md)
+  1. Backup und Restore
+     * [Backup und Restore](/backup-restore.md)
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
@@ -120,6 +121,7 @@
      * [Queries in Datenbank (mysql) loggen, die keine Indizes verwenden](queries-not-using-indexes.md)
      * [Workaround Materialized View](materialized-view-workaround.md)
      * [Zeichensatz umstellen](zeichensatz-umstellen.md)
+     * [Hat InnoDB genug Speicher - Pages](innodb-free-pages.md)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
