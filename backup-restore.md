@@ -21,3 +21,17 @@ mysql verleih < /usr/src/sakila.sql
 # vorher cmd.exe ausführen über Windows ausführen (oder Suchfeld cmd)  
 mysqldump -uext -p -h 127.0.0.1 sakila  > C:\Users\Jochen Metzger\Documents\sakila.sql
 ```
+
+## Nur Struktur sichern 
+
+```
+mysqldump --no-data --all-databases --events --routines > all-structure.sql
+
+
+```
+
+## Nur daten pro Tabelle 
+
+```
+mysqldump --no-create-info sakila actor > sakila-actor-data.sql
+```
