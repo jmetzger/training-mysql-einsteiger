@@ -1,0 +1,61 @@
+# Cursor 
+
+## Example 1:
+
+```
+CREATE DATABASE IF NOT EXISTS training;
+USE training;
+
+
+CREATE TABLE c1(i INT);
+
+CREATE TABLE c2(i INT);
+
+CREATE TABLE c3(i INT);
+
+DELIMITER //
+
+CREATE PROCEDURE p1()
+BEGIN
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE x, y INT;
+  DECLARE cur1 CURSOR FOR SELECT i FROM c1;
+  DECLARE cur2 CURSOR FOR SELECT i FROM c2;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+  OPEN cur1;
+  OPEN cur2;
+
+  read_loop: LOOP
+    FETCH cur1 INTO x;
+    FETCH cur2 INTO y;
+    IF done THEN
+      LEAVE read_loop;
+    END IF;
+    IF x < y THEN
+      INSERT INTO c3 VALUES (x);
+    ELSE
+      INSERT INTO c3 VALUES (y);
+    END IF;
+  END LOOP;
+
+  CLOSE cur1;
+  CLOSE cur2;
+END; //
+
+DELIMITER ;
+
+INSERT INTO c1 VALUES(5),(50),(500);
+INSERT INTO c2 VALUES(10),(20),(30);
+
+CALL p1;
+SELECT * FROM c3;
+
+
+
+
+```
+
+
+
+
