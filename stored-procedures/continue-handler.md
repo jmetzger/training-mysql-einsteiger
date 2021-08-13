@@ -1,6 +1,6 @@
 # Continue Handler 
 
-# Example 1 (Handler without begin end) 
+## Example 1 (Handler without begin end) 
 
 ```
 -- In heidisql 
