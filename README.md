@@ -56,6 +56,7 @@
      * [Cursors](/stored-procedures/cursor.md) 
      * [Loop](/stored-procedures/loop.md)
      * [Case](/stored-procedures/case.md) 
+     * [Cursor](/stored-procedures/cursor.md)
      * [Continue Handler Example](/stored-procedures/continue-handler.md)
      * [Exit Handler Example](/stored-procedures/exit-handler.md)
 
