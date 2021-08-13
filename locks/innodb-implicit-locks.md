@@ -59,18 +59,3 @@ They'll wait for the redesign to be done before they approach (they get a lock w
 ```
 
 
-
-## MySQL 8: Can I see which locks currently are active/requested in InnoDB (Only from mysql 8) 
-
-```
-SELECT 
-    ENGINE_TRANSACTION_ID as trx_id,
-    LOCK_DATA as row,
-    OBJECT_NAME as `table`,
-    LOCK_MODE,
-    LOCK_STATUS 
-  FROM performance_schema.data_locks WHERE LOCK_TYPE='RECORD';
-```
-
-
-
