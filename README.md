@@ -28,7 +28,7 @@
      * [Sophisticated Update](update-extended.md)
 
   1. DELETE 
-     * [Delete mit Transaktion](delete-transaktion.md)]
+     * [Delete mit Transaktion](delete-transaktion.md)
 
   1. CONSTRAINTS
      * [Constrains with Example Walkthrough](constraints-with-example.md) 
