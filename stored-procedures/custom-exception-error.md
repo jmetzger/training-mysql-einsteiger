@@ -12,11 +12,11 @@ BEGIN
 	 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-    GET DIAGNOSTICS CONDITION 1 @SQLSTATE = RETURNED_SQLSTATE, 
+         GET DIAGNOSTICS CONDITION 1 @SQLSTATE = RETURNED_SQLSTATE, 
 	 @errno = MYSQL_ERRNO, @TEXT = MESSAGE_TEXT;  
 	 SET @full_error = CONCAT("ERROR ", @errno, " (", @SQLSTATE, "):", @TEXT);
 	 SELECT @full_error;
-	 END;
+    END;
    
     SELECT actor_id INTO n_actor_id FROM NOT_actor_ctor WHERE actor_id = 1; 
 	 -- SET n_actor_id = 55;
