@@ -23,7 +23,7 @@ END /
 ```
 -- Execute the CALL in an mysql - client to really see, what is going on 
 -- In heidisql and other guis you will probably only see the output of the first select
-MariaDB [sakila]> CALL handlertest;
+MariaDB [sakila]>CALL handlertest();
 +-------------------------+
 | Sorry mate, wrong table |
 +-------------------------+
@@ -31,23 +31,7 @@ MariaDB [sakila]> CALL handlertest;
 +-------------------------+
 1 row in set (0.001 sec)
 
-+----------+
-| continue |
-+----------+
-| continue |
-+----------+
-1 row in set (0.001 sec)
-
-+----------+------------+-----------+
-| actor_id | first_name | last_name |
-+----------+------------+-----------+
-|        1 | PENELOPE   | GUINESS   |
-+----------+------------+-----------+
-1 row in set (0.003 sec)
-
-Query OK, 0 rows affected (0.003 sec)
-
-MariaDB [sakila]> 
+Query OK, 0 rows affected (0.002 sec)
 
 ```
 
@@ -78,7 +62,7 @@ END /
 ```
 -- Execute the CALL in an mysql - client to really see, what is going on 
 -- In heidisql and other guis you will probably only see the output of the first select
-MariaDB [sakila]> CALL handlertest;
+MariaDB [sakila]> CALL handlertest();
 +-------------------------+
 | Sorry mate, wrong table |
 +-------------------------+
@@ -86,23 +70,7 @@ MariaDB [sakila]> CALL handlertest;
 +-------------------------+
 1 row in set (0.001 sec)
 
-+----------+
-| continue |
-+----------+
-| continue |
-+----------+
-1 row in set (0.001 sec)
-
-+----------+------------+-----------+
-| actor_id | first_name | last_name |
-+----------+------------+-----------+
-|        1 | PENELOPE   | GUINESS   |
-+----------+------------+-----------+
-1 row in set (0.003 sec)
-
-Query OK, 0 rows affected (0.003 sec)
-
-MariaDB [sakila]> 
+Query OK, 0 rows affected (0.002 sec)
 
 ```
 
