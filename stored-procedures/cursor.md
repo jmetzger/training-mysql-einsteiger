@@ -51,11 +51,38 @@ INSERT INTO c2 VALUES(10),(20),(30);
 CALL p1;
 SELECT * FROM c3;
 
-
-
-
 ```
 
+## Example 2 
+
+```
+CREATE OR REPLACE PROCEDURE getActorNames(p_ab CHAR(1))
+BEGIN
+  DECLARE d_full_name VARCHAR(90);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE cur1 CURSOR FOR SELECT CONCAT(last_name,',',first_name) FROM actor where last_name LIKE CONCAT(p_ab,'%');
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+
+  OPEN cur1;
+  read_loop: LOOP
+    FETCH cur1 INTO d_full_name; 
+
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actorlog (full_name) values (d_full_name);
+      END IF;
+  END LOOP;
+
+  CLOSE cur1;
+END; //
+
+DELIMITER ;
+
+CALL getActorNames('B');
+SELECT * FROM actorlog;
+```
 
 ## Reference 
 
