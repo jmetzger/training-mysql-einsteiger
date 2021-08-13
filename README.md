@@ -61,6 +61,9 @@
      * [Exit Handler Example](/stored-procedures/exit-handler.md)
      * [Custom Error message](/stored-procedures/custom-exception-error.md)
 
+  1. ERRORS
+     * [Error Codes List](https://mariadb.com/kb/en/mariadb-error-codes/)
+
   1. LOCKS 
      * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
      * [SELECT FOR UPDATE](/locks/select-for-update.md)
