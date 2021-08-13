@@ -65,7 +65,8 @@
   1. ERRORS
      * [Error Codes List](https://mariadb.com/kb/en/mariadb-error-codes/)
 
-  1. LOCKS 
+  1. LOCKS
+     * [Table wide locks](/locks/table-locks.md)  
      * [InnoDB Implicit Locks](/locks/innodb-implicit-locks.md)
      * [SELECT FOR UPDATE](/locks/select-for-update.md)
 
