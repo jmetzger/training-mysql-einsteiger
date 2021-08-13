@@ -10,10 +10,12 @@ SHOW STATUS LIKE '%pages_free%';
 
 ```
 
+MariaDB [sakila]> pager grep "Free buffer";
+PAGER set to 'grep "Free buffer"'
+MariaDB [sakila]> show engine innodb status;
+Free buffers       0
+1 row in set (0.001 sec)
 
-mysql>pager free;
-mysql>show engine innodb status;
-mysql>pager;
 
 
 ```
