@@ -1562,6 +1562,49 @@ CALL getActorNames('B');
 SELECT * FROM actorlog;
 ```
 
+### Example 3 
+
+```
+USE sakila;
+-- DROP TABLE IF EXISTS actor_stats;
+CREATE TABLE IF NOT EXISTS actor_stats(id INT auto_increment, last_name VARCHAR (90), howmany TINYINT, UNIQUE (last_name), primary key(id));
+
+CREATE OR REPLACE PROCEDURE writeActorStats()
+BEGIN
+  DECLARE d_last_name VARCHAR(45);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE c_actors CURSOR FOR SELECT last_name FROM actor;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  DECLARE CONTINUE HANDLER FOR 1062  
+  BEGIN 
+    UPDATE actor_stats SET howmany = howmany + 1 WHERE last_name = d_last_name;
+  END;
+
+  TRUNCATE actor_stats;
+
+  OPEN c_actors;
+  read_loop: LOOP
+    FETCH c_actors INTO d_last_name; 
+    
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actor_stats (last_name,howmany) values (d_last_name,1);
+    END IF;
+  END LOOP;
+
+  CLOSE c_actors;
+END; //
+
+DELIMITER ;
+
+CALL writeActorStats();
+SELECT * FROM actor_stats;
+SELECT * FROM actorlog;
+```
+
+
+
 ### Reference 
 
   * https://mariadb.com/kb/en/cursor-overview/
@@ -1808,6 +1851,49 @@ DELIMITER ;
 CALL getActorNames('B');
 SELECT * FROM actorlog;
 ```
+
+### Example 3 
+
+```
+USE sakila;
+-- DROP TABLE IF EXISTS actor_stats;
+CREATE TABLE IF NOT EXISTS actor_stats(id INT auto_increment, last_name VARCHAR (90), howmany TINYINT, UNIQUE (last_name), primary key(id));
+
+CREATE OR REPLACE PROCEDURE writeActorStats()
+BEGIN
+  DECLARE d_last_name VARCHAR(45);
+  DECLARE done INT DEFAULT FALSE;
+  DECLARE c_actors CURSOR FOR SELECT last_name FROM actor;
+  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+  DECLARE CONTINUE HANDLER FOR 1062  
+  BEGIN 
+    UPDATE actor_stats SET howmany = howmany + 1 WHERE last_name = d_last_name;
+  END;
+
+  TRUNCATE actor_stats;
+
+  OPEN c_actors;
+  read_loop: LOOP
+    FETCH c_actors INTO d_last_name; 
+    
+    IF done THEN
+      LEAVE read_loop;
+    ELSE 
+        INSERT INTO actor_stats (last_name,howmany) values (d_last_name,1);
+    END IF;
+  END LOOP;
+
+  CLOSE c_actors;
+END; //
+
+DELIMITER ;
+
+CALL writeActorStats();
+SELECT * FROM actor_stats;
+SELECT * FROM actorlog;
+```
+
+
 
 ### Reference 
 
