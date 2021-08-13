@@ -65,7 +65,8 @@
   1. ERRORS
      * [Error Codes List](https://mariadb.com/kb/en/mariadb-error-codes/)
 
-  1. LOCKS 
+  1. LOCKS
+     * [Table wide locks](#table-wide-locks)
      * [InnoDB Implicit Locks](#innodb-implicit-locks)
      * [SELECT FOR UPDATE](#select-for-update)
 
@@ -109,7 +110,8 @@
      * [Example sys-schema and Reference](#example-sys-schema-and-reference)
      * [Profiling](#profiling)
 
-  1. * [Backup und Restore](#backup-und-restore)
+  1. Backup und Restore
+     * [Backup und Restore](#backup-und-restore)
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
@@ -119,6 +121,7 @@
      * [Queries in Datenbank (mysql) loggen, die keine Indizes verwenden](#queries-in-datenbank-mysql-loggen,-die-keine-indizes-verwenden)
      * [Workaround Materialized View](#workaround-materialized-view)
      * [Zeichensatz umstellen](#zeichensatz-umstellen)
+     * [Hat InnoDB genug Speicher - Pages](#hat-innodb-genug-speicher---pages)
 
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
@@ -2169,7 +2172,9 @@ DELIMITER ;
 
   * https://mariadb.com/kb/en/mariadb-error-codes/
 
-## LOCKS 
+## LOCKS
+
+### Table wide locks
 
 ### InnoDB Implicit Locks
 
@@ -2361,6 +2366,13 @@ Variante 2:
 Daten ausspielen ohne create (dump)  + evtl zur sicherheit Struktur-Dump 
 Tabelle löschen 
 Daten ohne Struktur einspielen 
+```
+
+### Partitionierung entfernen 
+
+```
+ALTER TABLE audit_log  REMOVE PARTITIONING;
+
 ```
 
 ### Ref:
@@ -3691,11 +3703,12 @@ MariaDB [sakila]>
 
 <div class="page-break"></div>
 
-## * [Backup und Restore](#backup-und-restore)
+## Backup und Restore
 
 ### Backup und Restore
 
 
+### Unter Linux 
 ```
 mysqldump sakila > /usr/src/sakila.sql
 mysql sakila < /usr/src/sakila.sql
@@ -3707,6 +3720,28 @@ echo "show tables;" | mysql sakila;
 mysql -e 'create schema verleih'
 mysql verleih < /usr/src/sakila.sql
 
+```
+## Unter Windows 
+
+```
+## mysqldump muss entweder in der %PATH% variablen stehen oder wir müssen 
+## bin verzeichnis von mysql, sein, 
+## vorher cmd.exe ausführen über Windows ausführen (oder Suchfeld cmd)  
+mysqldump -uext -p -h 127.0.0.1 sakila  > C:\Users\Jochen Metzger\Documents\sakila.sql
+```
+
+### Nur Struktur sichern 
+
+```
+mysqldump --no-data --all-databases --events --routines > all-structure.sql
+
+
+```
+
+### Nur daten pro Tabelle 
+
+```
+mysqldump --no-create-info sakila actor > sakila-actor-data.sql
 ```
 
 <div class="page-break"></div>
@@ -3817,6 +3852,31 @@ show variables like '%char%';
 ### Ref. with problems (specific project) 
 
   * https://fromdual.com/mariadb-and-mysql-character-set-conversion
+
+<div class="page-break"></div>
+
+### Hat InnoDB genug Speicher - Pages
+
+
+### Variante 1 
+
+```
+SHOW STATUS LIKE '%pages_free%';
+```
+
+### Variante 2:
+
+```
+
+MariaDB [sakila]> pager grep "Free buffer";
+PAGER set to 'grep "Free buffer"'
+MariaDB [sakila]> show engine innodb status;
+Free buffers       0
+1 row in set (0.001 sec)
+
+
+
+```
 
 <div class="page-break"></div>
 
