@@ -109,6 +109,8 @@
      * [Example sys-schema and Reference](#example-sys-schema-and-reference)
      * [Profiling](#profiling)
 
+  1. * [Backup und Restore](#backup-und-restore)
+
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
      * [Wie kann ich verwendete Storage Engine rausfinden - Table](#wie-kann-ich-verwendete-storage-engine-rausfinden---table)
@@ -124,7 +126,7 @@
   1. References/Documentation 
      * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
-     * [MySQL/MariaDB - Performance - pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+     * [MariaDB - Installation Linux mit Repos](https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6)
      * [JDBC-Treiber](https://mariadb.com/kb/en/about-mariadb-connector-j/)
    
   1. Oracle 
@@ -3689,6 +3691,26 @@ MariaDB [sakila]>
 
 <div class="page-break"></div>
 
+## * [Backup und Restore](#backup-und-restore)
+
+### Backup und Restore
+
+
+```
+mysqldump sakila > /usr/src/sakila.sql
+mysql sakila < /usr/src/sakila.sql
+echo "show tables;" | mysql sakila;
+
+
+##echo "create schema verleih;" | mysql
+## oder
+mysql -e 'create schema verleih'
+mysql verleih < /usr/src/sakila.sql
+
+```
+
+<div class="page-break"></div>
+
 ## Tipps & Tricks 
 
 ### Dummy table DUAL
@@ -3781,6 +3803,17 @@ ALTER TABLE Tabellenname CONVERT TO CHARACTER SET utf8 COLLATE utf8_general_ci
 ALTER DATABASE Datenbankname DEFAULT CHARACTER SET  utf8 COLLATE utf8_general_ci
 ```
 
+### Settings des und des Clients herausfinden 
+
+```
+## im mysql 
+mysql>status;
+
+## mit sql z.B. heidisql 
+show variables like '%char%';
+
+```
+
 ### Ref. with problems (specific project) 
 
   * https://fromdual.com/mariadb-and-mysql-character-set-conversion
@@ -3803,9 +3836,9 @@ ALTER DATABASE Datenbankname DEFAULT CHARACTER SET  utf8 COLLATE utf8_general_ci
 
   * https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088
 
-### MySQL/MariaDB - Performance - pdf
+### MariaDB - Installation Linux mit Repos
 
-  * https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf
+  * https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6
 
 ### JDBC-Treiber
 
