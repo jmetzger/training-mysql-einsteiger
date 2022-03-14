@@ -1,5 +1,22 @@
 # mysql-client
 
+## Aufrufen unter Windows 
+
+  * Programme -> Mariadb -> Mariadb Client 
+  * Passwrot eingeben 
+
+## Hilfe 
+
+```
+help
+```
+
+## Wichtige Datenbank - Objekte anzeigen
+
+```
+show databases;
+```
+
 ## Basics 
 
 ```
