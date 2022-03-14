@@ -14,6 +14,9 @@
   1. Client-Tools 
      * [mysql - client](mysql-client.md)
 
+  1. Datentypen 
+     * [Übersicht Datentypen](https://mariadb.com/kb/en/data-types/)
+
   1. JOINS 
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
