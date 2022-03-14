@@ -16,6 +16,7 @@
 
   1. Datentypen 
      * [Übersicht Datentypen](https://mariadb.com/kb/en/data-types/)
+     * [Integer Datentypen](/datatypes/int.md)
 
   1. JOINS 
      * [Basics of Joins](joins/overview.md) 
