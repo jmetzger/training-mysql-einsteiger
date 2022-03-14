@@ -199,4 +199,7 @@
   1. Übungen 
      * [Übung Update/Insert](uebung-insert-update.md)
 
+  1. Documentation 
+     * [Server System Variables](https://mariadb.com/kb/en/server-system-variables/)
+
   
