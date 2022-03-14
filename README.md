@@ -11,6 +11,9 @@
      * [Spendenliste](setup-training-data-contributions.md)
      * [Server Vagrant](server-vagrant.md)
 
+  1. Client-Tools 
+     * [mysql - client](mysql-client.md)
+
   1. JOINS 
      * [Basics of Joins](joins/overview.md) 
      * [Working with LEFT JOIN](/joins/left-join.md)
