@@ -201,5 +201,6 @@
 
   1. Documentation 
      * [Server System Variables](https://mariadb.com/kb/en/server-system-variables/)
+     * [mysql performance pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
 
   
