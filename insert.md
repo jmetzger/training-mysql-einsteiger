@@ -5,6 +5,16 @@
 INSERT INTO actor (first_name,last_name) values ('Joe','Manchos');
 ```
 
+# Nicht-optimales Beispiel
+
+```
+# Problem die Spaltenzahl und die Spaltennamen können sich ändern
+# dann geht das insert nicht mehr 
+INSERT INTO actor values ('Joe','Manchos');
+
+```
+
+
 # Erweitertes Insert
 ```
 # Mehrere Wertepaare einfügen - geht schneller als einzelne Inserts 
