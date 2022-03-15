@@ -9,10 +9,10 @@
 ## Walkthrough (Windows)
 
 ```
-# Schritt 1: Backup 
-# mariadb console starten  
-# Programmpunkt unter mariadb 10.6 
-# Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+REM -- Schritt 1: Backup 
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
 mariabackup --backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
 ```
 
