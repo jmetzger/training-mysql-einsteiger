@@ -5,13 +5,18 @@
   * How much data fits into memory 
   * Free buffers = pages of 16 Kbytes 
   * Free buffer * 16Kbytes = free innodb buffer pool in KByte  
+
+## Find free buffer pool pages (linux style)
+
 ```
+# grep befehl geht nur unter linux 
 pager grep -i 'free buffers'
 show engine innodb status \G
 Free buffers       7905
 1 row in set (0.00 sec)
 ```
 
+## Find free buffer pool pages (Windows and Linux) 
 ```
 # OR: 
 MariaDB [(none)]> show status like '%free%';
@@ -25,6 +30,16 @@ MariaDB [(none)]> show status like '%free%';
 | Qcache_free_memory            | 1031304 |
 +-------------------------------+---------+
 5 rows in set (0.002 sec)
+```
+
+## Change innodb_buffer_pool_size 
+
+```
+# Windows change in my.ini 
+# Linux my.cnf 50-server.cnf etc.
+innodb_buffer_pool_size=3200M
+
+# Server neu starten 
 ```
 
 ## Overview innodb server variables / settings 
