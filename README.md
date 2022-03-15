@@ -120,6 +120,7 @@
 
   1. Backup und Restore
      * [Backup und Restore](/backup-restore.md)
+     * [MariaBackup (Windows)](backups-restore/mariabackup-windows.md)
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
