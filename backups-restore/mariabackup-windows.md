@@ -6,7 +6,7 @@
   * Ist also in der Grundinstallation beinhalten
 
 
-## Walkthrough (Windows)
+## Walkthrough (Windows) - Sicherung 
 
 ```
 REM -- Schritt 1: Backup 
@@ -16,6 +16,37 @@ REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner
 mariabackup --backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
 ```
 
+```
+REM -- Schritt 2: Prepare 
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --prepare --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
+```
+
+## Walkthrough (Windows) - Restore (Zurückspielen) 
+
+```
+REM -- Schritt 1: Server stoppen  
+REM - Über Dienste -> MariaDB -> Rechte Maustaste -> Beenden 
+
+REM -- Schritt 2: data - Verzeichnis umbenennen 
+REM - Im Explorer -> z.B. data-backup 
+
+
+REM -- Schritt 2: Restore  
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --copy-backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
+
+REM -- Schritt3: Rechte vom neuen Verzeichnis (erstellt durch Schritt 2) anpassen 
+
+
+REM -- Schritt 4: Server starten 
+
+
+```
 
 ## Ref (nur für Linux)
 
