@@ -6,6 +6,13 @@
   * Free buffers = pages of 16 Kbytes 
   * Free buffer * 16Kbytes = free innodb buffer pool in KByte  
 
+## Find out size of innodb_buffer_pool_size 
+
+```
+# in bytes but free pages in pages (=16KBytes per page) 
+SHOW VARIABLES LIKE 'innodb_buffer_pool_size';
+```
+
 ## Find free buffer pool pages (linux style)
 
 ```
