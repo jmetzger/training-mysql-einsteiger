@@ -6,61 +6,17 @@
   * Ist also in der Grundinstallation beinhalten
 
 
-## Walkthrough (Ubuntu/Debian)
+## Walkthrough (Windows)
 
 ```
-# user eintrag in /root/.my.cnf
-[mariabackup]
-user=root 
-# pass is not needed here, because we have the user root with unix_socket - auth 
-
-mkdir /backups 
-# target-dir needs to be empty or not present 
-mariabackup --target-dir=/backups/20210120 --backup 
-# apply ib_logfile0 to tablespaces 
-# after that ib_logfile0 ->  0 bytes 
-mariabackup --target-dir=/backups/20210120 --prepare 
-
-## Recover 
-systemctl stop mariadb 
-mv /var/lib/mysql /var/lib/mysql.bkup 
-mariabackup --target-dir=/backups/20200120 --copy-back 
-chmod -R mysql:mysql /var/lib/mysql
-chmod 755 /var/lib/mysql # otherwice socket for unprivileged user does not work
-systemctl start mariadb 
-```
-
-## Walkthrough (Redhat/Centos)
-
-```
-# user eintrag in /root/.my.cnf
-[mariabackup]
-user=root 
-# pass is not needed here, because we have the user root with unix_socket - auth 
-# or generic 
-# /etc/my.cnf.d/mariabackup.cnf
-[mariabackup]
-user=root
-
-mkdir /backups 
-# target-dir needs to be empty or not present 
-mariabackup --target-dir=/backups/20210120 --backup 
-# apply ib_logfile0 to tablespaces 
-# after that ib_logfile0 ->  0 bytes 
-mariabackup --target-dir=/backups/20210120 --prepare 
-
-## Recover 
-systemctl stop mariadb 
-mv /var/lib/mysql /var/lib/mysql.bkup 
-mariabackup --target-dir=/backups/20200120 --copy-back 
-chmod -R mysql:mysql /var/lib/mysql
-chmod 755 /var/lib/mysql # otherwice socket for unprivileged user does not work
-## important for selinux 
-restorecon -vr /var/lib/mysql 
-systemctl start mariadb 
+# Schritt 1: Backup 
+# mariadb console starten  
+# Programmpunkt unter mariadb 10.6 
+# Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
 ```
 
 
+## Ref (nur für Linux)
 
-## Ref. 
-https://mariadb.com/kb/en/full-backup-and-restore-with-mariabackup/
+  * https://mariadb.com/kb/en/full-backup-and-restore-with-mariabackup/
