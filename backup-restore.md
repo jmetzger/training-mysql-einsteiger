@@ -46,3 +46,15 @@ mysqldump --no-data --all-databases --events --routines > all-structure.sql
 ```
 mysqldump --no-create-info sakila actor > sakila-actor-data.sql
 ```
+
+
+## Datenbank sichern und in andere Datenbank (sakila2) zurückspielen (restore) 
+
+```
+mysqldump -uroot -p --events --routines sakila > sakila.sql 
+
+# Schritt 1: Datenbank erstellen 
+# -e -> execute 
+mysql -uroot -p -e "CREATE SCHEMA sakila2;" 
+mysql -uroot -p sakila2 < sakila.sql 
+```
