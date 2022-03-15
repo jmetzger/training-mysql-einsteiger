@@ -22,3 +22,14 @@ SET GLOBAL lonq_query_time = 0.000001
 SET lonq_query_time = 0.000001
 
 ```
+
+## Wo ist das slow query log zu finden ? 
+
+```
+Datenverzeichnis von MariaDB 
+{HOSTNAME}-slow.log 
+z.B. 
+ITSLAB101-slow.log 
+# Datei lässt sich mit Editor öffnen 
+
+```
