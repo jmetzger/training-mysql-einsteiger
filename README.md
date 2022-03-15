@@ -137,7 +137,8 @@
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
 
-  1. References/Documentation 
+  1. References/Documentation
+     * [Server System Variables](https://mariadb.com/kb/en/server-system-variables/) 
      * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [MariaDB - Installation Linux mit Repos](https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6)
@@ -202,13 +203,10 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
-  1. Extra (Optional)  
-     
   1. Übungen 
      * [Übung Update/Insert](uebung-insert-update.md)
 
-  1. Documentation 
-     * [Server System Variables](https://mariadb.com/kb/en/server-system-variables/)
-     * [mysql performance pdf](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
+
+
 
   
