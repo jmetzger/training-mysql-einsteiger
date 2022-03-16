@@ -93,8 +93,12 @@
      * [Möglichst keine Funktion in where (spalte) verwenden](mysq1-no-function-in-where.md)
      * [SQL-Rewrite Pager- Subselect](mysql-rewrite-subselect.md) 
 
-  1. Analyzing Slow Queries / Indexes
+  1. Slow Queries (Logging) 
      * [Log slow queries](/performance/slow-query-log.md)
+    
+
+  1. Analyzing Slow Queries / Indexes
+     * [Prinzipien/Grundlagen von Indizies by MariaDB](/indexes/general.md)
      * [Create unique index](unique-index.md)
      * [Find indexes](indexes/findout-indexes.md)
      * [Create Index/Delete/Drop Index](create-index.md)
