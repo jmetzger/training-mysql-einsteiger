@@ -1,6 +1,6 @@
 # Profiling 
 
-## Example 
+## Example 1
 
 ```
 MariaDB [(none)]> SET profiling = 1;
@@ -434,4 +434,16 @@ MariaDB [sakila]>
 
 
 
+```
+
+## Example 2:
+
+```
+set profiling = 1;
+-- please do it twice 
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.description LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.title LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.description LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.title LIKE 'A%';
+show profiles;
 ```
