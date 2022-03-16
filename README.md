@@ -31,15 +31,13 @@
   1. CONSTRAINTS
      * [Foreign Key Constraints - Example](foreign-key-constraints-with-example.md)
      * [Check constraint with example](check-constraints-with-example.md) 
+     * [Constrains with Example Walkthrough](constraints-with-example.md) 
 
   1. UPDATE 
      * [Sophisticated Update](update-extended.md)
 
   1. DELETE 
      * [Delete mit Transaktion](delete-transaktion.md)
-
-  1. CONSTRAINTS
-     * [Constrains with Example Walkthrough](constraints-with-example.md) 
 
   1. INDEX HINTS
      * [Force use of an Index](force-use-index.md) 
