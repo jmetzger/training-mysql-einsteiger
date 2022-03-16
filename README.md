@@ -115,6 +115,7 @@
   1. Tools 
      * [Percona Toolkit](/tools/percona-toolkit.md) 
      * [pt-query-digest - analyze slow logs](/tools/pt-query-digest.md)
+     * [pt-query-digest - Windows/MariaDB](tools/pt-query-digest-windows.md)
      * [pt-online-schema-change howto](/tools/pt-online-schema-change.md)
      * [Example sys-schema and Reference](/tools/sys.md)
      * [Profiling](/performance/profiling.md)
