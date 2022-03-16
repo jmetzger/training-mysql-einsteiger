@@ -17,9 +17,10 @@
 
 # Step 6: Analysieren der slow-query-log mit pt-query-digest.pl 
 # z.B. report.txt 
-# hie öffnet sich ein 2. Fenster mit der Frage, wo es ausgeführt -> Strawberry Perl 
+# hier öffnet sich ein 2. Fenster mit der Frage, wo es ausgeführt -> Strawberry Perl 
 pt-query-digest.pl <pfad-und-name-des-slow-query-logs> > <pfad-zur-neuen-datei>/report.txt 
-
+# z.B. 
+pt-query-digest.pl ITSLAB101-slow.log > C:\Users\Admin\Desktop\backup\report.txt
 ```
 
 ## Ref:
