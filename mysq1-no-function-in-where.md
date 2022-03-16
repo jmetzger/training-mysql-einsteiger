@@ -33,6 +33,10 @@ ALTER TABLE actor ADD COLUMN last_name_lower VARCHAR(45) AS (LOWER(last_name)) P
 -- Step 2: Create Index on last_name_lower 
 CREATE INDEX idx_actor_last_name_lower ON actor (last_name_lower);
 
+-- Step 3: use new field instead of function 
+explain extended SELECT last_name,first_name FROM actor WHERE last_name_lower LIKE 'c%';
+
+
 ```
 
 
