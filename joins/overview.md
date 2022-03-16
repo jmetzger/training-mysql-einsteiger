@@ -5,22 +5,22 @@
  * combines rows from two or more tables
  * based on a related column between them.
 
-## MySQL (Inner) Join 
+## MySQL/MariaDB (Inner) Join 
 
 ![Inner Join](/images/img_innerjoin.gif)
 
-## MySQL (Inner) Join (explained) 
+## MySQL/MariaDB (Inner) Join (explained) 
 
   * Inner Join and Join are the same
   * Returns records that have matching values in both tables
   * Inner Join, Cross Join and Join 
     * are the same in MySQL
  
-## MySQL Left Join 
+## MySQL/MariaDB Left Join 
 
 ![Image Left Join](/images/img_leftjoin.gif)
 
-## MySQL Left (outer) Join (explained) 
+## MySQL/MariaDB Left (outer) Join (explained) 
 
   * Return all records from the left table
   * _AND_ the matched records from the right table
