@@ -29,6 +29,10 @@ select * from actor WHERE last_name like UPPER('b%')
 -- Step 1: Create a virtual column 
 ALTER TABLE actor ADD COLUMN last_name_upper VARCHAR(45) AS (UPPER(last_name)) PERSISTENT;
 ALTER TABLE actor ADD COLUMN last_name_lower VARCHAR(45) AS (LOWER(last_name)) PERSISTENT;
+
+-- Step 2: Create Index on last_name_lower 
+CREATE INDEX idx_actor_last_name_lower ON actor (last_name_lower);
+
 ```
 
 
