@@ -102,7 +102,7 @@
      * [Create unique index](unique-index.md)
      * [Find indexes](indexes/findout-indexes.md)
      * [Create Index/Delete/Drop Index](create-index.md)
-     * [Indizes](indexes.md)
+     * [Indizes (Table Scan / Cover Index)](indexes.md)
      * [Explain](explain.md) 
      * [profiling-get-time-for-execution-of.query](/indexes/profiling.md)
      * [Kein function in where verwenden](/performance/no-function-in-where.md)
