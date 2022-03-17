@@ -128,6 +128,10 @@
      * [Backup und Restore](/backup-restore.md)
      * [MariaBackup (Windows)](backups-restore/mariabackup-windows.md)
 
+  1. User und Berechtigungen 
+     * [Nutzer erstellen/Berechtigungen setzen/entfernen](rights/grant-revoke.md)
+
+
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
      * [Wie kann ich verwendete Storage Engine rausfinden - Table](show-create-table.md) 
