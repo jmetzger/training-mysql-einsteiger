@@ -1,6 +1,6 @@
 # Grant / Revoke 
 
-# Creating user first 
+## Creating user first 
 
   * The user needs to be created, otherwice it is not working 
   
@@ -10,7 +10,25 @@ CREATE USER training@localhost identfied by '123xy6aT';
 
 ```
 
-# Rights on the different levels 
+## Login as user training on commandline 
+
+```
+mysql -utraining -p 
+
+```
+
+## Wie sind unsere Berechtigungen 
+
+```
+# Welcher Benutzer bin ich ?
+select user();
+
+# Welche Rechte habe ich 
+show grants;
+
+```
+
+## Rights on the different levels 
 
 ```
 GLOBAL: for all databases -> mysql.user 
