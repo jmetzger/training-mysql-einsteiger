@@ -14,3 +14,9 @@ select * from actor_vorname;
 use sakila;
 UPDATE actor_vorname SET vorname='BRANGELINA' WHERE vorname = 'ANGELINA';
 ```
+
+## Kann algorithm MERGE verwendet werden ? 
+
+```
+CREATE ALGORITHM=MERGE VIEW actor_b AS SELECT * FROM actor WHERE last_name LIKE 'B%';
+```
