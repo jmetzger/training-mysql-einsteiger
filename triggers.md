@@ -56,7 +56,7 @@ create trigger before_country_stats_update
 
 ```
 
-# Create trigger (the same) but with BEGIN/END - Block 
+## Create trigger (the same) but with BEGIN/END - Block 
 
 ```
 create trigger before_country_stats_update 
