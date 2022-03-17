@@ -48,7 +48,7 @@ main: BEGIN
    THEN 
       SELECT 'Das Startdaum liegt nach dem Enddatum';
       LEAVE main; 
-	END IF;  
+   END IF;  
 	
 	SELECT 'das passt';
 
