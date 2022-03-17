@@ -32,7 +32,7 @@ CREATE TABLE messages (
 ## One time event 
 
 ```
-USE schulung 
+USE schulung; 
 CREATE EVENT IF NOT EXISTS test_event_01
 ON SCHEDULE AT CURRENT_TIMESTAMP
 DO
