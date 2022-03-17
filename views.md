@@ -20,3 +20,16 @@ UPDATE actor_vorname SET vorname='BRANGELINA' WHERE vorname = 'ANGELINA';
 ```
 CREATE ALGORITHM=MERGE VIEW actor_b AS SELECT * FROM actor WHERE last_name LIKE 'B%';
 ```
+
+## Neue Felder, sind automatisch im View: 
+
+```
+alter table actor add column city varchar(45) default 'Hildesheim';
+# city is not nicht im view
+select * from actor_b; 
+
+# erst wenn ich das create oder alter statement ausführen 
+alter view actor_b as select * from actor where last_name like 'B%';
+select * from actor_b; 
+
+```
