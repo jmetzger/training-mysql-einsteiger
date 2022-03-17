@@ -40,15 +40,11 @@ DO
   VALUES('Test MariaDB Event 1',NOW());
   
 SELECT * FROM messages;  
-  
 ```
 
 ## Show all events from a specific database 
 
 ```
-
-
-
 SHOW EVENTS FROM schulung;
 ```
 
@@ -57,7 +53,6 @@ SHOW EVENTS FROM schulung;
 ```
 USE schulung;
 SHOW EVENTS;
-
 ```
 
 ## One time event but preserved (so runs once every minute) 
@@ -71,11 +66,6 @@ ON COMPLETION PRESERVE
 DO
    INSERT INTO messages(message,created_at)
    VALUES('Test MariaDB Event 2',NOW());
-
-
-
-
-
 ```
 
 ## Same version, but with begin end block 
@@ -111,14 +101,12 @@ SELECT * FROM messages;
 
 // after 1 minute 
 SELECT * FROM messages;
-
-
 ```
 
 ## Drop an event 
 
 ```
-DROP EVENT IF EXIST test_event_03;
+DROP EVENT IF EXISTS test_event_03;
 ```
 
 
@@ -130,11 +118,6 @@ event-scheduler
 
 # after that restawrt 
 systemctl restart mariadb 
-
-
-
-
-
 ```
 
 ## Fix timezone problem Linux (when time is displayed wrong) 
