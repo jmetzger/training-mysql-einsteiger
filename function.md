@@ -3,9 +3,18 @@
 ## Example 1 
 
 ```
+use sakila;
 CREATE FUNCTION hello (s CHAR(20))
     RETURNS CHAR(50) DETERMINISTIC
     RETURN CONCAT('Hello, ',s,'!');
+
+select hello();
+# weniger performant 
+select first_name,last_name,hello(first_name) from actor where actor_id = 2;
+# mehr performant 
+select first_name,last_name,concat('Hello, ',first_name,'!') from actor where actor_id = 2;
+
+
 
 ```
 
