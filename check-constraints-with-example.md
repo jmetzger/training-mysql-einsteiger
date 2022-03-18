@@ -30,7 +30,7 @@ create table classes(
 insert into classes(class_name, student_count)
 values('MariaDB for Developers',0);
 
-SQL Error (4025): CONSTRAINT `positive_student_count` failed for `nation`.`classes`
+-- SQL Error (4025): CONSTRAINT `positive_student_count` failed for `nation`.`classes`
 
 insert into classes(class_name, student_count)
 values('MariaDB for Developers',100);
