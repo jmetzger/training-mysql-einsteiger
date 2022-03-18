@@ -40,7 +40,7 @@ EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 
 ## Partition als ganzes löschen 
 
-  * Vorteil: Schneller als ein Delete 
+  * Vorteil: Schneller als ein Delete (delete from audit_log2 where yr <= 2009; (langsamer)  
 
 ```
 ALTER TABLE audit_log2 DROP PARTITION p2009;
@@ -64,6 +64,8 @@ Daten ohne Struktur einspielen
 ## Partitionierung (komplett) entfernen 
 
 ```
+# Partitionierung entfernen, aber Daten sind noch da 
+# Nur nicht mehr in einzelne Zellen partitioniert 
 ALTER TABLE audit_log  REMOVE PARTITIONING;
 
 ```
