@@ -37,6 +37,16 @@ ALTER TABLE audit_log2 REORGANIZE PARTITION p_current INTO (
 EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 
 ```
+
+## Partition als ganzes löschen 
+
+  * Vorteil: Schneller als ein Delete 
+
+```
+ALTER TABLE audit_log2 DROP PARTITION p2009;
+
+```
+
 ## Eine bestehende große Tabelle partitionieren (mariadb) 
 
 ```
@@ -51,14 +61,13 @@ Tabelle löschen
 Daten ohne Struktur einspielen 
 ```
 
-## Partitionierung entfernen 
+## Partitionierung (komplett) entfernen 
 
 ```
 ALTER TABLE audit_log  REMOVE PARTITIONING;
 
 ```
 
-## 
 
 
 
