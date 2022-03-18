@@ -33,5 +33,7 @@ CALL CalcValue(200);
 ```
 
 ## Reference 
-
+   
+  * https://mariadb.com/kb/en/loop/
+  * https://www.mysqltutorial.org/stored-procedures-loop.aspx
 
