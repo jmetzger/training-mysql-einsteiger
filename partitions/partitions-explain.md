@@ -76,4 +76,3 @@ ALTER TABLE audit_log  REMOVE PARTITIONING;
 ## Ref:
 
   * https://mariadb.com/kb/en/partition-maintenance/
-  * 
