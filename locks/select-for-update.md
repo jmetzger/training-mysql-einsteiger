@@ -22,7 +22,7 @@ BEGIN;
 select room_id from rooms where room_id = 1 for update;
 
 # Session 2: 
-BEGIN 
+BEGIN; 
 use training;
 delete from rooms where room_id = 2;
 delete from rooms where room_id = 1;
