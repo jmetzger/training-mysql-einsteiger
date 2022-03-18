@@ -3,8 +3,9 @@
 ## Example with database insert 
 
 ```
-use sakil;
-ALTER TABLE actor 
+use sakila;
+ALTER TABLE actor ADD COLUMN (startdate DATE, enddate DATE, star_type CHAR(3));
+
 
 DELIMITER /
 CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, 
