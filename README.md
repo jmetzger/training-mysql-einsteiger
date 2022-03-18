@@ -77,6 +77,7 @@
      * [SELECT FOR UPDATE](/locks/select-for-update.md)
 
   1. sys (Database included since MariaDB 10.6 AFAIK) 
+     * [Sys-Schema instalieren mariadb <= 10.6](/sys/sys-schema-installieren.md)
      * [show innodb locks with sys](/sys/sys-innodb-locks.md)
 
   1. Formatierung Ausgaben / Funktionen 
