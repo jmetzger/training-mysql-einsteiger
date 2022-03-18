@@ -5,11 +5,19 @@
   1. Technical Background 
      * [Technical Structure](#technical-structure)
      * [Process of Queries](#process-of-queries)
+     * [InnoDB Struktur](#innodb-struktur)
 
   1. Beispieldaten / Testserver
      * [Sakila](#sakila)
      * [Spendenliste](#spendenliste)
      * [Server Vagrant](#server-vagrant)
+
+  1. Client-Tools 
+     * [mysql - client](#mysql---client)
+
+  1. Datentypen 
+     * [Übersicht Datentypen](https://mariadb.com/kb/en/data-types/)
+     * [Integer Datentypen](#integer-datentypen)
 
   1. JOINS 
      * [Basics of Joins](#basics-of-joins)
@@ -29,9 +37,6 @@
 
   1. DELETE 
      * [Delete mit Transaktion](#delete-mit-transaktion)
-
-  1. CONSTRAINTS
-     * [Constrains with Example Walkthrough](#constrains-with-example-walkthrough)
 
   1. INDEX HINTS
      * [Force use of an Index](#force-use-of-an-index)
@@ -57,7 +62,6 @@
      * [Cursor with Params](#cursor-with-params)
      * [Loop](#loop)
      * [Case](#case)
-     * [Cursor](#cursor)
      * [Continue Handler Example](#continue-handler-example)
      * [Exit Handler Example](#exit-handler-example)
      * [Custom Error message](#custom-error-message)
@@ -71,6 +75,7 @@
      * [SELECT FOR UPDATE](#select-for-update)
 
   1. sys (Database included since MariaDB 10.6 AFAIK) 
+     * [Sys-Schema instalieren mariadb <= 10.6](#sys-schema-instalieren-mariadb-<=-10.6)
      * [show innodb locks with sys](#show-innodb-locks-with-sys)
 
   1. Formatierung Ausgaben / Funktionen 
@@ -78,18 +83,26 @@
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
   1. Partitions
+     * [Partitions - Why and Howto?](#partitions---why-and-howto)
      * [Maintain Partitions and Explain](#maintain-partitions-and-explain)
-
+ 
   1. Performance 
+     * [Performance - Konfiguration von InnoDB Buffer Pool Size](#performance---konfiguration-von-innodb-buffer-pool-size)
+     * [Performance - Unterschied where between und <= and >=](#performance---unterschied-where-between-und-<=-and->=)
      * [* vs. specific field in field list - select](#-vs.-specific-field-in-field-list---select)
      * [Möglichst keine Funktion in where (spalte) verwenden](#möglichst-keine-funktion-in-where-spalte-verwenden)
      * [SQL-Rewrite Pager- Subselect](#sql-rewrite-pager--subselect)
 
+  1. Slow Queries (Logging) 
+     * [Log slow queries](#log-slow-queries)
+     * [Log slow queries that do not use indexes](#log-slow-queries-that-do-not-use-indexes)
+    
   1. Analyzing Slow Queries / Indexes
+     * [Prinzipien/Grundlagen von Indizies by MariaDB](#prinzipiengrundlagen-von-indizies-by-mariadb)
      * [Create unique index](#create-unique-index)
      * [Find indexes](#find-indexes)
      * [Create Index/Delete/Drop Index](#create-indexdeletedrop-index)
-     * [Indizes](#indizes)
+     * [Indizes (Table Scan / Cover Index)](#indizes-table-scan--cover-index)
      * [Explain](#explain)
      * [profiling-get-time-for-execution-of.query](#profiling-get-time-for-execution-of.query)
      * [Kein function in where verwenden](#kein-function-in-where-verwenden)
@@ -106,12 +119,17 @@
   1. Tools 
      * [Percona Toolkit](#percona-toolkit)
      * [pt-query-digest - analyze slow logs](#pt-query-digest---analyze-slow-logs)
+     * [pt-query-digest - Windows/MariaDB](#pt-query-digest---windowsmariadb)
      * [pt-online-schema-change howto](#pt-online-schema-change-howto)
      * [Example sys-schema and Reference](#example-sys-schema-and-reference)
      * [Profiling](#profiling)
 
   1. Backup und Restore
      * [Backup und Restore](#backup-und-restore)
+     * [MariaBackup (Windows)](#mariabackup-windows)
+
+  1. User und Berechtigungen 
+     * [Nutzer erstellen/Berechtigungen setzen/entfernen](#nutzer-erstellenberechtigungen-setzenentfernen)
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
@@ -126,7 +144,8 @@
   1. Storage Engines 
      * [MyISAM Key Buffer](http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200)
 
-  1. References/Documentation 
+  1. References/Documentation
+     * [Server System Variables](https://mariadb.com/kb/en/server-system-variables/)
      * [MySQL/MariaDB Performance Document](https://schulung.t3isp.de/documents/pdfs/mysql/mysql-performance.pdf)
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [MariaDB - Installation Linux mit Repos](https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6)
@@ -191,10 +210,11 @@
      * [Many Sakila Example Queries](https://github.com/ashok-bidani/MySQL-Sakila-queries-and-joins)
      * [Helpful Examples](https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm)
      
-  1. Extra (Optional)  
-     
   1. Übungen 
      * [Übung Update/Insert](#übung-updateinsert)
+
+
+
 
   
 
@@ -207,14 +227,15 @@
 
 ![Overview](/images/mysql-architecture.jpg)
 
-<div class="page-break"></div>
-
 ### Process of Queries
 
 
 ![MariaDB Server Architektur](/mysql-server-architecture.png)
 
-<div class="page-break"></div>
+### InnoDB Struktur
+
+
+![InnoDB Structure](/images/InnoDB-Structure.jpg)
 
 ## Beispieldaten / Testserver
 
@@ -232,8 +253,6 @@ mysql < sakila-data.sql
 
 ```
 
-<div class="page-break"></div>
-
 ### Spendenliste
 
 
@@ -243,7 +262,7 @@ mysql < sakila-data.sql
 
 ```bash 
 cd /usr/src; 
-apt update; apt install git; 
+apt update; apt install -y git; 
 git clone https://github.com/jmetzger/dedupe-examples.git;
 cd dedupe-examples; 
 cd mysql_example; 
@@ -270,8 +289,6 @@ echo "set local_infile=1" | mysql
 ## password=<your_root_pw> 
 ./setup.sh 
 ```
-
-<div class="page-break"></div>
 
 ### Server Vagrant
 
@@ -322,7 +339,82 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-<div class="page-break"></div>
+## Client-Tools 
+
+### mysql - client
+
+
+### Aufrufen unter Windows 
+
+  * Programme -> Mariadb -> Mariadb Client 
+  * Passwrot eingeben 
+
+### Hilfe 
+
+```
+help
+```
+
+### Wichtige Datenbank - Objekte anzeigen
+
+```
+show databases;
+```
+
+### Basics 
+
+```
+mysql
+mysql>
+
+## Wie kommen wie raus ? 
+exit; 
+
+```
+
+### Delimiter 
+```
+Normalerweise ";" 
+
+Ist zum Trennen von Befehlen 
+```
+
+### Use user and password automatically 
+
+```
+nano /root/.my.cnf 
+## BE CAREFUL EVERYBODY CAN LOGIN AS ROOT TO MYSQL NOW 
+## in there
+[mysql]
+user=root
+password=root-password-on-your-system 
+```
+
+## Datentypen 
+
+### Übersicht Datentypen
+
+  * https://mariadb.com/kb/en/data-types/
+
+### Integer Datentypen
+
+
+```
+TINYINT 
+  unsigned: 0-255 
+  signed: -127 bis +128 
+  
+SMALLINT 
+A small integer. The signed range is -32768 to 32767. The unsigned range is 0 to 65535.  
+  
+MEDIUMINT 
+A medium-sized integer. The signed range is -8388608 to 8388607. The unsigned range is 0 to 16777215.
+
+INT 
+
+BIGINT 
+
+```
 
 ## JOINS 
 
@@ -334,22 +426,22 @@ end
  * combines rows from two or more tables
  * based on a related column between them.
 
-### MySQL (Inner) Join 
+### MySQL/MariaDB (Inner) Join 
 
 ![Inner Join](/images/img_innerjoin.gif)
 
-### MySQL (Inner) Join (explained) 
+### MySQL/MariaDB (Inner) Join (explained) 
 
   * Inner Join and Join are the same
   * Returns records that have matching values in both tables
   * Inner Join, Cross Join and Join 
     * are the same in MySQL
  
-### MySQL Left Join 
+### MySQL/MariaDB Left Join 
 
 ![Image Left Join](/images/img_leftjoin.gif)
 
-### MySQL Left (outer) Join (explained) 
+### MySQL/MariaDB Left (outer) Join (explained) 
 
   * Return all records from the left table
   * _AND_ the matched records from the right table
@@ -510,8 +602,6 @@ the rows may be sent to the network.
 
   * https://www.burnison.ca/notes/fun-mysql-fact-of-the-day-block-nested-loop-joins
 
-<div class="page-break"></div>
-
 ### Working with LEFT JOIN
 
 
@@ -547,8 +637,6 @@ ON c.last_name = a.last_name
 ORDER BY c.last_name;
 ```
 
-<div class="page-break"></div>
-
 ### Join examples
 
 
@@ -561,8 +649,6 @@ SELECT f.language_id FROM film f JOIN language l ON f.language_id = l.language_i
 SELECT f.*,l.name FROM film f JOIN language l ON f.language_id = l.language_id; 
 SELECT f.film_id,f.title,l.name,f.description FROM film f JOIN language l ON f.language_id = l.language_id;
 ```
-
-<div class="page-break"></div>
 
 ## GROUP BY
 
@@ -587,9 +673,17 @@ SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name HAVING la
 
 ```
 
-<div class="page-break"></div>
-
 ### Join and group - example
+
+
+```
+## fake 100 itilian movies 
+UPDATE film SET language_id = 2 WHERE film_id > 900;
+## Group by to show number of itilian and english movies
+## Interesting for reporting 
+SELECT l.name,count(l.name) FROM film f JOIN language l ON f.language_id = l.language_id GROUP BY l.name;
+
+```
 
 ## CONSTRAINTS
 
@@ -656,7 +750,7 @@ where type_id = 1;
 
 
 SQL Error (1451): Cannot delete or update a parent row: a foreign key constraint fails (`nation`.`gadgets`, CONSTRAINT `fk_type` FOREIGN KEY (`type_id`) REFERENCES `gadget_types` (`type_id`)) 
---> To delete a row from the gadget_types table, you need to remove all the referencing rows from the gadgets table first.
+-- --> To delete a row from the gadget_types table, you need to remove all the referencing rows from the gadgets table first.
 ```
 
 ### Step 4 - Drop Contrains and set NULL Reference 
@@ -676,7 +770,7 @@ delete from gadget_types
 where type_id = 1;
 
 select * from gadgets;
---> As shown clearly from the output, the values in the type_id column of rows with type_id 1 from the gadgets table were set to null because of the on delete set null option.
+-- --> As shown clearly from the output, the values in the type_id column of rows with type_id 1 from the gadgets table were set to null because of the on -- delete set null option.
 ```
 
 ### Step 5 - change id in gadget_types 
@@ -714,7 +808,7 @@ foreign key(type_id)
 
 delete from gadget_types
 where type_id = 3;
---> MariaDB automatically deleted rows from the gadgets table whose type_id is 3 because of the on delete cascade action.
+-- > MariaDB automatically deleted rows from the gadgets table whose type_id is 3 because of the on delete cascade action.
 
 select * from gadgets;
 ```
@@ -737,8 +831,6 @@ select * from gadgets;
 ### Ref:
 
   * https://www.mariadbtutorial.com/mariadb-basics/mariadb-foreign-key/
-
-<div class="page-break"></div>
 
 ### Check constraint with example
 
@@ -773,7 +865,7 @@ create table classes(
 insert into classes(class_name, student_count)
 values('MariaDB for Developers',0);
 
-SQL Error (4025): CONSTRAINT `positive_student_count` failed for `nation`.`classes`
+-- SQL Error (4025): CONSTRAINT `positive_student_count` failed for `nation`.`classes`
 
 insert into classes(class_name, student_count)
 values('MariaDB for Developers',100);
@@ -808,8 +900,6 @@ CONSTRAINT valid_date CHECK (end_date > begin_date))
 
   * https://www.mariadbtutorial.com/mariadb-basics/mariadb-check-constraint/
 
-<div class="page-break"></div>
-
 ## UPDATE 
 
 ### Sophisticated Update
@@ -827,12 +917,17 @@ für die Schauspieler "actor", deren Nachname mit D anfängt
 ```
 SELECT DISTINCT fc.film_id FROM filmcopy fc JOIN film_actor fa ON fc.film_id = fa.film_id JOIN actor a ON fa.actor_id = a.actor_id where a.last_name like 'D%';
 
-UPDATE filmcopy fc JOIN film_actor fa ON fc.film_id = fa.film_id JOIN actor a ON fa.actor_id = a.actor_id SET rental_rate = rental_rate + 1
+-- Version 1 
+UPDATE filmcopy fc JOIN film_actor fa ON fc.film_id = fa.film_id JOIN actor a ON fa.actor_id = a.actor_id SET rental_rate = rental_rate + 1 WHERE a.last_name LIKE 'D%'
+
+-- Version 2
+UPDATE actor a  JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN filmcopy f on fa.film_id = f.film_id  SET f.rental_rate = f.rental_rate + 1 WHERE a.last_name LIKE 'D%'
+
+
 Query OK, 432 rows affected (0.02 sec)
 Rows matched: 432  Changed: 432  Warnings: 0
 ```
 
-<div class="page-break"></div>
 
 ## DELETE 
 
@@ -855,12 +950,6 @@ ROLLBOCK;
 
 ```
 
-<div class="page-break"></div>
-
-## CONSTRAINTS
-
-### Constrains with Example Walkthrough
-
 ## INDEX HINTS
 
 ### Force use of an Index
@@ -878,8 +967,6 @@ WHERE name>="A" and CountryCode >="A";
 
 ```
 
-<div class="page-break"></div>
-
 ### Do not use an index if indexes are present
 
 
@@ -888,8 +975,6 @@ SELECT * FROM actor USE INDEX() WHERE last_name LIKE 'D%';
 -- Identify if really no index is used 
 EXPLAIN SELECT * FROM actor USE INDEX() WHERE last_name LIKE 'D%';
 ```
-
-<div class="page-break"></div>
 
 ## PREPARED STATEMENTS 
 
@@ -964,8 +1049,6 @@ SELECT FOUND_ROWS();
 
 ```
 
-<div class="page-break"></div>
-
 ### Prepared Statements and transactions
 
 
@@ -998,8 +1081,6 @@ SELECT * FROM test;
 ### References 
 
   * https://mariadb.com/kb/en/prepare-statement/
-
-<div class="page-break"></div>
 
 ## TRIGGERS 
 
@@ -1062,9 +1143,10 @@ create trigger before_country_stats_update
 
 ```
 
-## Create trigger (the same) but with BEGIN/END - Block 
+### Create trigger (the same) but with BEGIN/END - Block 
 
 ```
+delimiter //
 create trigger before_country_stats_update 
     before update on country_stats
     for each row
@@ -1083,7 +1165,7 @@ create trigger before_country_stats_update
         old.population,
         new.population
     );
-    END
+    END//
 
 ```
 
@@ -1107,8 +1189,6 @@ select * from population_logs;
 ### Ref:
 
   * https://mariadb.com/kb/en/trigger-overview/
-
-<div class="page-break"></div>
 
 ## EVENTS 
 
@@ -1147,7 +1227,7 @@ CREATE TABLE messages (
 ### One time event 
 
 ```
-USE schulung 
+USE schulung; 
 CREATE EVENT IF NOT EXISTS test_event_01
 ON SCHEDULE AT CURRENT_TIMESTAMP
 DO
@@ -1155,15 +1235,11 @@ DO
   VALUES('Test MariaDB Event 1',NOW());
   
 SELECT * FROM messages;  
-  
 ```
 
 ### Show all events from a specific database 
 
 ```
-
-
-
 SHOW EVENTS FROM schulung;
 ```
 
@@ -1172,13 +1248,12 @@ SHOW EVENTS FROM schulung;
 ```
 USE schulung;
 SHOW EVENTS;
-
 ```
 
 ### One time event but preserved (so runs once every minute) 
 
 ```
-To keep the event after it is expired, you use the  ON COMPLETION PRESERVE clause.
+-- To keep the event after it is expired, you use the  ON COMPLETION PRESERVE clause.
 
 CREATE EVENT test_event_02
 ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE
@@ -1186,11 +1261,6 @@ ON COMPLETION PRESERVE
 DO
    INSERT INTO messages(message,created_at)
    VALUES('Test MariaDB Event 2',NOW());
-
-
-
-
-
 ```
 
 ### Same version, but with begin end block 
@@ -1214,7 +1284,7 @@ SELECT * FROM messages;
 ### Recurring Example 
 
 ```
-CREATE EVENT test_event_03
+CREATE EVENT test_event_04
 ON SCHEDULE EVERY 1 MINUTE
 STARTS CURRENT_TIMESTAMP
 ENDS CURRENT_TIMESTAMP + INTERVAL 1 HOUR
@@ -1226,14 +1296,12 @@ SELECT * FROM messages;
 
 // after 1 minute 
 SELECT * FROM messages;
-
-
 ```
 
 ### Drop an event 
 
 ```
-DROP EVENT IF EXIST test_event_03;
+DROP EVENT IF EXISTS test_event_03;
 ```
 
 
@@ -1245,11 +1313,6 @@ event-scheduler
 
 ## after that restawrt 
 systemctl restart mariadb 
-
-
-
-
-
 ```
 
 ### Fix timezone problem Linux (when time is displayed wrong) 
@@ -1268,8 +1331,6 @@ mysql>--- time should ok now
 ```
 
 
-<div class="page-break"></div>
-
 ## FUNCTIONS
 
 ### Functions with example
@@ -1278,9 +1339,18 @@ mysql>--- time should ok now
 ### Example 1 
 
 ```
+use sakila;
 CREATE FUNCTION hello (s CHAR(20))
     RETURNS CHAR(50) DETERMINISTIC
     RETURN CONCAT('Hello, ',s,'!');
+
+select hello();
+## weniger performant 
+select first_name,last_name,hello(first_name) from actor where actor_id = 2;
+## mehr performant 
+select first_name,last_name,concat('Hello, ',first_name,'!') from actor where actor_id = 2;
+
+
 
 ```
 
@@ -1374,8 +1444,6 @@ END/
 
 
 
-<div class="page-break"></div>
-
 ## STORED PROCEDURES 
 
 ### Create Procedure
@@ -1411,8 +1479,6 @@ SELECT @a;
 
   * https://mariadb.com/kb/en/create-procedure/
 
-
-<div class="page-break"></div>
 
 ### If
 
@@ -1465,7 +1531,7 @@ main: BEGIN
    THEN 
       SELECT 'Das Startdaum liegt nach dem Enddatum';
       LEAVE main; 
-	END IF;  
+   END IF;  
 	
 	SELECT 'das passt';
 
@@ -1477,8 +1543,6 @@ DELIMITER ;
 ### Reference 
 
 https://mariadb.com/kb/en/if/
-
-<div class="page-break"></div>
 
 ### Cursors
 
@@ -1615,8 +1679,6 @@ SELECT * FROM actorlog;
   * https://mariadb.com/kb/en/cursor-overview/
 
 
-<div class="page-break"></div>
-
 ### Cursor with Params
 
 
@@ -1655,8 +1717,6 @@ CALL getActorName(1);
 SELECT * FROM actorlog;
 ```
 
-<div class="page-break"></div>
-
 ### Loop
 
 
@@ -1693,10 +1753,10 @@ CALL CalcValue(200);
 ```
 
 ### Reference 
+   
+  * https://mariadb.com/kb/en/loop/
+  * https://www.mysqltutorial.org/stored-procedures-loop.aspx
 
-
-
-<div class="page-break"></div>
 
 ### Case
 
@@ -1704,12 +1764,16 @@ CALL CalcValue(200);
 ### Example with database insert 
 
 ```
+use sakila;
+ALTER TABLE actor ADD COLUMN (startdate DATE, enddate DATE, star_type CHAR(3));
+
+
 DELIMITER /
 CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, 
                                       IN enddate DATE, 
                                       IN first_name VARCHAR(45), 
-				  IN last_name VARCHAR(45),
-				  IN fame VARCHAR(9))
+				      IN last_name VARCHAR(45),
+				      IN fame VARCHAR(9))
 main: BEGIN
            
    DECLARE star_type CHAR(2);
@@ -1717,42 +1781,38 @@ main: BEGIN
    IF startdate > enddate 
    THEN    
       SELECT 'Das Startdaum liegt nach dem Enddatum';
-      LEAVE main; 
-	END IF; 
+      LEAVE main;
+   END IF; 
 	        
-	IF firstame = ''
-	THEN    
-	   SELEC'Bitte gebe einen First Name ein: ';
-	   LEAVEain;
-	END IF; 
+   IF first_name = ''
+   THEN    
+      SELECT 'Bitte gebe einen First Name ein: ';
+      LEAVE main;
+   END IF; 
 	        
-	IF last_me = ''
-	THEN    
-	   SELEC'Bitte gebe einen Last Name ein: ';
-	   LEAVEain;
-	END IF; 
+   IF last_name = ''
+   THEN    
+      SELECT 'Bitte gebe einen Last Name ein: ';
+      LEAVE main;
+   END IF; 
 	        
-	CASE fam
-    WHEN 'superstar' THEN 
-	   SET sr_type='ST';
-    WHEN 'megastar' THEN 
-	   SET sr_type='MS';
-	 WHEN 'sr' THEN
-	   SET sr_type='S';  
-	 ELSE   
-	   SELEC'Als Star ist nur superstart,megastart oder star erlaubt'; 
-	   LEAVEain;
+   CASE fame
+    
+     WHEN 'superstar' THEN 
+       SET star_type='ST';
+     WHEN 'megastar' THEN 
+       SET star_type='MS';
+     WHEN 'star' THEN
+       SET star_type='S';  
+     ELSE   
+       SELECT 'Als Star ist nur superstar,megastart oder star erlaubt'; 
+       LEAVE main;
    END CASE;
 	        
-	INSERT IO actor 
-	  (startte,
-	   endda,
-		firste,
-		last_,
-		star_)
-	VALUES (artdate,enddate,first_name,last_name,star_type);
+   INSERT INTO actor (startdate,enddate,first_name,last_name,star_type)
+   VALUES (startdate,enddate,first_name,last_name,star_type);
 	        
-	SELECT CCAT ('Schauspieler ',first_name,' ',last_name,' 
+   SELECT CONCAT ('Schauspieler ',first_name,' ',last_name,' ',fame);
            
 END/       
 DELIMITER ;
@@ -1768,152 +1828,13 @@ CALL addActor('2021-12-22','2021-12-31','Peter','Lausitz','megastar');
 
   * https://mariadb.com/kb/en/case-statement/
 
-<div class="page-break"></div>
-
-### Cursor
-
-
-### Example 1:
-
-```
-CREATE DATABASE IF NOT EXISTS training;
-USE training;
-
-
-CREATE TABLE c1(i INT);
-
-CREATE TABLE c2(i INT);
-
-CREATE TABLE c3(i INT);
-
-DELIMITER //
-
-CREATE PROCEDURE p1()
-BEGIN
-  DECLARE done INT DEFAULT FALSE;
-  DECLARE x, y INT;
-  DECLARE cur1 CURSOR FOR SELECT i FROM c1;
-  DECLARE cur2 CURSOR FOR SELECT i FROM c2;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-  OPEN cur1;
-  OPEN cur2;
-
-  read_loop: LOOP
-    FETCH cur1 INTO x;
-    FETCH cur2 INTO y;
-    IF done THEN
-      LEAVE read_loop;
-    END IF;
-    IF x < y THEN
-      INSERT INTO c3 VALUES (x);
-    ELSE
-      INSERT INTO c3 VALUES (y);
-    END IF;
-  END LOOP;
-
-  CLOSE cur1;
-  CLOSE cur2;
-END; //
-
-DELIMITER ;
-
-INSERT INTO c1 VALUES(5),(50),(500);
-INSERT INTO c2 VALUES(10),(20),(30);
-
-CALL p1;
-SELECT * FROM c3;
-
-```
-
-### Example 2 
-
-```
-CREATE OR REPLACE PROCEDURE getActorNames(p_ab CHAR(1))
-BEGIN
-  DECLARE d_full_name VARCHAR(90);
-  DECLARE done INT DEFAULT FALSE;
-  DECLARE cur1 CURSOR FOR SELECT CONCAT(last_name,',',first_name) FROM actor where last_name LIKE CONCAT(p_ab,'%');
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-
-  OPEN cur1;
-  read_loop: LOOP
-    FETCH cur1 INTO d_full_name; 
-
-    IF done THEN
-      LEAVE read_loop;
-    ELSE 
-        INSERT INTO actorlog (full_name) values (d_full_name);
-      END IF;
-  END LOOP;
-
-  CLOSE cur1;
-END; //
-
-DELIMITER ;
-
-CALL getActorNames('B');
-SELECT * FROM actorlog;
-```
-
-### Example 3 
-
-```
-USE sakila;
--- DROP TABLE IF EXISTS actor_stats;
-CREATE TABLE IF NOT EXISTS actor_stats(id INT auto_increment, last_name VARCHAR (90), howmany TINYINT, UNIQUE (last_name), primary key(id));
-
-CREATE OR REPLACE PROCEDURE writeActorStats()
-BEGIN
-  DECLARE d_last_name VARCHAR(45);
-  DECLARE done INT DEFAULT FALSE;
-  DECLARE c_actors CURSOR FOR SELECT last_name FROM actor;
-  DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-  DECLARE CONTINUE HANDLER FOR 1062  
-  BEGIN 
-    UPDATE actor_stats SET howmany = howmany + 1 WHERE last_name = d_last_name;
-  END;
-
-  TRUNCATE actor_stats;
-
-  OPEN c_actors;
-  read_loop: LOOP
-    FETCH c_actors INTO d_last_name; 
-    
-    IF done THEN
-      LEAVE read_loop;
-    ELSE 
-        INSERT INTO actor_stats (last_name,howmany) values (d_last_name,1);
-    END IF;
-  END LOOP;
-
-  CLOSE c_actors;
-END; //
-
-DELIMITER ;
-
-CALL writeActorStats();
-SELECT * FROM actor_stats;
-SELECT * FROM actorlog;
-```
-
-
-
-### Reference 
-
-  * https://mariadb.com/kb/en/cursor-overview/
-
-
-<div class="page-break"></div>
-
 ### Continue Handler Example
 
 
 ### Example 1 (Handler without begin end) 
 
 ```
--- In heidisql 
+-- In heidisql -> you will have multiple tabs as output 
 
 DELIMITER /
 CREATE OR REPLACE PROCEDURE handlertest()
@@ -1930,9 +1851,8 @@ END /
 ```
 
 
-```
--- Execute the CALL in an mysql - client to really see, what is going on 
--- In heidisql and other guis you will probably only see the output of the first select
+``` 
+-- in mariadb client 
 MariaDB [sakila]> CALL handlertest;
 +-------------------------+
 | Sorry mate, wrong table |
@@ -2018,8 +1938,6 @@ MariaDB [sakila]>
 
 
 
-
-<div class="page-break"></div>
 
 ### Exit Handler Example
 
@@ -2099,8 +2017,6 @@ Query OK, 0 rows affected (0.002 sec)
 ```
 
 
-<div class="page-break"></div>
-
 ### Custom Error message
 
 
@@ -2116,14 +2032,15 @@ BEGIN
 	 
     DECLARE EXIT HANDLER FOR SQLEXCEPTION
     BEGIN
-         GET DIAGNOSTICS CONDITION 1 @SQLSTATE = RETURNED_SQLSTATE, 
-	 @errno = MYSQL_ERRNO, @TEXT = MESSAGE_TEXT;  
-	 SET @full_error = CONCAT("ERROR ", @errno, " (", @SQLSTATE, "):", @TEXT);
+         -- set local vars within diagnostics 
+	 GET DIAGNOSTICS CONDITION 1 @sqlstate = RETURNED_SQLSTATE, 
+	 @errno = MYSQL_ERRNO, @mytext = MESSAGE_TEXT;  
+	 
+	 SET @full_error = CONCAT("ERROR ", @errno, " (", @sqlstate, "):", @mytext);
 	 SELECT @full_error;
     END;
    
-    SELECT actor_id INTO n_actor_id FROM NOT_actor_ctor WHERE actor_id = 1; 
-	 -- SET n_actor_id = 55;
+    SELECT actor_id INTO @n_actor_id FROM NOT_actor WHERE actor_id = 1; 
     
 	 
 	 
@@ -2164,8 +2081,6 @@ END; /
 DELIMITER ;
 ```
 
-<div class="page-break"></div>
-
 ## ERRORS
 
 ### Error Codes List
@@ -2175,6 +2090,44 @@ DELIMITER ;
 ## LOCKS
 
 ### Table wide locks
+
+
+```
+## Session 1
+use sakila;
+-- nobody else can read or write 
+LOCK TABLES actor WRITE; 
+```
+
+```
+## Session 2
+show open tables where in_use like 1;
++----------+------------+--------+-------------+
+| Database | Table      | In_use | Name_locked |
++----------+------------+--------+-------------+
+| sakila   | actor      |      1 |           0 |
+| sakila   | film_actor |      1 |           0 |
++----------+------------+--------+-------------+
+2 rows in set (0.002 sec)
+
+-- will hang till locks are unlocked 
+INSERT INTO actor (first_name,last_name) values ('Josy','McCosy');
+```
+```
+## Session 1
+mysql> UNLOCK TABLES 
+
+```
+
+```
+## Session 2
+-- INSERT is written now
+
+-- no output for show open tables if only these are locked 
+show open tables where in_use like 1;
+
+```
+
 
 ### InnoDB Implicit Locks
 
@@ -2239,8 +2192,6 @@ They'll wait for the redesign to be done before they approach (they get a lock w
 
 
 
-<div class="page-break"></div>
-
 ### SELECT FOR UPDATE
 
 
@@ -2258,7 +2209,6 @@ They'll wait for the redesign to be done before they approach (they get a lock w
 create database if not exists training;
 use training;
 create table rooms (room_id tinyint auto_increment, room varchar(20), primary key(room_id));
-create table bookings (booking_id int auto_increment, room_id tinyint, name varchar(20), primary key(booking_id)); 
 insert into rooms (room) values ('Honeymoon');
 insert into rooms (room) values ('Sunset');
 
@@ -2267,7 +2217,7 @@ BEGIN;
 select room_id from rooms where room_id = 1 for update;
 
 ## Session 2: 
-BEGIN 
+BEGIN; 
 use training;
 delete from rooms where room_id = 2;
 delete from rooms where room_id = 1;
@@ -2288,9 +2238,18 @@ COMMIT;
 
 ```
 
-<div class="page-break"></div>
-
 ## sys (Database included since MariaDB 10.6 AFAIK) 
+
+### Sys-Schema instalieren mariadb <= 10.6
+
+
+### ab 10.6 
+
+  * Hier ist das bereits im Server beinhaltet 
+
+### vor 10.6 
+
+  * https://github.com/FromDual/mariadb-sys
 
 ### show innodb locks with sys
 
@@ -2299,8 +2258,6 @@ COMMIT;
 SELECT waiting_trx_id, waiting_pid, waiting_query, blocking_trx_id, blocking_pid, blocking_query 
 FROM sys.innodb_lock_waits;
 ```
-
-<div class="page-break"></div>
 
 ## Formatierung Ausgaben / Funktionen 
 
@@ -2313,6 +2270,28 @@ FROM sys.innodb_lock_waits;
   * https://mariadb.com/kb/en/concat/
 
 ## Partitions
+
+### Partitions - Why and Howto?
+
+
+### Pre-Requisites 
+
+```
+## partition als engine muss aktiviert sein
+## ist eigentlich immer der fall 
+SHOW PLUGINS;
+...
+| Aria                          | ACTIVE   | STORAGE ENGINE     | NULL    | GPL     |
+| FEEDBACK                      | DISABLED | INFORMATION SCHEMA | NULL    | GPL     |
+| partition                     | ACTIVE   | STORAGE ENGINE     | NULL    | GPL     |
++-------------------------------+----------+--------------------+---------+---------+
+
+```
+
+
+### Refs:
+
+  * https://mariadb.com/kb/en/partitioning-overview/
 
 ### Maintain Partitions and Explain
 
@@ -2327,17 +2306,17 @@ DROP TABLE IF EXISTS audit_log;
 CREATE TABLE audit_log (
   yr    YEAR NOT NULL,
   msg   VARCHAR(100) NOT NULL)
-ENGINE=InnoDB
+ENGINE=InnoDB 
 PARTITION BY RANGE (yr) (
-  PARTITION p0 VALUES LESS THAN (2010),
-  PARTITION p1 VALUES LESS THAN (2011),
-  PARTITION p2 VALUES LESS THAN (2012),
-  PARTITION p3 VALUES LESS THAN MAXVALUE);
+  PARTITION pless2010 VALUES LESS THAN (2010),
+  PARTITION pless2011 VALUES LESS THAN (2011),
+  PARTITION pless2012 VALUES LESS THAN (2012),
+  PARTITION p2x VALUES LESS THAN MAXVALUE);
 INSERT INTO audit_log(yr,msg) VALUES (2005,'2005'),(2006,'2006'),(2011,'2011'),(2020,'2020');
 EXPLAIN PARTITIONS SELECT * from audit_log WHERE yr in (2011,2012)\G
 ```
 
-### Example with years 
+### Example with years (Reorganizing Partitions) 
 
 ```
 CREATE TABLE audit_log2 (   yr    YEAR NOT NULL,   msg   VARCHAR(100) NOT NULL) ENGINE=InnoDB PARTITION BY RANGE (yr) (   PARTITION p2009 VALUES LESS THAN (2010),   PARTITION p2010 VALUES LESS THAN (2011),   PARTITION p2011 VALUES LESS THAN (2012),   PARTITION p_current VALUES LESS THAN MAXVALUE);
@@ -2348,12 +2327,22 @@ EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 ALTER TABLE audit_log2 REORGANIZE PARTITION p_current INTO ( 
    PARTITION p2012 VALUES LESS THAN (2013),
    PARTITION p_current VALUES LESS THAN MAXVALUE);
-)
+);
 
 --  Where is data now saved 
 EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 
 ```
+
+### Eine Partition als ganzes löschen 
+
+  * Vorteil: Schneller als ein Delete (delete from audit_log2 where yr <= 2009; (langsamer)  
+
+```
+ALTER TABLE audit_log2 DROP PARTITION p2009;
+
+```
+
 ### Eine bestehende große Tabelle partitionieren (mariadb) 
 
 ```
@@ -2368,20 +2357,159 @@ Tabelle löschen
 Daten ohne Struktur einspielen 
 ```
 
-### Partitionierung entfernen 
+### Partitionierung (komplett) entfernen 
 
 ```
+## Partitionierung entfernen, aber Daten sind noch da 
+## Nur nicht mehr in einzelne Zellen partitioniert 
 ALTER TABLE audit_log  REMOVE PARTITIONING;
 
 ```
+
+
+
 
 ### Ref:
 
   * https://mariadb.com/kb/en/partition-maintenance/
 
-<div class="page-break"></div>
-
 ## Performance 
+
+### Performance - Konfiguration von InnoDB Buffer Pool Size
+
+
+### Innodb buffer pool
+
+  * How much data fits into memory 
+  * Free buffers = pages of 16 Kbytes 
+  * Free buffer * 16Kbytes = free innodb buffer pool in KByte  
+
+### Find out size of innodb_buffer_pool_size 
+
+```
+## in bytes but free pages in pages (=16KBytes per page) 
+SHOW VARIABLES LIKE 'innodb_buffer_pool_size';
+```
+
+### Find free buffer pool pages (linux style)
+
+```
+## grep befehl geht nur unter linux 
+pager grep -i 'free buffers'
+show engine innodb status \G
+Free buffers       7905
+1 row in set (0.00 sec)
+```
+
+### Find free buffer pool pages (Windows and Linux) 
+```
+## OR: 
+MariaDB [(none)]> show status like '%free%';
++-------------------------------+---------+
+| Variable_name                 | Value   |
++-------------------------------+---------+
+| Innodb_buffer_pool_pages_free | 48083   |
+| Innodb_buffer_pool_wait_free  | 0       |
+| Innodb_ibuf_free_list         | 0       |
+| Qcache_free_blocks            | 1       |
+| Qcache_free_memory            | 1031304 |
++-------------------------------+---------+
+5 rows in set (0.002 sec)
+```
+
+### Change innodb_buffer_pool_size 
+
+```
+## Windows change in my.ini 
+## Linux my.cnf 50-server.cnf etc.
+innodb_buffer_pool_size=3200M
+
+## Server neu starten 
+```
+
+### Overview innodb server variables / settings 
+
+  * https://dev.mysql.com/doc/refman/5.7/en/innodb-parameters.html
+
+### Change innodb_buffer_pool 
+
+```
+## /etc/mysql/mysql.conf.d/mysqld.cnf 
+## 70-80% of memory on dedicated mysql
+[mysqld]
+innodb-buffer-pool-size=6G
+
+##
+systemctl restart mysql
+
+## 
+mysql
+mysql>show variables like 'innodb%buffer%';
+```
+
+### innodb_flush_method 
+
+```
+Ideally O_DIRECT on Linux, but please test it, if it really works well. 
+```
+
+### 	innodb_flush_log_at_trx_commit
+
+```
+When is fliushing done from innodb_log_buffer to log.
+Default: 1 : After every commit 
+-> best performance 2. -> once per second
+
+## Good to use 2, if you are willing to loose 1 second of data on powerfail 
+```
+
+### innodb_flush_neighbors 
+
+```
+## on ssd disks set this to off, because there is no performance improvement 
+innodb_flush_neighbors=0 
+
+## Default = 1 
+
+```
+
+### skip-name-resolv.conf 
+
+```
+## work only with ip's - better for performance 
+/etc/my.cnf 
+skip-name-resolve
+```
+
+  * https://nixcp.com/skip-name-resolve/
+
+
+### Ref:
+
+  * https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool-resize.html
+  
+
+### Privilegs for show engine innodb status 
+
+```
+ show engine innodb status \G
+ERROR 1227 (42000): Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+
+```
+
+### Performance - Unterschied where between und <= and >=
+
+
+### Example 
+
+```
+select * from actor where actor_id between 10 and 50;
+select * from actor where actor_id >= 10 and actor_id <= 50;
+
+
+```
+### No performance difference 
+  * https://stackoverflow.com/questions/2692593/between-operator-vs-and-is-there-a-performance-difference
 
 ### * vs. specific field in field list - select
 
@@ -2407,8 +2535,6 @@ mysql> select vendor_last_name from contributions limit 0,100000;
 
 ```
 
-<div class="page-break"></div>
-
 ### Möglichst keine Funktion in where (spalte) verwenden
 
 
@@ -2416,13 +2542,45 @@ mysql> select vendor_last_name from contributions limit 0,100000;
 ## Bad for performance 
 
 ## Bad
+## Because, system has to read each row from db, to use function first
+## and then compare -> no index used 
+select * from actor WHERE UPPER(last_name) like ('B%');
+
+MariaDB [sakila](last_name) like 'A%';
++------+-------------+-------+------+---------------+------+---------+------+------+-------------+
+| id   | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra       |
++------+-------------+-------+------+---------------+------+---------+------+------+-------------+
+|    1 | SIMPLE      | actor | ALL  | NULL          | NULL | NULL    | NULL | 202  | Using where |
++------+-------------+-------+------+---------------+------+---------+------+------+-------------+
+1 row in set (0.000 sec)
 
 
 ## Good 
+select * from actor WHERE last_name like UPPER('b%')
+
 
 ```
 
-<div class="page-break"></div>
+### How to solve it, if you want to use upper 
+
+```
+-- Step 1: Create a virtual column 
+ALTER TABLE actor ADD COLUMN last_name_upper VARCHAR(45) AS (UPPER(last_name)) PERSISTENT;
+ALTER TABLE actor ADD COLUMN last_name_lower VARCHAR(45) AS (LOWER(last_name)) PERSISTENT;
+
+-- Step 2: Create Index on last_name_lower 
+CREATE INDEX idx_actor_last_name_lower ON actor (last_name_lower);
+
+-- Step 3: use new field instead of function 
+explain extended SELECT last_name,first_name FROM actor WHERE last_name_lower LIKE 'c%';
+
+
+```
+
+
+### Referenz:
+
+  * https://mariadb.com/kb/en/generated-columns/
 
 ### SQL-Rewrite Pager- Subselect
 
@@ -2463,9 +2621,111 @@ explain SELECT film.film_id, film.description FROM sakila.film INNER JOIN (     
 
 ```
 
-<div class="page-break"></div>
+## Slow Queries (Logging) 
+
+### Log slow queries
+
+
+### Schritt 1: slow_query_log permanent aktivieren 
+
+```
+## Minimal 
+## my.ini /my.cnf 
+slow-query-log 
+ 
+
+## Server neu starten. 
+```
+
+### Schritt 2: was ist eine langsame Query ? (long_query_time) 
+
+```
+## jeder query die >= long_query_time ist, wird geloggt. 
+## z.B. 0.000001 Sekunden oder langsamer 
+## Setzen das während der Laufzeit (serverweit)
+SET GLOBAL lonq_query_time = 0.000001
+## und zusätzlich für die aktuelle Session 
+SET lonq_query_time = 0.000001
+
+```
+
+### Wo ist das slow query log zu finden ? 
+
+```
+Datenverzeichnis von MariaDB 
+{HOSTNAME}-slow.log 
+z.B. 
+ITSLAB101-slow.log 
+## Datei lässt sich mit Editor öffnen 
+
+```
+
+### Wie kann ich mehr Ausgaben in jeden Eintrag bekommen ? 
+
+```
+## oder direkt in my.ini / my.cnf 
+SET GLOBAL log_slow_verbosity='query_plan,explain';
+SET log_slow_verbosity='query_plan,explain';
+
+```
+
+### Log slow queries that do not use indexes
+
+
+```
+## Windows my.ini 
+[mysqld]
+
+slow_query_log
+## standard ist o.k. 
+long_query_time=10
+log_queries_not_using_indexes=ON
+
+
+```
 
 ## Analyzing Slow Queries / Indexes
+
+### Prinzipien/Grundlagen von Indizies by MariaDB
+
+
+### Prinzipien 
+
+#### Prinzip 1: Nur ein Index pro Tabelle kann verwendet werden (i.d.R.)
+
+  * Bei mehreren Indizes die für eine Tabelle gesetzt sind, kann i.d.R. (99 %) nur ein Index verwendet
+  * Stehen mehrere zur Auswahl, entscheidet sich der Optimierer für den bestmöglichen (aus seiner Sicht) 
+
+#### Prinzip 2: Ein Index kann nur von links nach rechts gelesen werden 
+
+```
+## Kann einen Index verwenden 
+select first_name,last_name from actor where last_name like 'B%';
+
+
+## Kann keinen Index verwenden 
+## Weil er nichts weiss, bei welchem Buchstaben er anfangen soll 
+## Es kann A-Z sein. 
+select first_name,last_name from actor where last_name like '%B%';
+
+```
+
+### Indizes - Typen 
+
+#### Primary 
+  
+  * eindeutig, darf nur 1x pro Tabelle 1x erstellet 
+  * Darf nur in den Daten in einer Zeile vorkommen, d.h. es gibt nur eine Zeile mit der actor_id = 1
+
+#### Unique 
+
+  * wenn ich einen weiteren eindeutigen Schlüssel haben möchte, kann ich auf eine Spalte einen Unique-Key setzen
+  * Dann der Wert auch nur in einer Datenzeile für diese Spalte vorkommen 
+
+#### Index 
+
+  * Ganz normaler Index 
+  * Werte dürfen mehrmals vorkommen 
 
 ### Create unique index
 
@@ -2473,8 +2733,6 @@ explain SELECT film.film_id, film.description FROM sakila.film INNER JOIN (     
 ```
 CREATE UNIQUE INDEX HomePhone ON Employees(Home_Phone);
 ```
-
-<div class="page-break"></div>
 
 ### Find indexes
 
@@ -2508,8 +2766,6 @@ show create table peple
 show index from contributions 
 ```
 
-<div class="page-break"></div>
-
 ### Create Index/Delete/Drop Index
 
 
@@ -2524,9 +2780,7 @@ drop index idx_last_name_first_name on customer;
 
 ```
 
-<div class="page-break"></div>
-
-### Indizes
+### Indizes (Table Scan / Cover Index)
 
 
 ### Avoid ALL
@@ -2619,8 +2873,6 @@ explain select * from actor2 where last_name like 'B%';
 explain select * from actor2 where first_name like 'B%';
 ```
 
-<div class="page-break"></div>
-
 ### Explain
 
 
@@ -2658,8 +2910,6 @@ explain format=json  SELECT a.first_name, a.last_name, fa.film_id FROM film_acto
 ## What does type say ? 
 
 * https://mariadb.com/kb/en/explain/
-
-<div class="page-break"></div>
 
 ### profiling-get-time-for-execution-of.query
 
@@ -2705,8 +2955,6 @@ mysql> show profile for query 1;
 15 rows in set, 1 warning (0.00 sec)
 ```
 
-<div class="page-break"></div>
-
 ### Kein function in where verwenden
 
 
@@ -2733,8 +2981,6 @@ select * from donors where upper(last_name) like 'Willia%'
 
 ```
 
-<div class="page-break"></div>
-
 ### Optimizer-hints (and why you should not use them)
 
 
@@ -2749,8 +2995,6 @@ select * from donors where upper(last_name) like 'Willia%'
 explain select vendor_city from contributions use index() where vendor_city like 'S%'
 
 ```
-
-<div class="page-break"></div>
 
 ### Query-Plans aka Explains
 
@@ -2789,8 +3033,6 @@ EXPLAIN format=json SELECT * from audit_log WHERE yr in (2011,2012);
 ```
 Only one row in table is present (only one insert) 
 ```
-
-<div class="page-break"></div>
 
 ### Query Pläne und die Key-Länge
 
@@ -2852,8 +3094,6 @@ mysql> explain select first_name,last_name from donors where last_name like 'Wil
 mysql>
 ```
 
-<div class="page-break"></div>
-
 ### Index und Likes
 
 
@@ -2889,8 +3129,6 @@ select last_name,last_name_reversed from donor where last_name_reversed like rev
 ## Version 2 with pt-online-schema-change 
 
 ```
-
-<div class="page-break"></div>
 
 ### Index und Joins
 
@@ -2963,8 +3201,6 @@ id) where c.date_recieved > '1999-12-01' and c.date_recieved < '2000-07-01' and 
 
 ```
 
-<div class="page-break"></div>
-
 ### Find out cardinality without index
 
 
@@ -2982,8 +3218,6 @@ select count(distinct(vendor_city)) from contributions;
 +------------------------------+
 1 row in set (4.97 sec)
 ```
-
-<div class="page-break"></div>
 
 ### Index and Functions
 
@@ -3023,8 +3257,6 @@ mysql> explain select * from actor where last_name_upper like 'WI%' \G
 
 ```
 
-<div class="page-break"></div>
-
 ### Index neu aufbauen ?
 
 
@@ -3048,8 +3280,6 @@ If you do an ALTER TABLE on a field (that is part of an index) and change its ty
 
 
 ```
-
-<div class="page-break"></div>
 
 ### Index Stats
 
@@ -3130,8 +3360,6 @@ An excessive example can be found here:
   * Includes Example for how to index specific columns and indexes or exclude them 
     * https://mariadb.com/kb/en/engine-independent-table-statistics/
 
-<div class="page-break"></div>
-
 ## Tools 
 
 ### Percona Toolkit
@@ -3168,8 +3396,6 @@ apt install -y percona-toolkit
 sudo apt update; sudo apt install -y wget gnupg2 lsb-release curl; cd /usr/src; wget https://repo.percona.com/apt/percona-release_latest.generic_all.deb; dpkg -i percona-release_latest.generic_all.deb; apt update; apt install -y percona-toolkit 
 ```
 
-<div class="page-break"></div>
-
 ### pt-query-digest - analyze slow logs
 
 
@@ -3198,7 +3424,36 @@ less report-slow.txt
 
 ```
 
-<div class="page-break"></div>
+### pt-query-digest - Windows/MariaDB
+
+
+### Walkthrough 
+
+```
+## Step 1: install strawberry perl as msi - 64Bits 
+## https://strawberryperl.com/
+
+## Step 2: Open Browser in RDP and open this Page
+## https://www.percona.com/get/pt-query-digest
+
+## Step 3: Rechte Maustaste -> Speichern unter auf Desktop: pt-query-digest.pl 
+
+## Step 4: Verschieben in bin - ordner von MariaDB-Server 
+
+## Step 5: Console mit MariaDB - Umgebung öffnen. 
+
+## Step 6: Analysieren der slow-query-log mit pt-query-digest.pl 
+## z.B. report.txt 
+## hier öffnet sich ein 2. Fenster mit der Frage, wo es ausgeführt -> Strawberry Perl 
+pt-query-digest.pl <pfad-und-name-des-slow-query-logs> > <pfad-zur-neuen-datei>/report.txt 
+## z.B. 
+pt-query-digest.pl ITSLAB101-slow.log > C:\Users\Admin\Desktop\backup\report.txt
+```
+
+### Ref:
+
+  * Achtung: URL (Domain) von percona ist falsch 
+  * http://www.jonathanlevin.co.uk/2012/01/query-digest-on-windows.html
 
 ### pt-online-schema-change howto
 
@@ -3231,8 +3486,6 @@ pt-online-schema-change --alter "ADD INDEX idx_city (city)" --execute D=contribu
 
 ```
 
-<div class="page-break"></div>
-
 ### Example sys-schema and Reference
 
 
@@ -3260,12 +3513,10 @@ total_memory_allocated: 0 bytes
   
   
 
-<div class="page-break"></div>
-
 ### Profiling
 
 
-### Example 
+### Example 1
 
 ```
 MariaDB [(none)]> SET profiling = 1;
@@ -3701,7 +3952,17 @@ MariaDB [sakila]>
 
 ```
 
-<div class="page-break"></div>
+### Example 2:
+
+```
+set profiling = 1;
+-- please do it twice 
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.description LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.title LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.description LIKE 'A%';
+SELECT a.first_name,a.last_name,f.* FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN film f ON fa.film_id = f.film_id WHERE f.title LIKE 'A%';
+show profiles;
+```
 
 ## Backup und Restore
 
@@ -3730,6 +3991,16 @@ mysql verleih < /usr/src/sakila.sql
 mysqldump -uext -p -h 127.0.0.1 sakila  > C:\Users\Jochen Metzger\Documents\sakila.sql
 ```
 
+### Alle Daten und Struktur sichern 
+
+```
+## Wichtig --events --routines -> sonst werden diese nicht gesichert. !!!! 
+mysqldump --all-databases --events --routines > all-structure.sql
+```
+
+
+
+
 ### Nur Struktur sichern 
 
 ```
@@ -3738,13 +4009,150 @@ mysqldump --no-data --all-databases --events --routines > all-structure.sql
 
 ```
 
+
 ### Nur daten pro Tabelle 
 
 ```
 mysqldump --no-create-info sakila actor > sakila-actor-data.sql
 ```
 
-<div class="page-break"></div>
+
+### Datenbank sichern und in andere Datenbank (sakila2) zurückspielen (restore) 
+
+```
+mysqldump -uroot -p --events --routines sakila > sakila.sql 
+
+## Schritt 1: Datenbank erstellen 
+## -e -> execute 
+mysql -uroot -p -e "CREATE SCHEMA sakila2;" 
+mysql -uroot -p sakila2 < sakila.sql 
+```
+
+### MariaBackup (Windows)
+
+
+### Installation mariabackup 
+
+  * Installation wird mit Installation des Servers durchgeführt.
+  * Ist also in der Grundinstallation beinhalten
+
+
+### Walkthrough (Windows) - Sicherung 
+
+```
+REM -- Schritt 1: Backup 
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
+```
+
+```
+REM -- Schritt 2: Prepare 
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --prepare --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
+```
+
+### Walkthrough (Windows) - Restore (Zurückspielen) 
+
+```
+REM -- Schritt 1: Server stoppen  
+REM - Über Dienste -> MariaDB -> Rechte Maustaste -> Beenden 
+
+REM -- Schritt 2: data - Verzeichnis umbenennen 
+REM - Im Explorer -> z.B. data-backup 
+
+
+REM -- Schritt 3: Restore  
+REM -- mariadb console starten  
+REM -- Programmpunkt unter mariadb 10.6 
+REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
+mariabackup --copy-backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
+
+REM -- Schritt4: my.ini aus altem Verzeichnis in neues Kopieren (data-backup\my.ini -> data\my.ini)
+
+
+REM -- Schritt3: Rechte vom neuen Verzeichnis (erstellt durch Schritt 2) anpassen 
+REM -- Rechte Maustaste -> Eigenschaften -> Sicherheit -> Bearbeiten -> Hinzufügen -> NT Service\MariaDB -> Namen überprüfen
+REM -- MariaDB muss als Name erscheinen -> Übernehmen -> OK 
+REM -- Evtl. nochmal überprüfen ob der Nutzer drin ist. 
+
+REM -- Schritt 4: Server starten 
+REM -- Dienste -> MariaDB -> Starten 
+
+```
+
+### Ref (nur für Linux)
+
+  * https://mariadb.com/kb/en/full-backup-and-restore-with-mariabackup/
+
+## User und Berechtigungen 
+
+### Nutzer erstellen/Berechtigungen setzen/entfernen
+
+
+### Creating user first 
+
+  * The user needs to be created, otherwice it is not working 
+  
+```
+## 
+CREATE USER training@localhost identfied by '123xy6aT';
+
+```
+
+### Login as user training on commandline 
+
+```
+mysql -utraining -p 
+
+```
+
+### Wie sind unsere Berechtigungen 
+
+```
+## Welcher Benutzer bin ich ?
+select user();
+
+## Welche Rechte habe ich 
+show grants;
+
+```
+
+### Rights on the different levels 
+
+```
+GLOBAL: for all databases -> mysql.user 
+DATBASES: mysql.db
+TABLES: mysql.tables_priv 
+FIELDS: mysql.columns_priv 
+```
+
+## Grant Privileges (all) 
+
+```
+mysql> grant all on *.* to training@localhost;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for training@localhost;
++-------------------------------------------------------+
+| Grants for training@localhost                         |
++-------------------------------------------------------+
+| GRANT ALL PRIVILEGES ON *.* TO 'training'@'localhost' |
++-------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+```
+
+## Grant privileges on a specific database 
+
+```
+revoke all on *.* to training@localhost 
+grant all on training.* to training@localhost; 
+```
 
 ## Tipps & Tricks 
 
@@ -3761,16 +4169,12 @@ show create table actor;
 
 ```
 
-<div class="page-break"></div>
-
 ### SHOW VARIABLES WITH WHERE
 
 
 ```
 SHOW VARIABLES WHERE VARIABLE_NAME like '%slow%' OR VARIABLE_NAME LIKE '%long%'
 ```
-
-<div class="page-break"></div>
 
 ### Schnellster Import von Daten mit csv
 
@@ -3793,8 +4197,6 @@ LOAD DATA INFILE 'data.txt' INTO TABLE tbl_name
   * Is the quickest way
   * Performance Ref: https://jynus.com/dbahire/testing-the-fastest-way-to-import-a-table-into-mysql-and-some-interesting-5-7-performance-results/
 
-<div class="page-break"></div>
-
 ### Queries in Datenbank (mysql) loggen, die keine Indizes verwenden
 
 
@@ -3806,8 +4208,6 @@ SET GLOBAL log_output = 'TABLE';
 -- last setting  
 SET slow_query_log = 1; 
 ```
-
-<div class="page-break"></div>
 
 ### Workaround Materialized View
 
@@ -3824,8 +4224,6 @@ CREATE EVENT `tr_sakila_aggregate`
    CREATE TABLE sakila_aggregate AS SELECT actor_id,last_name,first_name FROM actor WHERE actor_id > 200;
 END
 ```
-
-<div class="page-break"></div>
 
 ### Zeichensatz umstellen
 
@@ -3853,8 +4251,6 @@ show variables like '%char%';
 
   * https://fromdual.com/mariadb-and-mysql-character-set-conversion
 
-<div class="page-break"></div>
-
 ### Hat InnoDB genug Speicher - Pages
 
 
@@ -3878,15 +4274,17 @@ Free buffers       0
 
 ```
 
-<div class="page-break"></div>
-
 ## Storage Engines 
 
 ### MyISAM Key Buffer
 
   * http://www.mysqlab.net/knowledge/kb/detail/topic/myisam/id/7200
 
-## References/Documentation 
+## References/Documentation
+
+### Server System Variables
+
+  * https://mariadb.com/kb/en/server-system-variables/
 
 ### MySQL/MariaDB Performance Document
 
@@ -3921,8 +4319,6 @@ mysql> SELECT @@sql_mode -- in session. not present yet.
 mysql>SET sql_mode='ORACLE'
 mysql>SELECT @@sql_mode 
 ```
-
-<div class="page-break"></div>
 
 ### Overview Oracle Mode
 
@@ -3993,8 +4389,6 @@ show schemas
 
 select * from information_schema.schemata;
 ```
-
-<div class="page-break"></div>
 
 ### Working with tables
 
@@ -4119,8 +4513,6 @@ DROP TABLE actorbackup;
 ```
 
 
-<div class="page-break"></div>
-
 ### Teststellung - Feld verkleinern
 
 
@@ -4135,8 +4527,6 @@ INSERT INTO actor (first_name,last_name,filme) values ('Gauchina','Ponchina',320
 -- Does not work 
 ALTER TABLE actor MODIFY filme tinyint unsigned;
 ```
-
-<div class="page-break"></div>
 
 ## SELECT 
 
@@ -4200,8 +4590,6 @@ SELECT * FROM actor where actor_id > 8 and actor_id < 50;
 select * from actor where (actor_id >= 8  and actor_id <=50) or (actor_id >= 100 and actor_id <= 150)
 ```
 
-<div class="page-break"></div>
-
 ### Select Beispiele mit Like
 
 
@@ -4239,8 +4627,6 @@ SELECT * FROM sakila.actor where last_name like 'McQ_een'
 
 ```
 
-<div class="page-break"></div>
-
 ### SELECT ORDER BY
 
 
@@ -4274,8 +4660,6 @@ SELECT last_name,first_name,actor_id FROM sakila.actor ORDER BY last_name,first_
 ```
 SELECT last_name,first_name,actor_id FROM sakila.actor WHERE last_name like 'J%' ORDER BY last_name ASC,first_name DESC 
 ```
-
-<div class="page-break"></div>
 
 ### Unterschiede einfache und doppelte Hochkommas bei Oracle/MySQL
 
@@ -4316,8 +4700,6 @@ select * from actor where last_name like 'A%'
 
 ```
 
-<div class="page-break"></div>
-
 ## INSERT/UPDATE
 
 ### Praktisches Beispiel und erweitertes insert - INSERT
@@ -4328,6 +4710,28 @@ select * from actor where last_name like 'A%'
 INSERT INTO actor (first_name,last_name) values ('Joe','Manchos');
 ```
 
+## Nicht-optimales Beispiel
+
+```
+## Problem die Spaltenzahl und die Spaltennamen können sich ändern
+## dann geht das insert nicht mehr 
+
+### 2022-01-01 
+### Folgende Felder
+### first_name
+### last_name 
+
+### 2022-03-01 
+### Folgender Felder nach Strukturänderung 
+### first_name 
+### middle_name
+### last_name 
+
+INSERT INTO actor values ('Joe','Manchos');
+
+```
+
+
 ## Erweitertes Insert
 ```
 ## Mehrere Wertepaare einfügen - geht schneller als einzelne Inserts 
@@ -4337,8 +4741,6 @@ INSERT INTO actor (first_name,last_name) values ('Joe','Metzgeros'),('Hans','Mus
 ## Referenz
 
   * https://www.w3schools.com/sql/sql_insert.asp
-
-<div class="page-break"></div>
 
 ### Praktisches Beispiel - Update
 
@@ -4358,8 +4760,6 @@ UPDATE actor SET first_name='PENELOPEZ',last_name = 'GUINESS' WHERE actor_id = 1
 
   * https://www.w3schools.com/sql/sql_update.asp
 
-<div class="page-break"></div>
-
 ## DELETE 
 
 ### Einfaches Delete Beispiel
@@ -4374,8 +4774,6 @@ DELETE FROM actor WHERE id = 200
 
   * https://www.mysqltutorial.org/mysql-delete-statement.aspx
 
-<div class="page-break"></div>
-
 ## Datentypen 
 
 ### Integer - INT - Datentypen
@@ -4384,8 +4782,6 @@ DELETE FROM actor WHERE id = 200
 ### Reference 
 
   * https://dev.mysql.com/doc/refman/8.0/en/integer-types.html
-
-<div class="page-break"></div>
 
 ## Basics 
 
@@ -4429,10 +4825,25 @@ mysql -u root -p -h 10.10.9.117
 ```
 
 
-<div class="page-break"></div>
-
 ### mysql-client
 
+
+### Aufrufen unter Windows 
+
+  * Programme -> Mariadb -> Mariadb Client 
+  * Passwrot eingeben 
+
+### Hilfe 
+
+```
+help
+```
+
+### Wichtige Datenbank - Objekte anzeigen
+
+```
+show databases;
+```
 
 ### Basics 
 
@@ -4463,8 +4874,6 @@ user=root
 password=root-password-on-your-system 
 ```
 
-<div class="page-break"></div>
-
 ### Charset-Collations
 
 ### server system variablen abfragen
@@ -4488,8 +4897,6 @@ mysql> select @@hostname;
 1 row in set (0.00 sec)
 ```
 
-<div class="page-break"></div>
-
 ## Storage Engines 
 
 ### Which engine is used
@@ -4499,8 +4906,6 @@ mysql> select @@hostname;
 show variables like '%default%'; 
 ```
 
-
-<div class="page-break"></div>
 
 ## Working with the data modelling language (DML's)
 
@@ -4515,8 +4920,6 @@ INSERT INTO actor (first_name,last_name) values ('John','Smith');
 INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','Johnsson');
 ```
 
-<div class="page-break"></div>
-
 ## Tipps & Tricks / Do Not 
 
 ### Dump/SQL-File einspielen auf der Kommandozeile - Windows
@@ -4525,8 +4928,6 @@ INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','John
 ```
 mysql -u root -p < C:\Users\Admin\Downloads\test.sql
 ```
-
-<div class="page-break"></div>
 
 ## Tools 
 
@@ -4592,8 +4993,6 @@ index hint.
 
 ### Step 5: Customized Query
 
-<div class="page-break"></div>
-
 ## References 
 
 ### Examples Left Join
@@ -4612,8 +5011,6 @@ index hint.
 
   * https://www.quackit.com/mysql/examples/mysql_group_by_clause.cfm
 
-## Extra (Optional)  
-
 ## Übungen 
 
 ### Übung Update/Insert
@@ -4629,5 +5026,3 @@ UPDATE actor SET first_name = 'JAMES' where last_name='DEAN' and first_name='JUD
 
 INSERT INTO actor (first_name, last_name) values ('Mann','Josef'), ('Mannheim','Martha');
 ```
-
-<div class="page-break"></div>
