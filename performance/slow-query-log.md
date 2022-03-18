@@ -33,3 +33,12 @@ ITSLAB101-slow.log
 # Datei lässt sich mit Editor öffnen 
 
 ```
+
+## Wie kann ich mehr Ausgaben in jeden Eintrag bekommen ? 
+
+```
+# oder direkt in my.ini / my.cnf 
+SET GLOBAL log_slow_verbosity='query_plan,explain';
+SET log_slow_verbosity='query_plan,explain';
+
+```
