@@ -62,7 +62,6 @@
      * [Cursor with Params](stored-procedures/cursor-with-params.md)
      * [Loop](/stored-procedures/loop.md)
      * [Case](/stored-procedures/case.md) 
-     * [Cursor](/stored-procedures/cursor.md)
      * [Continue Handler Example](/stored-procedures/continue-handler.md)
      * [Exit Handler Example](/stored-procedures/exit-handler.md)
      * [Custom Error message](/stored-procedures/custom-exception-error.md)
