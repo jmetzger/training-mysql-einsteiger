@@ -86,7 +86,8 @@
   1. Partitions
      * [Partitions - Why and Howto?](/partitions/partitions-example.md)
      * [Maintain Partitions and Explain](/partitions/partitions-explain.md)
-
+     * Test
+ 
   1. Performance 
      * [Performance - Konfiguration von InnoDB Buffer Pool Size](/innodb/innodb.md) 
      * [Performance - Unterschied where between und <= and >=](performance/between-range-operators.md)
