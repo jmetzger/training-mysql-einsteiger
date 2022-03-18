@@ -20,7 +20,7 @@ INSERT INTO audit_log(yr,msg) VALUES (2005,'2005'),(2006,'2006'),(2011,'2011'),(
 EXPLAIN PARTITIONS SELECT * from audit_log WHERE yr in (2011,2012)\G
 ```
 
-## Example with years 
+## Example with years (Reorganizing Partitions) 
 
 ```
 CREATE TABLE audit_log2 (   yr    YEAR NOT NULL,   msg   VARCHAR(100) NOT NULL) ENGINE=InnoDB PARTITION BY RANGE (yr) (   PARTITION p2009 VALUES LESS THAN (2010),   PARTITION p2010 VALUES LESS THAN (2011),   PARTITION p2011 VALUES LESS THAN (2012),   PARTITION p_current VALUES LESS THAN MAXVALUE);
