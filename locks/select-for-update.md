@@ -14,7 +14,6 @@
 create database if not exists training;
 use training;
 create table rooms (room_id tinyint auto_increment, room varchar(20), primary key(room_id));
-create table bookings (booking_id int auto_increment, room_id tinyint, name varchar(20), primary key(booking_id)); 
 insert into rooms (room) values ('Honeymoon');
 insert into rooms (room) values ('Sunset');
 
