@@ -60,7 +60,7 @@ where type_id = 1;
 
 
 SQL Error (1451): Cannot delete or update a parent row: a foreign key constraint fails (`nation`.`gadgets`, CONSTRAINT `fk_type` FOREIGN KEY (`type_id`) REFERENCES `gadget_types` (`type_id`)) 
---> To delete a row from the gadget_types table, you need to remove all the referencing rows from the gadgets table first.
+-- --> To delete a row from the gadget_types table, you need to remove all the referencing rows from the gadgets table first.
 ```
 
 ## Step 4 - Drop Contrains and set NULL Reference 
@@ -80,7 +80,7 @@ delete from gadget_types
 where type_id = 1;
 
 select * from gadgets;
---> As shown clearly from the output, the values in the type_id column of rows with type_id 1 from the gadgets table were set to null because of the on delete set null option.
+-- --> As shown clearly from the output, the values in the type_id column of rows with type_id 1 from the gadgets table were set to null because of the on -- delete set null option.
 ```
 
 ## Step 5 - change id in gadget_types 
