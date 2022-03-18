@@ -118,7 +118,7 @@ foreign key(type_id)
 
 delete from gadget_types
 where type_id = 3;
---> MariaDB automatically deleted rows from the gadgets table whose type_id is 3 because of the on delete cascade action.
+-- > MariaDB automatically deleted rows from the gadgets table whose type_id is 3 because of the on delete cascade action.
 
 select * from gadgets;
 ```
