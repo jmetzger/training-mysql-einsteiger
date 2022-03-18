@@ -38,7 +38,7 @@ EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 
 ```
 
-## Partition als ganzes löschen 
+## Eine Partition als ganzes löschen 
 
   * Vorteil: Schneller als ein Delete (delete from audit_log2 where yr <= 2009; (langsamer)  
 
