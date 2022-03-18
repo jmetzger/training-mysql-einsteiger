@@ -3,6 +3,9 @@
 ## Example with database insert 
 
 ```
+use sakil;
+ALTER TABLE actor 
+
 DELIMITER /
 CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, 
                                       IN enddate DATE, 
