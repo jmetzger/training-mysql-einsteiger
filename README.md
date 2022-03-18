@@ -97,6 +97,7 @@
 
   1. Slow Queries (Logging) 
      * [Log slow queries](/performance/slow-query-log.md)
+     * [Log slow queries that do not use indexes](/performance/slow-query-log-queries-ohne-indexes.md)
     
   1. Analyzing Slow Queries / Indexes
      * [Prinzipien/Grundlagen von Indizies by MariaDB](/indexes/general.md)
