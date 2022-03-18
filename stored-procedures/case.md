@@ -22,7 +22,7 @@ main: BEGIN
       LEAVE main;
    END IF; 
 	        
-   IF firstame = ''
+   IF first_name = ''
    THEN    
       SELECT 'Bitte gebe einen First Name ein: ';
       LEAVE main;
