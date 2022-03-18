@@ -84,6 +84,7 @@
      * [Strings zusammenfügen](https://mariadb.com/kb/en/concat/)
 
   1. Partitions
+     * [Partitions - Why and Howto?](/partitions/partitions-example.md)
      * [Maintain Partitions and Explain](/partitions/partitions-explain.md)
 
   1. Performance 
@@ -96,7 +97,6 @@
   1. Slow Queries (Logging) 
      * [Log slow queries](/performance/slow-query-log.md)
     
-
   1. Analyzing Slow Queries / Indexes
      * [Prinzipien/Grundlagen von Indizies by MariaDB](/indexes/general.md)
      * [Create unique index](unique-index.md)
@@ -130,7 +130,6 @@
 
   1. User und Berechtigungen 
      * [Nutzer erstellen/Berechtigungen setzen/entfernen](rights/grant-revoke.md)
-
 
   1. Tipps & Tricks 
      * [Dummy table DUAL](https://mariadb.com/kb/en/dual/)
