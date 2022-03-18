@@ -31,7 +31,7 @@ EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
 ALTER TABLE audit_log2 REORGANIZE PARTITION p_current INTO ( 
    PARTITION p2012 VALUES LESS THAN (2013),
    PARTITION p_current VALUES LESS THAN MAXVALUE);
-)
+);
 
 --  Where is data now saved 
 EXPLAIN PARTITIONS SELECT * from audit_log2 WHERE yr = 2012;
@@ -58,6 +58,11 @@ ALTER TABLE audit_log  REMOVE PARTITIONING;
 
 ```
 
+## 
+
+
+
 ## Ref:
 
   * https://mariadb.com/kb/en/partition-maintenance/
+  * 
