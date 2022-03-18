@@ -3,7 +3,7 @@
 ## Example 1 (Handler without begin end) 
 
 ```
--- In heidisql 
+-- In heidisql -> you will have multiple tabs as output 
 
 DELIMITER /
 CREATE OR REPLACE PROCEDURE handlertest()
@@ -20,9 +20,8 @@ END /
 ```
 
 
-```
--- Execute the CALL in an mysql - client to really see, what is going on 
--- In heidisql and other guis you will probably only see the output of the first select
+``` 
+-- in mariadb client 
 MariaDB [sakila]> CALL handlertest;
 +-------------------------+
 | Sorry mate, wrong table |
