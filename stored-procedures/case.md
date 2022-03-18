@@ -7,8 +7,8 @@ DELIMITER /
 CREATE OR REPLACE PROCEDURE addActor (IN startdate DATE, 
                                       IN enddate DATE, 
                                       IN first_name VARCHAR(45), 
-				  IN last_name VARCHAR(45),
-				  IN fame VARCHAR(9))
+				      IN last_name VARCHAR(45),
+				      IN fame VARCHAR(9))
 main: BEGIN
            
    DECLARE star_type CHAR(2);
@@ -16,42 +16,38 @@ main: BEGIN
    IF startdate > enddate 
    THEN    
       SELECT 'Das Startdaum liegt nach dem Enddatum';
-      LEAVE main; 
-	END IF; 
+      LEAVE main;
+   END IF; 
 	        
-	IF firstame = ''
-	THEN    
-	   SELEC'Bitte gebe einen First Name ein: ';
-	   LEAVEain;
-	END IF; 
+   IF firstame = ''
+   THEN    
+      SELECT 'Bitte gebe einen First Name ein: ';
+      LEAVE main;
+   END IF; 
 	        
-	IF last_me = ''
-	THEN    
-	   SELEC'Bitte gebe einen Last Name ein: ';
-	   LEAVEain;
-	END IF; 
+   IF last_name = ''
+   THEN    
+      SELECT 'Bitte gebe einen Last Name ein: ';
+      LEAVE main;
+   END IF; 
 	        
-	CASE fam
-    WHEN 'superstar' THEN 
-	   SET sr_type='ST';
-    WHEN 'megastar' THEN 
-	   SET sr_type='MS';
-	 WHEN 'sr' THEN
-	   SET sr_type='S';  
-	 ELSE   
-	   SELEC'Als Star ist nur superstart,megastart oder star erlaubt'; 
-	   LEAVEain;
+   CASE fame
+    
+     WHEN 'superstar' THEN 
+       SET star_type='ST';
+     WHEN 'megastar' THEN 
+       SET star_type='MS';
+     WHEN 'star' THEN
+       SET star_type='S';  
+     ELSE   
+       SELECT 'Als Star ist nur superstar,megastart oder star erlaubt'; 
+       LEAVE main;
    END CASE;
 	        
-	INSERT IO actor 
-	  (startte,
-	   endda,
-		firste,
-		last_,
-		star_)
-	VALUES (artdate,enddate,first_name,last_name,star_type);
+   INSERT INTO actor (startdate,enddate,first_name,last_name,star_type)
+   VALUES (startdate,enddate,first_name,last_name,star_type);
 	        
-	SELECT CCAT ('Schauspieler ',first_name,' ',last_name,' 
+   SELECT CONCAT ('Schauspieler ',first_name,' ',last_name,' ',fame);
            
 END/       
 DELIMITER ;
