@@ -9,6 +9,7 @@
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
      * [SQL-Syntax](/basics/sql-syntax.md) 
+     * [Datenbank-und-Tabellen-verwenden](/basics/databases-tables.md)
     
 ## Backlog      
        
@@ -194,8 +195,7 @@
      * [Charset-Collations](basic/charset-collation.md)
      * [server system variablen abfragen](server-system-variables.md) 
      
-  1. Storage Engines 
-     * [Which engine is used](storage-engine-used.md) 
+
      
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
