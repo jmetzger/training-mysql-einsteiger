@@ -18,6 +18,7 @@
      * [Beispiel und Übung](beispiel-mit-berechnung-aus-feldern.md)
      * [Beispiel mit Select where ](/select/example-exercise-where.md)
      * [Beispiel mit select where in](/select/example-exercise-where-in.md) 
+     * [Beispiel mit select und like](/select/using-like.md)
     
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
@@ -31,6 +32,7 @@
      * [Übung mit Order By und Limit](/select/example-exercise-order-by-limit.md)
      * [Übung mit Select where ](/select/example-exercise-where.md)
      * [Übung mit select where in](/select/example-exercise-where-in.md) 
+     * [Übung mit select und like](/select/using-like.md)
     
 ## Backlog      
        
