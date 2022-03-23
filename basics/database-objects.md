@@ -39,3 +39,10 @@ Jedes Feld (Column) hat einen Datentyp, der bestimmt welcher Daten dort rein dü
 z.B. Strings (varchar), oder Zahlen (z.B. INT -> Integer) 
 
 ```
+
+### Daten -> Zeilen (ROW) 
+
+```
+Daten werden zeilenweise in Tabellen geschrieben 
+Jede Zeile hat ein eindeutiges Merkmale (eine eindeutige Nummer) -> Primärschlüssel (Primary Key) 
+```
