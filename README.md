@@ -15,6 +15,10 @@
   1. SELECT's 
      * [Alle Datensätze abfragen und alias für Spalte setzen](/select/all-as-name.md) 
      * [Rechnen mit SELECT - Beispiele](/select/calculate.md)
+     * [Beispiel und Übung](beispiel-mit-berechnung-aus-feldern.md)
+    
+  1. ÜBUNGEN 
+     * [Uebung - Berechnung aus Feld](beispiel-mit-berechnung-aus-feldern.md) 
     
 ## Backlog      
        
