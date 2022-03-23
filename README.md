@@ -17,6 +17,7 @@
      * [Rechnen mit SELECT - Beispiele](/select/calculate.md)
      * [Beispiel und Übung](beispiel-mit-berechnung-aus-feldern.md)
      * [Beispiel mit Select where ](/select/example-exercise-where.md)
+     * [Beispiel mit select where in](/select/example-exercise-where-in.md) 
     
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
