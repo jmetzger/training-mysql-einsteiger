@@ -10,6 +10,7 @@
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
      * [SQL-Syntax](/basics/sql-syntax.md) 
      * [Datenbank-und-Tabellen-verwenden](/basics/databases-tables.md)
+     * [Struktur und Indizes von Tabellen auslesen](/basics/struture-indexes-tables.md)
 
   1. SELECT's 
      * [Alle Datensätze abfragen und alias für Spalte setzen](/select/all-as-name.md) 
