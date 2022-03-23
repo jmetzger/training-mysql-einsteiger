@@ -5,7 +5,9 @@
   1. Technical Background 
      * [Technical Structure](/technical-background/basics.md)
      
-     
+  1. Grundlagen 
+     * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md)  
+    
 ## Backlog      
        
   1. Beispieldaten / Testserver
