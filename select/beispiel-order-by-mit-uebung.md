@@ -7,7 +7,7 @@ SELECT first_name,last_name FROM actor ORDER BY last_name DESC, first_name;
 
 ```
 
-## Übung 
+## Übung (schlechtes Beispiel, anderes wäre besser) 
 
 ```
 1. Wir sortieren alle Einträge film - Tabelle 
