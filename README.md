@@ -19,6 +19,9 @@
     
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
+
+  1. LIMIT 
+     * [Kombiniertes Beispiel mit Order By und Limit](/select/example-exercise-order-by-limit.md)
     
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](beispiel-mit-berechnung-aus-feldern.md) 
