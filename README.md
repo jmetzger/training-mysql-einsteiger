@@ -7,7 +7,8 @@
      * [Was ist SQL](/technical-background/sql.md)
      
   1. Grundlagen 
-     * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md)  
+     * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
+     * [SQL-Syntax](/basics/sql-syntax.md) 
     
 ## Backlog      
        
