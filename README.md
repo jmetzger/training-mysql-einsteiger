@@ -1,4 +1,4 @@
-# MYSQL Einsteiger 
+# MySQL Einsteiger 
 
 ## Agenda 
 
