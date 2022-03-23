@@ -14,6 +14,7 @@
 
   1. SELECT's 
      * [Alle Datensätze abfragen und alias für Spalte setzen](/select/all-as-name.md) 
+     * [Rechnen mit SELECT - Beispiele](/select/calculate.md)
     
 ## Backlog      
        
