@@ -4,6 +4,7 @@
 
   1. Technical Background 
      * [Technical Structure](/technical-background/basics.md)
+     * [Was ist SQL](/technical-background/sql.md)
      
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md)  
