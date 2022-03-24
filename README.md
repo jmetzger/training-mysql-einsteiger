@@ -33,8 +33,8 @@
      * [Übung mit Select where ](/select/example-exercise-where.md)
      * [Übung mit select where in](/select/example-exercise-where-in.md) 
      * [Übung mit select und like](/select/using-like.md)
-     * https://github.com/jmetzger/select/training-mysql-einsteiger/tree/main/select
-    
+     * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
+
 ## Backlog      
        
   1. Beispieldaten / Testserver
@@ -156,7 +156,6 @@
 
   1. Backup und Restore
      * [Backup und Restore](/backup-restore.md)
-     * [MariaBackup (Windows)](backups-restore/mariabackup-windows.md)
 
   1. User und Berechtigungen 
      * [Nutzer erstellen/Berechtigungen setzen/entfernen](rights/grant-revoke.md)
@@ -180,14 +179,7 @@
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [MariaDB - Installation Linux mit Repos](https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6)
      * [JDBC-Treiber](https://mariadb.com/kb/en/about-mariadb-connector-j/)
-   
-  1. Oracle 
-     * [Activating Oracle Sql-Mode](oracle/activating.md) 
-     * [Overview Oracle Mode](https://mariadb.com/kb/en/sql_modeoracle/)
-     * [When Others-Clause](https://www.techonthenet.com/oracle/exceptions/when_others.php)
-     * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
-     * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
-     * [Simple oracle examples pl/sql in mariadb](https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql)
+  
      
 ## Backlog 
 
@@ -219,17 +211,12 @@
      * [Charset-Collations](basic/charset-collation.md)
      * [server system variablen abfragen](server-system-variables.md) 
      
-
-     
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](/data-modelling-commands/insert.md)
     
   1. Tipps & Tricks / Do Not 
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](mysql-windows-sql-import.md)
     
-  1. Tools 
-     * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
-  
   1. Tipps & Tricks 
      * [Best Practice DBAL - Kochrezept](recipe-dbal.md) 
   
