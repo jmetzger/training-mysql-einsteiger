@@ -9,6 +9,8 @@ SELECT * FROM actor where actor_id > 100 and actor_id < 150;
 select * from actor where actor_id >= 10 and actor_id <= 50;
 ```
 
+## Beispiel 3
+
 ```
 SELECT * FROM actor where actor_id between 100 and 150;
 ```
@@ -26,5 +28,13 @@ oder < 90000 und > 50000
 
 ```
 - Lasst euch Filme (film) anzeigen deren Wiederbeschaffungspreis (rental ... ) zwischen 18.99 und 20.99 ist. (inkl) 
+
+```
+
+## Übung 3
+
+```
+Lass Euch alle Eitnräge aus dem inventory mit between im Bereich 10 bis 100 anzeigen (inkl 10 und 100) 
+
 
 ```
