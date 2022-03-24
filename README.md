@@ -24,8 +24,9 @@
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
    
-  1. COUNT 
+  1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](/select/count-rows.md) 
+     * [Beispiel für Statistiabfrage (MAX,MIN)](/select/statistik.md) 
    
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
