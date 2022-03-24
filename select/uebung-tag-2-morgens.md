@@ -13,7 +13,7 @@ und hier nur die ersten 10 sortiert nach Nachname
 
 ```
 addresses:
-- Alle Adressen die im district QLB, Dakota, Queens sind
+- Alle Adressen die im district QLD, Alberta, Queens sind
 - Sortierung nach postal_code
 - nur die ersten 10 davon anziegen
 
