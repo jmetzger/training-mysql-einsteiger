@@ -20,6 +20,7 @@
      * [Beispiel mit select where in](/select/example-exercise-where-in.md) 
      * [Beispiel mit select und like](/select/using-like.md)
      * [Beispiele mit select und range](/select/example-select-range.md)
+     * [Beispiel mit select und not in](/select/example-select-not-in.md) 
     
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
@@ -35,7 +36,8 @@
      * [Übung mit select where in](/select/example-exercise-where-in.md) 
      * [Übung mit select und like](/select/using-like.md)
      * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
-     * [Übung 1+2 - Select Range](select/example-select-range.md)
+     * [Übung 1+2 - Select Range](/select/example-select-range.md)
+     * [Übung mit select und not in](/select/example-select-not-in.md) 
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
