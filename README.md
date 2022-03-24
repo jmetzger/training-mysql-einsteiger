@@ -23,7 +23,10 @@
      * [Beispiel mit select und not in](/select/example-select-not-in.md) 
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
-    
+   
+  1. COUNT 
+     * [Zählen von Datensätzen](/select/count-rows.md) 
+   
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
 
