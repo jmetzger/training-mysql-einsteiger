@@ -67,18 +67,16 @@ Procedures -
 CALL film_in_stock(1,1,@ausgabe);
 select @ausgabe;
 
-
+Function (wie systemfunktionen, nur selbst erstellt) 
+use sakila;
+select get_customer_balance(1,'2015-06-01 12:55:12');
 
 Events (zeitgesteuerte Ereignisse) - 
 Schadcodepotenzial when aktiviert -> Procedures 
 https://www.mysqltutorial.org/mysql-triggers/working-mysql-scheduled-event/
 
 Wie weiss ich, dass events generell ausgeführt auf meinem System, wenn vorhanden 
-
-
-
-
-
 ```
 
+ * [Werden events ausgeführt](/tricks/werden-events-ausgefuehrt.md)
 
