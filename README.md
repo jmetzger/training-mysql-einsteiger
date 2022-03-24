@@ -28,6 +28,9 @@
      * [Zählen von Datensätzen](/select/count-rows.md) 
      * [Beispiel für Statistiabfrage (MAX,MIN)](/select/statistik.md) 
    
+  1. NUMERISCHE FUNKTIONEN 
+     * [Abrunden / Aufrunden / Kaufmännisch Runden](/select/functions-round-ceil-floor.md)  
+   
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
 
