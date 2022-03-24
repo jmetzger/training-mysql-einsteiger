@@ -45,6 +45,7 @@
      * [Übung mit select und not in](/select/example-select-not-in.md) 
      * [Übung mit select by date](/select/example-select-by-date.md)
      * [Übung mit select by day](/select/bad-example-select-by-date.md)
+     * [Übung - Zählen vpon Datensätzen](/select/count-rows.md)
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
