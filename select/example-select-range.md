@@ -7,13 +7,10 @@ SELECT * FROM actor where actor_id > 100 and actor_id < 150;
 
 # 10 und 50 inkludiert
 select * from actor where actor_id >= 10 and actor_id <= 50;
-
 ```
 
 ```
 SELECT * FROM actor where actor_id between 100 and 150;
-
-
 ```
 
 ## Übung 1
@@ -23,4 +20,11 @@ SELECT * FROM actor where actor_id between 100 and 150;
 oder < 90000 und > 50000 
 - sortiert nach district 
 - gebe 20 Einträge aus (offset 0) 
+```
+
+## Übung 2
+
+```
+- Lasst euch Filme (film) anzeigen deren Wiederbeschaffungspreis (rental ... ) zwischen 18.99 und 20.99 ist. (inkl) 
+
 ```
