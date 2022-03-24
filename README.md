@@ -19,6 +19,7 @@
      * [Beispiel mit Select where ](/select/example-exercise-where.md)
      * [Beispiel mit select where in](/select/example-exercise-where-in.md) 
      * [Beispiel mit select und like](/select/using-like.md)
+     * [Beispiele mit select und range](/select/example-select-range.md)
     
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
