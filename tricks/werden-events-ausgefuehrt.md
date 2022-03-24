@@ -10,7 +10,7 @@
 
  * https://dev.mysql.com/doc/refman/8.0/en/server-system-variable-reference.html
 
-## Konkret: Welche ist 
+## Konkret: Welche Wert ist gesetzt für event_scheduler
 
 ```
 -- variante 1
@@ -41,5 +41,10 @@ SELECT @@event_scheduler;
 
 ```
 
+## Die globale Variable entscheidet, ob es bei einem Neustart aktiv wird.
 
+```
+-- Variante 1 oder 2 
+SELECT @@GLOBAL.event_scheduler;
+show global variables like 'event_scheduler'; 
 ```
