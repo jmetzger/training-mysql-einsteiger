@@ -35,6 +35,9 @@
      * [Übung mit select und like](/select/using-like.md)
      * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
 
+  1. TIPPS & TRICKS 
+     * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
+
 ## Backlog      
        
   1. Beispieldaten / Testserver
