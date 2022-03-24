@@ -1,12 +1,42 @@
-# MariaDB für Entwickler 
+# MySQL Einsteiger 
 
 
 ## Agenda
   1. Technical Background 
      * [Technical Structure](#technical-structure)
-     * [Process of Queries](#process-of-queries)
-     * [InnoDB Struktur](#innodb-struktur)
+     * [Was ist SQL](#was-ist-sql)
+     
+  1. Grundlagen 
+     * [Was sind Datenobjekte und welche gibt es ?](#was-sind-datenobjekte-und-welche-gibt-es-)
+     * [SQL-Syntax](#sql-syntax)
+     * [Datenbank-und-Tabellen-verwenden](#datenbank-und-tabellen-verwenden)
+     * [Struktur und Indizes von Tabellen auslesen](#struktur-und-indizes-von-tabellen-auslesen)
 
+  1. SELECT's 
+     * [Alle Datensätze abfragen und alias für Spalte setzen](#alle-datensätze-abfragen-und-alias-für-spalte-setzen)
+     * [Rechnen mit SELECT - Beispiele](#rechnen-mit-select---beispiele)
+     * [Beispiel und Übung](#beispiel-und-übung)
+     * [Beispiel mit Select where ](#beispiel-mit-select-where-)
+     * [Beispiel mit select where in](#beispiel-mit-select-where-in)
+     * [Beispiel mit select und like](#beispiel-mit-select-und-like)
+    
+  1. ORDER BY (Sortierung)   
+     * [Beispiel und Übung order by](#beispiel-und-übung-order-by)
+
+  1. LIMIT 
+     * [Kombiniertes Beispiel mit Order By und Limit + Übung](#kombiniertes-beispiel-mit-order-by-und-limit-+-übung)
+    
+  1. ÜBUNGEN 
+     * [Uebung - Berechnung aus Feld](#uebung---berechnung-aus-feld)
+     * [Übung order by](#übung-order-by)
+     * [Übung mit Order By und Limit](#übung-mit-order-by-und-limit)
+     * [Übung mit Select where ](#übung-mit-select-where-)
+     * [Übung mit select where in](#übung-mit-select-where-in)
+     * [Übung mit select und like](#übung-mit-select-und-like)
+     * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
+
+## Backlog      
+       
   1. Beispieldaten / Testserver
      * [Sakila](#sakila)
      * [Spendenliste](#spendenliste)
@@ -126,7 +156,6 @@
 
   1. Backup und Restore
      * [Backup und Restore](#backup-und-restore)
-     * [MariaBackup (Windows)](#mariabackup-windows)
 
   1. User und Berechtigungen 
      * [Nutzer erstellen/Berechtigungen setzen/entfernen](#nutzer-erstellenberechtigungen-setzenentfernen)
@@ -150,14 +179,7 @@
      * [MariaDB - Changes in 10.6](https://mariadb.com/kb/en/changes-improvements-in-mariadb-106/#comment_5088)
      * [MariaDB - Installation Linux mit Repos](https://downloads.mariadb.org/mariadb/repositories/#distro=Ubuntu&distro_release=bionic--ubuntu_bionic&mirror=agdsn&version=10.6)
      * [JDBC-Treiber](https://mariadb.com/kb/en/about-mariadb-connector-j/)
-   
-  1. Oracle 
-     * [Activating Oracle Sql-Mode](#activating-oracle-sql-mode)
-     * [Overview Oracle Mode](https://mariadb.com/kb/en/sql_modeoracle/)
-     * [When Others-Clause](https://www.techonthenet.com/oracle/exceptions/when_others.php)
-     * [Demo Oracle sql_mode from MariaDB](https://www.youtube.com/watch?v=ntO2x4XHfUE)
-     * [What is implemented in Oracle sql-mode - fromdual](https://fromdual.com/mariadb-sql-mode-oracle)
-     * [Simple oracle examples pl/sql in mariadb](https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql)
+  
      
 ## Backlog 
 
@@ -189,18 +211,12 @@
      * [Charset-Collations](#charset-collations)
      * [server system variablen abfragen](#server-system-variablen-abfragen)
      
-  1. Storage Engines 
-     * [Which engine is used](#which-engine-is-used)
-     
   1. Working with the data modelling language (DML's)
      * [Working with INSERT](#working-with-insert)
     
   1. Tipps & Tricks / Do Not 
      * [Dump/SQL-File einspielen auf der Kommandozeile - Windows](#dumpsql-file-einspielen-auf-der-kommandozeile---windows)
     
-  1. Tools 
-     * [HeidiSQL Portable - works for windows](https://www.heidisql.com/download.php?download=portable-64)
-  
   1. Tipps & Tricks 
      * [Best Practice DBAL - Kochrezept](#best-practice-dbal---kochrezept)
   
@@ -227,15 +243,425 @@
 
 ![Overview](/images/mysql-architecture.jpg)
 
-### Process of Queries
+### Was ist SQL
 
 
-![MariaDB Server Architektur](/mysql-server-architecture.png)
+```
+SQL - Structured Query Language -> Strukturierte Abfragesprache 
+Es ist eine standardisierte Programmiersprache 
+die zur Verwaltung relationale Datenbanken 
+und zum Durchführen verschiedener mit den darin
+enthaltenen Daten verwendet wird.
 
-### InnoDB Struktur
+```
+
+```
+Will ich Daten aus eine SQL-Datenbank brauche ich die Abfrage
+sprache SQL 
+```
+
+## Grundlagen 
+
+### Was sind Datenobjekte und welche gibt es ?
 
 
-![InnoDB Structure](/images/InnoDB-Structure.jpg)
+### Was sind Datenbankobjekte 
+
+```
+Bilden eine Strutkur um Daten zu speichern 
+```
+
+### Welche gibt es ? (Klassiker)
+
+#### Ebene 1 (oberste Ebene) Datenbank (databases/schemas) 
+
+```
+eine Organisationseinheit: die Datenbank 
+wie ein Behältnis 
+unter der Haube: Verzeichnis 
+
+z.B. Datenbank sakila
+```
+
+#### Ebene 2 - Tabellen 
+
+```
+Eine Datenbank kann mehrere Tabellen haben. 
+Ähnlich eines Vorratsschrankes. 
+Im Filesystem finden man diese unterhalb der Datenbank mit 
+dem entsprechenden der Tabelle:
+z.B. sakila\actor.ibd 
+
+Jede Tabelle hat eine Struktur -> Columns (Felder) 
+
+```
+
+#### Ebene 3 - Felder / Columns 
+
+```
+Die Tabelle hat eine Struktur, die bestimmt wird durch die Columns (Felder) 
+Jedes Feld (Column) hat einen Datentyp, der bestimmt welcher Daten dort rein dürfen.
+z.B. Strings (varchar), oder Zahlen (z.B. INT -> Integer) 
+
+```
+
+#### Daten -> Zeilen (ROW) 
+
+```
+Daten werden zeilenweise in Tabellen geschrieben 
+Jede Zeile hat ein eindeutiges Merkmale (eine eindeutige Nummer) -> Primärschlüssel (Primary Key) 
+```
+
+### Weitere Datenbankobjekte 
+
+```
+Views - Schadpotenzial -> 0% 
+Trigger - Schadpotential -> 50% 
+
+-> hier unkritisch, da nur neu eintrag in der Datenbank 
+CREATE TRIGGER before_employee_update 
+    BEFORE UPDATE ON employees
+    FOR EACH ROW 
+ INSERT INTO employees_audit
+ SET action = 'update',
+     employeeNumber = OLD.employeeNumber,
+     lastname = OLD.lastname,
+     changedat = NOW();
+
+Procedures - 
+CALL film_in_stock(1,1,@ausgabe);
+select @ausgabe;
+
+Function (wie systemfunktionen, nur selbst erstellt) 
+use sakila;
+select get_customer_balance(1,'2015-06-01 12:55:12');
+
+Events (zeitgesteuerte Ereignisse) - 
+Schadcodepotenzial when aktiviert -> Procedures 
+https://www.mysqltutorial.org/mysql-triggers/working-mysql-scheduled-event/
+
+Wie weiss ich, dass events generell ausgeführt auf meinem System, wenn vorhanden 
+```
+
+ * [Werden events ausgeführt](/tricks/werden-events-ausgefuehrt.md)
+
+
+### SQL-Syntax
+
+
+### Kommentare 
+
+```
+-- Das ist ein Kommentar, der Text beschreibt etwas aber wir nicht vom SQL-Server ausgeführt
+```
+
+### SQL-Schlüsselworte für Operationen
+
+```
+DDL - Daten Definition Language
+DML - Data Modelling Language 
+
+DDL ändern die Struktur 
+=======================
+CREATE DATABASE # 
+CREATE SCHEMA  # Datenbank 
+CREATE TABLE 
+ALTER TABLE # VErändere die Struktur 
+DROP
+
+CREATE - erstellen
+DROP - Löschen (komplettes Objekt)
+ALTER - verändern 
+
+DML - Ändert die Inhalte und macht Abfragen
+====
+SELECT 
+DELETE - löscht Daten 
+INSERT - einfügen vpn Daten 
+UPDATE - Updaten von Daten 
+
+```
+
+### Datenbank-und-Tabellen-verwenden
+
+
+```
+-- Datenbanken anzeigen
+show databases;
+-- or: 
+show schemas;
+
+-- Datenbank verwenden / wechseln 
+use sakila;
+
+-- Tabellen für ausgewählte Datenbanken anzeigen
+show tables;
+
+### Struktur und Indizes von Tabellen auslesen
+
+
+```
+show fields from actor;
+show create table actor;
+show indexes from actor;
+
+-- Empfehlung, was ir können solltet 
+describe actor;
+show indexes from actor;
+```
+
+## SELECT's 
+
+### Alle Datensätze abfragen und alias für Spalte setzen
+
+
+```
+select first_name as Vorname,last_name as Nachname from actor;
+
+```
+
+### Rechnen mit SELECT - Beispiele
+
+
+```
+-- erlaubt sind + - / * DIV (Integer Division) 
+-- Integer-Division: 15/7 = 2 (nur Ganzzahl wird als Ergebnis zurückgegeben)
+
+-- + - * / DIV(Integer)
+SELECT 15 DIV 2 as Ergebnis;
+
+
+```
+
+### Beispiel und Übung
+
+### Beispiel mit Select where 
+
+
+### Example (Simple)
+
+```
+SELECT * FROM actor WHERE last_name = 'AKROYD' or last_name = 'GABLE';
+
+```
+
+### Example (mit Klammern) 
+
+```
+SELECT * FROM actor WHERE (last_name = 'Akroyd' and first_name = 'Christian') or (last_name = 'Gable' and first_name = 'Christian');
+```
+
+### Übung 
+
+```
+* Alle Datensätze aus actor anzeigen bei dennen der Nachname Akroyd oder der Vorname Christian ist.
+
+
+```
+
+### Beispiel mit select where in
+
+
+### Example 
+
+SELECT * FROM actor WHERE first_name IN ('JOE','ED','JENNIFER');
+
+### Übung 
+
+```
+* Sucht Euch 3 Citys und last die Datensätze aus city dazu ausgeben 
+* Frage: Welche Feld verwenden ? 
+* mit where ... IN umsetzen 
+
+```
+
+### Beispiel mit select und like
+
+
+### Example 
+
+```
+SELECT * FROM actor WHERE last_name like 'D%';
+
+```
+
+### Exercise 
+
+```
+## Lass Euch alle actor ausgeben, deren Nachname auf N endet. 
+
+
+```
+
+## ORDER BY (Sortierung)   
+
+### Beispiel und Übung order by
+
+
+### Beispiel 
+
+```
+SELECT first_name,last_name FROM actor ORDER BY last_name DESC, first_name;
+
+```
+
+### Übung (schlechtes Beispiel, anderes wäre besser) 
+
+```
+1. Wir sortieren alle Einträge film - Tabelle 
+2. rental_rate absteigend, Titel aufsteigend, release_year absteigend 
+```
+
+## LIMIT 
+
+### Kombiniertes Beispiel mit Order By und Limit + Übung
+
+
+### What does it do ? 
+
+```
+From your results of your query only shows a subset
+
+```
+
+### Example 
+
+```
+SELECT * from actor ORDER BY last_name DESC limit 3;
+```
+
+
+### Übung 
+
+```
+1. Zeige von den Filmen (sakila.film) die teuersten (rental_rate) zuerst, davon 
+
+Variante 1:
+- Zeige die ersten 20 
+
+Variante 2: Zeige 10 ab dem 11. Film 
+
+```
+
+
+
+```
+
+## ÜBUNGEN 
+
+### Uebung - Berechnung aus Feld
+
+### Übung order by
+
+
+### Beispiel 
+
+```
+SELECT first_name,last_name FROM actor ORDER BY last_name DESC, first_name;
+
+```
+
+### Übung (schlechtes Beispiel, anderes wäre besser) 
+
+```
+1. Wir sortieren alle Einträge film - Tabelle 
+2. rental_rate absteigend, Titel aufsteigend, release_year absteigend 
+```
+
+### Übung mit Order By und Limit
+
+
+### What does it do ? 
+
+```
+From your results of your query only shows a subset
+
+```
+
+### Example 
+
+```
+SELECT * from actor ORDER BY last_name DESC limit 3;
+```
+
+
+### Übung 
+
+```
+1. Zeige von den Filmen (sakila.film) die teuersten (rental_rate) zuerst, davon 
+
+Variante 1:
+- Zeige die ersten 20 
+
+Variante 2: Zeige 10 ab dem 11. Film 
+
+```
+
+
+
+```
+
+### Übung mit Select where 
+
+
+### Example (Simple)
+
+```
+SELECT * FROM actor WHERE last_name = 'AKROYD' or last_name = 'GABLE';
+
+```
+
+### Example (mit Klammern) 
+
+```
+SELECT * FROM actor WHERE (last_name = 'Akroyd' and first_name = 'Christian') or (last_name = 'Gable' and first_name = 'Christian');
+```
+
+### Übung 
+
+```
+* Alle Datensätze aus actor anzeigen bei dennen der Nachname Akroyd oder der Vorname Christian ist.
+
+
+```
+
+### Übung mit select where in
+
+
+### Example 
+
+SELECT * FROM actor WHERE first_name IN ('JOE','ED','JENNIFER');
+
+### Übung 
+
+```
+* Sucht Euch 3 Citys und last die Datensätze aus city dazu ausgeben 
+* Frage: Welche Feld verwenden ? 
+* mit where ... IN umsetzen 
+
+```
+
+### Übung mit select und like
+
+
+### Example 
+
+```
+SELECT * FROM actor WHERE last_name like 'D%';
+
+```
+
+### Exercise 
+
+```
+## Lass Euch alle actor ausgeben, deren Nachname auf N endet. 
+
+
+```
+
+### Übung - Refreshes Tag 2 - morgens - SELECT
+
+  * https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md
 
 ## Beispieldaten / Testserver
 
@@ -4028,66 +4454,6 @@ mysql -uroot -p -e "CREATE SCHEMA sakila2;"
 mysql -uroot -p sakila2 < sakila.sql 
 ```
 
-### MariaBackup (Windows)
-
-
-### Installation mariabackup 
-
-  * Installation wird mit Installation des Servers durchgeführt.
-  * Ist also in der Grundinstallation beinhalten
-
-
-### Walkthrough (Windows) - Sicherung 
-
-```
-REM -- Schritt 1: Backup 
-REM -- mariadb console starten  
-REM -- Programmpunkt unter mariadb 10.6 
-REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
-mariabackup --backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
-```
-
-```
-REM -- Schritt 2: Prepare 
-REM -- mariadb console starten  
-REM -- Programmpunkt unter mariadb 10.6 
-REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
-mariabackup --prepare --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
-```
-
-### Walkthrough (Windows) - Restore (Zurückspielen) 
-
-```
-REM -- Schritt 1: Server stoppen  
-REM - Über Dienste -> MariaDB -> Rechte Maustaste -> Beenden 
-
-REM -- Schritt 2: data - Verzeichnis umbenennen 
-REM - Im Explorer -> z.B. data-backup 
-
-
-REM -- Schritt 3: Restore  
-REM -- mariadb console starten  
-REM -- Programmpunkt unter mariadb 10.6 
-REM -- Achtung: backup - Ordner händisch in Explorer ohne Unterordner 
-mariabackup --copy-backup --user=root --password=password --target-dir=C:\Users\Admin\Desktop\backup\2022031501
-
-REM -- Schritt4: my.ini aus altem Verzeichnis in neues Kopieren (data-backup\my.ini -> data\my.ini)
-
-
-REM -- Schritt3: Rechte vom neuen Verzeichnis (erstellt durch Schritt 2) anpassen 
-REM -- Rechte Maustaste -> Eigenschaften -> Sicherheit -> Bearbeiten -> Hinzufügen -> NT Service\MariaDB -> Namen überprüfen
-REM -- MariaDB muss als Name erscheinen -> Übernehmen -> OK 
-REM -- Evtl. nochmal überprüfen ob der Nutzer drin ist. 
-
-REM -- Schritt 4: Server starten 
-REM -- Dienste -> MariaDB -> Starten 
-
-```
-
-### Ref (nur für Linux)
-
-  * https://mariadb.com/kb/en/full-backup-and-restore-with-mariabackup/
-
 ## User und Berechtigungen 
 
 ### Nutzer erstellen/Berechtigungen setzen/entfernen
@@ -4301,44 +4667,6 @@ Free buffers       0
 ### JDBC-Treiber
 
   * https://mariadb.com/kb/en/about-mariadb-connector-j/
-
-## Oracle 
-
-### Activating Oracle Sql-Mode
-
-
-```
-## ACTIVATE GLOBALLY (for complete server) - not persistent 
-## if you want to activate it globally 
-## this will not be available in the current session though 
-mysql>SET GLOBAL sql_mode='ORACLE'
-mysql> SELECT @@GLOBAL.sql_mode -- available globally 
-mysql> SELECT @@sql_mode -- in session. not present yet.
-
-## FOR THE session to be active, either reconnect or set it explicitly 
-mysql>SET sql_mode='ORACLE'
-mysql>SELECT @@sql_mode 
-```
-
-### Overview Oracle Mode
-
-  * https://mariadb.com/kb/en/sql_modeoracle/
-
-### When Others-Clause
-
-  * https://www.techonthenet.com/oracle/exceptions/when_others.php
-
-### Demo Oracle sql_mode from MariaDB
-
-  * https://www.youtube.com/watch?v=ntO2x4XHfUE
-
-### What is implemented in Oracle sql-mode - fromdual
-
-  * https://fromdual.com/mariadb-sql-mode-oracle
-
-### Simple oracle examples pl/sql in mariadb
-
-  * https://fromdual.com/select-hello-world-fromdual-with-mariadb-pl-sql
 
 ## Working with database objects 
 
@@ -4897,16 +5225,6 @@ mysql> select @@hostname;
 1 row in set (0.00 sec)
 ```
 
-## Storage Engines 
-
-### Which engine is used
-
-
-```
-show variables like '%default%'; 
-```
-
-
 ## Working with the data modelling language (DML's)
 
 ### Working with INSERT
@@ -4928,12 +5246,6 @@ INSERT INTO actor (first_name,last_name) values ('John','Peters'),('Mandy','John
 ```
 mysql -u root -p < C:\Users\Admin\Downloads\test.sql
 ```
-
-## Tools 
-
-### HeidiSQL Portable - works for windows
-
-  * https://www.heidisql.com/download.php?download=portable-64
 
 ## Tipps & Tricks 
 
