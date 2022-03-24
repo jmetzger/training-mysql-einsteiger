@@ -33,6 +33,7 @@
      * [Übung mit Select where ](/select/example-exercise-where.md)
      * [Übung mit select where in](/select/example-exercise-where-in.md) 
      * [Übung mit select und like](/select/using-like.md)
+     * https://github.com/jmetzger/select/training-mysql-einsteiger/tree/main/select
     
 ## Backlog      
        
