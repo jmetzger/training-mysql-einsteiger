@@ -4,7 +4,7 @@
 ## Agenda
   1. Technical Background 
      * [Technical Structure](#technical-structure)
-     * [Was ist SQL](#was-ist-sql)
+     * [Was ist SQL ?](#was-ist-sql-)
      
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](#was-sind-datenobjekte-und-welche-gibt-es-)
@@ -21,11 +21,16 @@
      * [Beispiel mit select und like](#beispiel-mit-select-und-like)
      * [Beispiele mit select und range](#beispiele-mit-select-und-range)
      * [Beispiel mit select und not in](#beispiel-mit-select-und-not-in)
-    
-  1. DATUM (DATETiME oder dier Unix Timestamp)
+     * [Beispiel mit select und SUBSTR,LOWER,UPPER,CONCAT](#beispiel-mit-select-und-substr,lower,upper,concat)
+   
+  1. IS NULL / IS NOT NULL 
+     * [Beispiel und Übung mit IS NULL / IS NOT NULL](#beispiel-und-übung-mit-is-null--is-not-null)
+   
+  1. DATUM (DATETIME oder dier Unix Timestamp)
      * [Beispiel mit select by date](#beispiel-mit-select-by-date)
      * [Schlechtes Beispiel mit select by date](#schlechtes-beispiel-mit-select-by-date)
      * [Beispiel mit Unix Timestamp (Umwandeln)](#beispiel-mit-unix-timestamp-umwandeln)
+     * [Beispiel mit Dateformat](#beispiel-mit-dateformat)
    
   1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](#zählen-von-datensätzen)
@@ -39,6 +44,9 @@
 
   1. LIMIT 
      * [Kombiniertes Beispiel mit Order By und Limit + Übung](#kombiniertes-beispiel-mit-order-by-und-limit-+-übung)
+
+  1. JOINS 
+     * [Überblick über JOINS](#überblick-über-joins)
     
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](#uebung---berechnung-aus-feld)
@@ -47,16 +55,22 @@
      * [Übung mit Select where ](#übung-mit-select-where-)
      * [Übung mit select where in](#übung-mit-select-where-in)
      * [Übung mit select und like](#übung-mit-select-und-like)
-     * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
      * [Übung 1+2 - Select Range](#übung-1+2---select-range)
      * [Übung mit select und not in](#übung-mit-select-und-not-in)
      * [Übung mit select by date](#übung-mit-select-by-date)
      * [Übung mit select by day](#übung-mit-select-by-day)
      * [Übung - Zählen vpon Datensätzen](#übung---zählen-vpon-datensätzen)
      * [Übung - Statistik AVG](#übung---statistik-avg)
+     * [Übung - NOT NULL / NULL](#übung---not-null--null)
+     * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](#übung-mit-select-und-substr,lower,upper,concat)
+     * [Übung mit unix timestamp](#übung-mit-unix-timestamp)
+     * [Übung mit Dateformat](#übung-mit-dateformat)
+     * [Übung - Refresher Tag 2 - morgens - SELECT](#übung---refresher-tag-2---morgens---select)
+     * [Übung - Refresher Tag 3 - morgens - SELECT](#übung---refresher-tag-3---morgens---select)
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](#cheatsheet---auf-dem-system-zurechtfinden---1.-sichtung)
+     * [Cheatsheet für Selects](#cheatsheet-für-selects)
 
 
 
@@ -74,7 +88,7 @@
 
 ![Overview](/images/mysql-architecture.jpg)
 
-### Was ist SQL
+### Was ist SQL ?
 
 
 ```
@@ -382,7 +396,68 @@ SELECT * FROM actor WHERE last_name NOT IN ('AKROYD','JONES');
 Lasst Euch alle Adressen anzeigen, die nicht im District QLD oder Alberta sind 
 ```
 
-## DATUM (DATETiME oder dier Unix Timestamp)
+### Beispiel mit select und SUBSTR,LOWER,UPPER,CONCAT
+
+
+### Example 
+
+```
+SELECT concat(title,' ',release_year,' ',description) as listeneintrag FROM film;
+SELECT concat ('hans und lotta',' ','haben glueck');
+SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
+SELECT upper(substr(description,1,20)) from film;
+SELECT upper(substr(description,1,20)) from film;
+SELECT lower(substr(description,1,20)) from film; 
+
+```
+
+### Exercise 
+
+```
+-- Db: sakila
+-- Tabelle: actor 
+Gebt folgende Felder aus (in einer Abfrage) 
+
+o last_name gross geschrieben 
+o first_name klein geschrieben
+o ausgabe mit zusammengeklebt last_name + ' ' + first_name (ohne +) 
+o erste beiden Buchstaben vom Nachnamen. 
+
+UPPER, LOWER, CONCAT, SUBSTR  
+
+
+
+```
+
+## IS NULL / IS NOT NULL 
+
+### Beispiel und Übung mit IS NULL / IS NOT NULL
+
+
+### Example 
+
+```
+SELECT * FROM rental WHERE return_date IS NOT NULL;
+SELECT * FROM rental WHERE return_date IS NULL;
+
+
+```
+
+### Exercise 
+
+```
+## Database: sakila 
+## Tabelle: staff 
+
+Übung 1:
+
+a) Gebt alle Datensätze aus in denen das Passwort NICHT GESETZT ist
+
+b) Gebt alle Datensätze aus in denen das Passwort GESETZT ist 
+
+```
+
+## DATUM (DATETIME oder dier Unix Timestamp)
 
 ### Beispiel mit select by date
 
@@ -431,7 +506,7 @@ Lasst euch alle Rückgaben aus Rental anzeigen, die zwischen (inkl) dem 27. und 
 
 ### Was ist das ? 
 
-  * Das Datum wird dargestellt als Sekunden seit 01.01.2022 
+  * Das Datum wird dargestellt als Sekunden seit 01.01.1970
 
 ### Warum ? 
 
@@ -441,13 +516,51 @@ Lasst euch alle Rückgaben aus Rental anzeigen, die zwischen (inkl) dem 27. und 
 ### Beispiele 
 
 ```
-## Datum auslesen und in unixtime stamp umwandeln 
-select last_update,unix_timestamp(last_update) from actor;
+SELECT unix_timestamp('2022-01-04');
+-- Datum auslesen und in unix timestamp umwandeln 
+SELECT last_update,unix_timestamp(last_update) from actor;
+-- Aktuelles Datum als unix timestam (inkl Uhrzeit) - Systemzeit des Servers/Rechners 
+-- Rechner auf dem MySQL - Server läuft 
+select unix_timestamp();
 
-## Unix Timestamp in Datum umwandeln 
+-- Unix timestamp in einer Datum umwandeln 
+SELECT from_unixtime('1648202962');
+
+```
+
+### Exercise 
+
+```
+Frage aus rental alle Datensätze ab beidenen
+o Das return_date nicht null (NOT NULL) ist 
+o Gib als einziges Feld das return_date umgewandelt zum Unix timestamp an. 
+o HINT: UNIX_TIMESTAMP() 
 
 
 ```
+
+### Beispiel mit Dateformat
+
+
+### Example 
+
+```
+
+SELECT date_format(last_update,'%M %Y') as meindatum FROM actor;
+
+```
+
+### Exercise 
+
+```
+Gib für rental_date aus der tabelle  rental das rental_date für jeden Datensatz wie folgt aus:
+Tag-der-Woche Jahr-2-stellig 
+
+Weitere Spalten werden nicht benötigt. 
+
+```
+
+ * https://www.w3schools.com/sql/func_mysql_date_format.asp
 
 ## COUNT / STATISTIK  
 
@@ -557,6 +670,72 @@ Variante 2: Zeige 10 ab dem 11. Film
 
 
 
+```
+
+## JOINS 
+
+### Überblick über JOINS
+
+
+### What is a JOIN for ? 
+
+ * combines rows from two or more tables
+ * based on a related column between them.
+
+### MySQL/MariaDB (Inner) Join 
+
+![Inner Join](/images/img_innerjoin.gif)
+
+### MySQL/MariaDB (Inner) Join (explained) 
+
+  * Inner Join and Join are the same
+  * Returns records that have matching values in both tables
+  * Inner Join, Cross Join and Join 
+    * are the same in MySQL
+ 
+### In Detail: [INNER] JOIN 
+
+  * Return rows when there 
+    * is a match in both tables 
+  * Example 
+
+```
+SELECT actor.first_name, actor.last_name, film.title 
+FROM film_actor 
+INNER JOIN actor ON film_actor.actor_id = actor.actor_id 
+INNER JOIN film ON film_actor.film_id = film.film_id;
+``` 
+ 
+### MySQL/MariaDB Left Join 
+
+![Image Left Join](/images/img_leftjoin.gif)
+
+### MySQL/MariaDB Left (outer) Join (explained) 
+
+  * Return all records from the left table
+  * _AND_ the matched records from the right table
+  * The result is NULL on the right side
+    * if there are no matched columns on the right 
+  * Left Join and Left Outer Join are the same
+
+
+### In Detail: Left Join
+
+  * Return all rows from the left side
+    * even if there is not result on the right side
+  * Example 
+```
+SELECT 
+    c.customer_id, 
+    c.first_name, 
+    c.last_name,
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM customer c
+LEFT JOIN actor a 
+ON c.last_name = a.last_name
+ORDER BY c.last_name;
 ```
 
 ## ÜBUNGEN 
@@ -670,10 +849,6 @@ SELECT * FROM actor WHERE last_name like 'D%';
 
 
 ```
-
-### Übung - Refreshes Tag 2 - morgens - SELECT
-
-  * https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md
 
 ### Übung 1+2 - Select Range
 
@@ -810,6 +985,181 @@ AVG() wird hier benötigt
 
 ```
 
+### Übung - NOT NULL / NULL
+
+
+### Example 
+
+```
+SELECT * FROM rental WHERE return_date IS NOT NULL;
+SELECT * FROM rental WHERE return_date IS NULL;
+
+
+```
+
+### Exercise 
+
+```
+## Database: sakila 
+## Tabelle: staff 
+
+Übung 1:
+
+a) Gebt alle Datensätze aus in denen das Passwort NICHT GESETZT ist
+
+b) Gebt alle Datensätze aus in denen das Passwort GESETZT ist 
+
+```
+
+### Übung mit select und SUBSTR,LOWER,UPPER,CONCAT
+
+
+### Example 
+
+```
+SELECT concat(title,' ',release_year,' ',description) as listeneintrag FROM film;
+SELECT concat ('hans und lotta',' ','haben glueck');
+SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
+SELECT upper(substr(description,1,20)) from film;
+SELECT upper(substr(description,1,20)) from film;
+SELECT lower(substr(description,1,20)) from film; 
+
+```
+
+### Exercise 
+
+```
+-- Db: sakila
+-- Tabelle: actor 
+Gebt folgende Felder aus (in einer Abfrage) 
+
+o last_name gross geschrieben 
+o first_name klein geschrieben
+o ausgabe mit zusammengeklebt last_name + ' ' + first_name (ohne +) 
+o erste beiden Buchstaben vom Nachnamen. 
+
+UPPER, LOWER, CONCAT, SUBSTR  
+
+
+
+```
+
+### Übung mit unix timestamp
+
+
+### Was ist das ? 
+
+  * Das Datum wird dargestellt als Sekunden seit 01.01.1970
+
+### Warum ? 
+
+  * Mit dem Unix Timestamp lassen sich einfache Vergleiche machen 
+  * und Auswahlen treffen (z.B. Range - Abfrage) 
+
+### Beispiele 
+
+```
+SELECT unix_timestamp('2022-01-04');
+-- Datum auslesen und in unix timestamp umwandeln 
+SELECT last_update,unix_timestamp(last_update) from actor;
+-- Aktuelles Datum als unix timestam (inkl Uhrzeit) - Systemzeit des Servers/Rechners 
+-- Rechner auf dem MySQL - Server läuft 
+select unix_timestamp();
+
+-- Unix timestamp in einer Datum umwandeln 
+SELECT from_unixtime('1648202962');
+
+```
+
+### Exercise 
+
+```
+Frage aus rental alle Datensätze ab beidenen
+o Das return_date nicht null (NOT NULL) ist 
+o Gib als einziges Feld das return_date umgewandelt zum Unix timestamp an. 
+o HINT: UNIX_TIMESTAMP() 
+
+
+```
+
+### Übung mit Dateformat
+
+
+### Example 
+
+```
+
+SELECT date_format(last_update,'%M %Y') as meindatum FROM actor;
+
+```
+
+### Exercise 
+
+```
+Gib für rental_date aus der tabelle  rental das rental_date für jeden Datensatz wie folgt aus:
+Tag-der-Woche Jahr-2-stellig 
+
+Weitere Spalten werden nicht benötigt. 
+
+```
+
+ * https://www.w3schools.com/sql/func_mysql_date_format.asp
+
+### Übung - Refresher Tag 2 - morgens - SELECT
+
+
+### Übung 1:
+
+```
+actor: Datensätze ausgeben, wo der Vorname mit C beginnt 
+und hier nur die ersten 10 sortiert nach Nachname
+- nur die Felder Vorname, Nachname ausgeben
+
+```
+
+### Übung 2:
+
+```
+addresses:
+- Alle Adressen die im district QLD, Alberta, Queens sind
+- Sortierung nach postal_code
+- nur die ersten 10 davon anziegen
+
+```
+
+
+
+### Übung - Refresher Tag 3 - morgens - SELECT
+
+
+### Übung 1:
+
+```
+Datenbank: sakila
+- Gebe den höchsten, den niedrigsten und den mittleren Zahlbetrag aus
+für alle Zahlungen (payment_date) vor dem 01.07.2005 (2005-07-01) 
+RUNDE den mittleren Zahlbetrag kaufmännisch (ROUND) mit 2 Nachkommastellen. 
+
+
+Hinweis:
+AVG, MIN, MAX, ROUND 
+und die Tabelle payment soll verwendet werden. 
+
+```
+* https://www.w3schools.com/sql/func_mysql_round.asp
+
+
+### Übung 2:
+
+```
+Datenbank: sakila.
+GEBE alle Sprachen aus, die nicht deutsch oder englisch sind. 
+
+Tabelle: language
+
+```
+
+
 ## TIPPS & TRICKS 
 
 ### Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung
@@ -835,3 +1185,32 @@ show indexes from actor
 ## Alle procedures/functions einer Datenbank auslesen
 select * from information_schema.routines where routine_schema = 'sakila';
 ```
+
+### Cheatsheet für Selects
+
+
+### SELECT .. FROM .. WHERE .. ORDER BY .. LIMIT 
+
+```
+select * from actor;
+select feld1,feld2,feld3 from actor;
+
+-- Mit Bedingung 
+select * from actor where last_name = 'AKROYD';
+select * from actor where last_name like 'A%';
+select * from actor where last_name like 'A%' and first_name like 'C%';
+
+-- Mit Bedingung und Sortierreihenfolge 
+select FELD from TABELLE WHERE BEDINGUNG ORDER BY FELD1,FELD2
+select first_name,last_name from actor where last_name like 'A%' order by first_name,last_name 
+
+-- Nur Limit 
+select FELD from tabelle limit 0,30; -- Ab Datensatz 1 der Ergebnismenge   
+select * from actor limit 30 -- Ab Datensatz 
+
+-- WHERE/ORDER BY/LIMIT 
+SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 0,10 
+SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab dem 5. Datensatz der Ergebnismenge 
+
+```
+
