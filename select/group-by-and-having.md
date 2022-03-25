@@ -12,18 +12,28 @@ it will only appears once.
 ## Example GROUP BY 
 
 ```
-
 SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name 
-
 ```
 
 ## Example 1 GROUP BY 
 
 ```
 -- Ich möchte alle Schauspieler die mit dem nachnamen A anfangen 
+```
 
+## Exercise 
 
 ```
+Gruppiere alle filme nach rental_rate und gibt die jeweilige anzahl aus 
+d.h. 
+z.B. (wert nicht korrekt - weil nicht überprüft 
+
+preis. anzahl 
+0.99.  4 
+2.99.  50 
+
+```
+
 
 ## What does HAVING do 
 
