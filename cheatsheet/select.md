@@ -35,7 +35,25 @@ SELECT * FROM rental WHERE return_date IS NULL;
 
 -- WHERE feldname <= '2022-01-02 10:00:01' (DATUM) 
 SELECT * FROM sakila.payment WHERE payment_date > '2005-05-24 22:00:01' and payment_date < '2005-05-25 22:00:01'
+```
 
+### WHERE -> DATUMSABFRAGE (NUR BEI WENIG DATEN < 1.000.0000 als Richtwert) 
+
+```
+-- möglichst im where keine Funktion für Feldname
+select YEAR(return_date),return_date from rental where YEAR(return_date) <= 2005; 
+```
+
+## DATUMS-FUNKTIONEN
+
+```
+select YEAR(return_date),MONTH(return_date),DAY(return_date) from rental;
+SELECT date_format(last_update,'%M %Y') as meindatum FROM actor;
+
+-- Unix timestamp 
+SELECT unix_timestamp('2022-01-04');
+SELECT last_update,unix_timestamp(last_update) from actor;
+SELECT unix_timestamp(); -- aktuelles Datum als unix timestamp 
 ```
 
 ### STRING-FUNKTIONEN 
@@ -47,9 +65,17 @@ SELECT lower(title) from film;
 SELECT lower(substr(description,1,20)) from film; 
 ```
 
+### ZÄHLEN / STATISTIK 
 
+```
+SELECT count(*) as howmany FROM actor; 
+select count(*) from actor where last_name like 'D%';
 
+-- Höchste Kosten (MAX), Geringste Kosten (MIN) anzeigen
+SELECT MAX(replacement_cost) as am_teuersten,MIN(replacement_cost) FROM sakila.film;
+```
 
+## SORTIERUNG / LIMIT 
 
 ```
 -- Mit Bedingung und Sortierreihenfolge 
@@ -66,8 +92,29 @@ SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab d
 ```
 
 
-## Rechnen 
+## RECHNEN / RUNDEN 
 
 ```
 SELECT amount,1 as 'Preiserhoehung um',amount + 1 as preiserhoehung FROM payment;
+
+-- Kaufmännisch runden 
+SELECT ROUND(1.56,1);
+-- Abschneiden
+SELECT truncate(1.56,1);
+-- FLOOR() -> abrunden zum nächsten Integer  
+SELECT FLOOR(12.56);
+-- CEIL() - Aufrunden zum nächsten Integer 
+SELECT CEIL(12.3);
+```
+
+## GROUP (GRUPPIEREN)
+
+```
+SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name;
+
+-- Nachnamen Gruppieren und alle Nachnamen anzeigen die mehr als 2 Mal vorkommen 
+SELECT last_name, COUNT(last_name) 
+FROM sakila.actor
+GROUP BY last_name
+HAVING count(last_name) > 2
 ```
