@@ -12,7 +12,6 @@
 ## Beispiele 
 
 ```
-
 SELECT unix_timestamp('2022-01-04');
 -- Datum auslesen und in unix timestamp umwandeln 
 SELECT last_update,unix_timestamp(last_update) from actor;
@@ -22,9 +21,5 @@ select unix_timestamp();
 
 -- Unix timestamp in einer Datum umwandeln 
 SELECT from_unixtime('1648202962');
-
-
--- SELECT date_format(last_update,'%M %Y') as meindatum FROM actor;
-
 
 ```
