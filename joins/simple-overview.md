@@ -16,6 +16,19 @@
   * Inner Join, Cross Join and Join 
     * are the same in MySQL
  
+## In Detail: [INNER] JOIN 
+
+  * Return rows when there 
+    * is a match in both tables 
+  * Example 
+
+```
+SELECT actor.first_name, actor.last_name, film.title 
+FROM film_actor 
+INNER JOIN actor ON film_actor.actor_id = actor.actor_id 
+INNER JOIN film ON film_actor.film_id = film.film_id;
+``` 
+ 
 ## MySQL/MariaDB Left Join 
 
 ![Image Left Join](/images/img_leftjoin.gif)
@@ -28,60 +41,6 @@
     * if there are no matched columns on the right 
   * Left Join and Left Outer Join are the same
 
-## MySQL Right Join 
-
-![Image Right Join](/images/img_rightjoin.gif)
-
-## MySQL Right Join (explained)  
-
-  * Return all records from the right table
-    * _AND_ the matched records from the left table
-  * Right Join and Right Outer Join are the same
-
-## MySQL Straight Join 
-
-  * MySQL (inner) Join and Straight Join are the same
-  * **Difference:**
-    * The left column is always read first
-  * **Downside:**
-    * Bad optimization through mysql (query optimizer) 
-  * **Recommendation:**
-    * Avoid straight join if possible 
-    * use join instead 
-  
-## Type of Joins 
-
-  * [inner] join
-    * **inner join** and **join** are the same  
-  * left [outer] join 
-  * right [outer] join
-  * full [outer] join
-  * straight join < equals > join
-  * cross join = join (in mysql)
-  * natural join <= equals => join (but syntax is different)
-
-## In Detail: [INNER] JOIN 
-
-  * Return rows when there 
-    * is a match in both tables 
-  * Example 
-
-```
-SELECT actor.first_name, actor.last_name, film.title 
-FROM film_actor 
-INNER JOIN actor ON film_actor.actor_id = actor.actor_id 
-INNER JOIN film ON film_actor.film_id = film.film_id;
-```
-
-## In Detail: Joining without JOIN - Keyword ==== 
-
-  * Explanation: Will have the same query execution plan as [INNER] JOIN
-```
-SELECT actor.first_name, actor.last_name, film.title 
-FROM film_actor,actor,film 
-where film_actor.actor_id = actor.actor_id 
-and film_actor.film_id = film.film_id;
-```
 
 ## In Detail: Left Join
 
@@ -101,34 +60,3 @@ LEFT JOIN actor a
 ON c.last_name = a.last_name
 ORDER BY c.last_name;
 ```
-
-## In Detail: Right Join 
-
-  * Return all rows from the right side
-    * even if there are no results on the left side
-  * Example 
-```
-SELECT 
-    c.customer_id, 
-    c.first_name, 
-    c.last_name,
-    a.actor_id,
-    a.first_name,
-    a.last_name
-FROM customer c
-RIGHT JOIN actor a 
-ON c.last_name = a.last_name
-ORDER BY a.last_name;
-```
-
-## In Detail: Having  
-
-  * Simple: WHERE for GroupBy (because where does not work here)
-  * Example 
-```
-SELECT last_name, COUNT(*) 
-FROM sakila.actor
-GROUP BY last_name
-HAVING count(last_name) > 2
-```
- 
