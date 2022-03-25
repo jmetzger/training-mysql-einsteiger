@@ -80,6 +80,7 @@
 
   1. Documentation 
      * https://dev.mysql.com/downloads/windows/installer/8.0.html
+     * https://www.mysqltutorial.org/mysql-export-table-to-csv/
 
 
 
