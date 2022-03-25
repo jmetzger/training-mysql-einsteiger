@@ -59,6 +59,7 @@
      * [Übung mit select by day](/select/bad-example-select-by-date.md)
      * [Übung - Zählen vpon Datensätzen](/select/count-rows.md)
      * [Übung - Statistik AVG](/select/statistik.md)
+     * [Übung - NOT NULL / NULL](/select/example-is-null.md)
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
 
