@@ -17,5 +17,15 @@ SELECT lower(substr(description,1,20)) from film;
 ```
 -- Db: sakila
 -- Tabelle: actor 
+Gebt folgende Felder aus (in einer Abfrage) 
+
+o last_name gross geschrieben 
+o first_name klein geschrieben
+o ausgabe mit zusammengeklebt last_name + ' ' + first_name (ohne +) 
+o erste beiden Buchstaben vom Nachnamen. 
+
+UPPER, LOWER, CONCAT, SUBSTR  
+
+
 
 ```
