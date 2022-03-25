@@ -6,6 +6,9 @@
 select * from actor;
 select feld1,feld2,feld3 from actor;
 
+-- Mit Feldalias für die Ausgabe
+select feld1 as ueberschrift_ausgabe,feld as feldueberschrift from actor;
+
 -- Mit Bedingung 
 select * from actor where last_name = 'AKROYD';
 select * from actor where last_name like 'A%';
@@ -24,4 +27,3 @@ SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 0,10
 SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab dem 5. Datensatz der Ergebnismenge 
 
 ```
-
