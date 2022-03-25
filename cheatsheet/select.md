@@ -118,3 +118,25 @@ FROM sakila.actor
 GROUP BY last_name
 HAVING count(last_name) > 2
 ```
+
+## JOINS 
+
+```
+-- JOIN über 2 Tabellen 
+SELECT a.*,c.* FROM customer c JOIN address a ON c.address_id = a.address_id; 
+SELECT c.first_name,c.last_name,a.postal_code FROM customer c JOIN address a ON c.address_id = a.address_id; 
+
+-- JOIN über 3 Tabellen 
+
+-- Schritt 1: 2 Tabellen 
+SELECT a.last_name,fa.film_id FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id;
+
+-- Schritt 2: auf 3 Tabellen erweitern 
+SELECT a.last_name,fa.film_id,f.title 
+FROM actor a 
+JOIN film_actor fa 
+ON a.actor_id = fa.actor_id
+JOIN film f 
+ON fa.film_id = f.film_id;
+
+```
