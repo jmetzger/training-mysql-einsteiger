@@ -12,9 +12,11 @@ SELECT a.*,c.last_name FROM address a LEFT JOIN customer c ON a.address_id = c.a
 
 ```
 DB: sakila
-Tables: store,address  
+Tables: address,store  
 Feld: address_id 
 
+Zeigt alle addressen an und bei allen addressen wo es keinen store gibt NULL 
+(LEFT JOIN) 
 
 
 ```
