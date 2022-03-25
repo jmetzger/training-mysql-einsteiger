@@ -34,7 +34,7 @@
    
   1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](/select/count-rows.md) 
-     * [Beispiel für Statistiabfrage (MAX,MIN)](/select/statistik.md) 
+     * [Beispiel für Statistikabfrage (MAX,MIN)](/select/statistik.md) 
    
   1. NUMERISCHE FUNKTIONEN 
      * [Abrunden / Aufrunden / Kaufmännisch Runden](/select/functions-round-ceil-floor.md)  
