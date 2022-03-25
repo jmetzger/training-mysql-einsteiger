@@ -9,11 +9,14 @@ select feld1,feld2,feld3 from actor;
 -- Mit Feldalias für die Ausgabe
 select feld1 as ueberschrift_ausgabe,feld as feldueberschrift from actor;
 
--- Mit Bedingung 
+-- WHERE =/like  
 select * from actor where last_name = 'AKROYD';
 select * from actor where last_name like 'A%';
 select * from actor where last_name like 'A%' and first_name like 'C%';
 select * from actor where (last_name = 'Akroyd' and first_name = 'Christian') or (last_name = 'Gable' and first_name = 'Christian');
+
+-- WHERE feldname IN
+SELECT * FROM actor WHERE first_name IN ('JOE','ED','JENNIFER');
 
 -- Mit Bedingung und Sortierreihenfolge 
 select FELD from TABELLE WHERE BEDINGUNG ORDER BY FELD1,FELD2
