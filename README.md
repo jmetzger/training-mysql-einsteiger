@@ -45,6 +45,9 @@
   1. LIMIT 
      * [Kombiniertes Beispiel mit Order By und Limit + Übung](/select/example-exercise-order-by-limit.md)
 
+  1. GROUP BY 
+     * [Example GROUP BY / HAVING](/select/group-by-and-having.md)
+
   1. JOINS 
      * [Überblick über JOINS](/joins/simple-overview.md) 
     
