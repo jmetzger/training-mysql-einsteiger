@@ -12,13 +12,7 @@ it will only appears once.
 ## Example GROUP BY 
 
 ```
-SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name 
-```
-
-## Example 1 GROUP BY 
-
-```
--- Ich möchte alle Schauspieler die mit dem nachnamen A anfangen 
+SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name;
 ```
 
 ## Exercise 
