@@ -61,3 +61,12 @@ GROUP BY last_name
 HAVING count(last_name) > 2
 ```
  
+## Exercise 
+
+```
+Gruppiere alle actor 
+o mit nachname, und anzahl nachname (felder die wir ausgeben) 
+o Gebe nur die actor aus, deren nachname mit J anfängt
+
+
+```
