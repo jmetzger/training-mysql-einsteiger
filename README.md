@@ -63,6 +63,7 @@
      * [Übung - Statistik AVG](/select/statistik.md)
      * [Übung - NOT NULL / NULL](/select/example-is-null.md)
      * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](/select/example-string-functions.md)
+     * [Übung mit unix timestamp](/select/unix-timestamp.md)
      * [Übung mit Dateformat](/select/example-dateformat.md)
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
