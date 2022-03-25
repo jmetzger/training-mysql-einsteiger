@@ -4,7 +4,7 @@
 
   1. Technical Background 
      * [Technical Structure](/technical-background/basics.md)
-     * [Was ist SQL](/technical-background/sql.md)
+     * [Was ist SQL ?](/technical-background/sql.md)
      
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
@@ -39,6 +39,9 @@
 
   1. LIMIT 
      * [Kombiniertes Beispiel mit Order By und Limit + Übung](/select/example-exercise-order-by-limit.md)
+
+  1. JOINS 
+     * [Überblick über JOINS](/joins/simple-overview.md) 
     
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](beispiel-mit-berechnung-aus-feldern.md) 
