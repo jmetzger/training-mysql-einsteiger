@@ -24,6 +24,9 @@ SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name
 ## Exercise 
 
 ```
+DB: sakila
+Table: film  
+
 Gruppiere alle filme nach rental_rate und gibt die jeweilige anzahl aus 
 d.h. 
 z.B. (wert nicht korrekt - weil nicht überprüft 
