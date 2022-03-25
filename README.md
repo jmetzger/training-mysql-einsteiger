@@ -49,7 +49,8 @@
      * [Example GROUP BY / HAVING](/select/group-by-and-having.md)
 
   1. JOINS 
-     * [Überblick über JOINS](/joins/simple-overview.md) 
+     * [Überblick über JOINS](/joins/simple-overview.md)
+     * [Example join - 2 tables - 1:1](/joins/example-join.md) 
     
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](beispiel-mit-berechnung-aus-feldern.md) 
@@ -68,6 +69,7 @@
      * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](/select/example-string-functions.md)
      * [Übung mit unix timestamp](/select/unix-timestamp.md)
      * [Übung mit Dateformat](/select/example-dateformat.md)
+     * [Übung join - 2 tables - 1:1](/joins/example-join.md)
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
 
