@@ -42,7 +42,7 @@ Then it aggregates the data (GROUP BY) and filters it by HAVING
   * Example 
 
 ```
-SELECT last_name, COUNT(*) 
+SELECT last_name, COUNT(last_name) 
 FROM sakila.actor
 GROUP BY last_name
 HAVING count(last_name) > 2
