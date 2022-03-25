@@ -22,7 +22,7 @@
      * [Beispiele mit select und range](/select/example-select-range.md)
      * [Beispiel mit select und not in](/select/example-select-not-in.md) 
     
-  1. DATUM (DATETiME oder dier Unix Timestamp)
+  1. DATUM (DATETIME oder dier Unix Timestamp)
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
      * [Beispiel mit Unix Timestamp (Umwandeln)](/select/unix-timestamp.md)  
@@ -47,13 +47,14 @@
      * [Übung mit Select where ](/select/example-exercise-where.md)
      * [Übung mit select where in](/select/example-exercise-where-in.md) 
      * [Übung mit select und like](/select/using-like.md)
-     * [Übung - Refreshes Tag 2 - morgens - SELECT](https://github.com/jmetzger/training-mysql-einsteiger/blob/main/select/uebung-tag-2-morgens.md)
      * [Übung 1+2 - Select Range](/select/example-select-range.md)
      * [Übung mit select und not in](/select/example-select-not-in.md) 
      * [Übung mit select by date](/select/example-select-by-date.md)
      * [Übung mit select by day](/select/bad-example-select-by-date.md)
      * [Übung - Zählen vpon Datensätzen](/select/count-rows.md)
      * [Übung - Statistik AVG](/select/statistik.md)
+     * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
+     * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
