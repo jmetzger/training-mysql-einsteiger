@@ -27,3 +27,9 @@ SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 0,10
 SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab dem 5. Datensatz der Ergebnismenge 
 
 ```
+
+## Rechnen 
+
+```
+SELECT amount,1 as 'Preiserhoehung um',amount + 1 as preiserhoehung FROM payment;
+```
