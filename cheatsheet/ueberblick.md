@@ -1,6 +1,6 @@
 # Cheatsheat 
 
-## Zugrechtfinden 
+## Zurechtfinden 
 
 ```
 -- Welche Datenbanken gibt es:
@@ -13,9 +13,9 @@ show tables;
 
 # Wie ist die Struktur eine Tabelle / welche Felder 
 -- describe <tabellenname> z.B. actor 
-describe actor
+describe actor;
 # Welche Indizies gibt es in einer Tabelle ? 
-show indexes from actor
+show indexes from actor;
 
 # Alle procedures/functions einer Datenbank auslesen
 select * from information_schema.routines where routine_schema = 'sakila';
