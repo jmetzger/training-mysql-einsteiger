@@ -20,10 +20,3 @@ addresses:
 ```
 
 
-## Übung 3: 
-
-```
-# actor:
-# - Alle Actor 
-
-```
