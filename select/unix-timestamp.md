@@ -23,3 +23,14 @@ select unix_timestamp();
 SELECT from_unixtime('1648202962');
 
 ```
+
+## Exercise 
+
+```
+Frage aus rental alle Datensätze ab beidenen
+o Das return_date nicht null (NOT NULL) ist 
+o Gib als einziges Feld das return_date umgewandelt zum Unix timestamp an. 
+o HINT: UNIX_TIMESTAMP() 
+
+
+```
