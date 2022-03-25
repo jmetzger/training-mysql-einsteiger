@@ -15,7 +15,7 @@
   1. SELECT's 
      * [Alle Datensätze abfragen und alias für Spalte setzen](/select/all-as-name.md) 
      * [Rechnen mit SELECT - Beispiele](/select/calculate.md)
-     * [Beispiel und Übung](beispiel-mit-berechnung-aus-feldern.md)
+     * [Beispiel und Übung - Berechnen aus Feldern](/select/beispiel-mit-berechnung-aus-feldern.md)
      * [Beispiel mit Select where ](/select/example-exercise-where.md)
      * [Beispiel mit select where in](/select/example-exercise-where-in.md) 
      * [Beispiel mit select und like](/select/using-like.md)
