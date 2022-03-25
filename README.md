@@ -21,7 +21,10 @@
      * [Beispiel mit select und like](/select/using-like.md)
      * [Beispiele mit select und range](/select/example-select-range.md)
      * [Beispiel mit select und not in](/select/example-select-not-in.md) 
-    
+   
+  1. IS NULL / IS NOT NULL 
+     * [Beispiel und Übung mit IS NULL / IS NOT NULL](/select/example-is-null.md)
+   
   1. DATUM (DATETIME oder dier Unix Timestamp)
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
