@@ -13,6 +13,7 @@ select feld1 as ueberschrift_ausgabe,feld as feldueberschrift from actor;
 select * from actor where last_name = 'AKROYD';
 select * from actor where last_name like 'A%';
 select * from actor where last_name like 'A%' and first_name like 'C%';
+select * from actor where (last_name = 'Akroyd' and first_name = 'Christian') or (last_name = 'Gable' and first_name = 'Christian');
 
 -- Mit Bedingung und Sortierreihenfolge 
 select FELD from TABELLE WHERE BEDINGUNG ORDER BY FELD1,FELD2
