@@ -3,7 +3,7 @@
 ## What does it do ?
 
 ```
-Group By aggregates dates. 
+Group By aggregates data (data sets) 
 Example: So if something appears multiple times, e.g a first name, 
 it will only appears once. 
 
@@ -14,6 +14,14 @@ it will only appears once.
 ```
 
 SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name 
+
+```
+
+## Example 1 GROUP BY 
+
+```
+-- Ich möchte alle Schauspieler die mit dem nachnamen A anfangen 
+
 
 ```
 
