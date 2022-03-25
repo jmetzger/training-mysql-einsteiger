@@ -21,7 +21,7 @@
      * [Beispiel mit select und like](#beispiel-mit-select-und-like)
      * [Beispiele mit select und range](#beispiele-mit-select-und-range)
      * [Beispiel mit select und not in](#beispiel-mit-select-und-not-in)
-     * [Beispiel mit select und SUBSTR,LOWER,UPPER,CONCAT](#beispiel-mit-select-und-substr,lower,upper,concat)
+     * [Beispiel mit select und SUBSTR,LOWER,UPPER,CONCAT](#beispiel-mit-select-und-substrlowerupperconcat)
    
   1. IS NULL / IS NOT NULL 
      * [Beispiel und Übung mit IS NULL / IS NOT NULL](#beispiel-und-übung-mit-is-null--is-not-null)
@@ -34,7 +34,7 @@
    
   1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](#zählen-von-datensätzen)
-     * [Beispiel für Statistiabfrage (MAX,MIN)](#beispiel-für-statistiabfrage-max,min)
+     * [Beispiel für Statistiabfrage (MAX,MIN)](#beispiel-für-statistiabfrage-maxmin)
    
   1. NUMERISCHE FUNKTIONEN 
      * [Abrunden / Aufrunden / Kaufmännisch Runden](#abrunden--aufrunden--kaufmännisch-runden)
@@ -45,8 +45,12 @@
   1. LIMIT 
      * [Kombiniertes Beispiel mit Order By und Limit + Übung](#kombiniertes-beispiel-mit-order-by-und-limit-+-übung)
 
+  1. GROUP BY 
+     * [Example GROUP BY / HAVING](#example-group-by--having)
+
   1. JOINS 
      * [Überblick über JOINS](#überblick-über-joins)
+     * [Example join - 2 tables - 1:1](#example-join---2-tables---1:1)
     
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](#uebung---berechnung-aus-feld)
@@ -62,14 +66,15 @@
      * [Übung - Zählen vpon Datensätzen](#übung---zählen-vpon-datensätzen)
      * [Übung - Statistik AVG](#übung---statistik-avg)
      * [Übung - NOT NULL / NULL](#übung---not-null--null)
-     * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](#übung-mit-select-und-substr,lower,upper,concat)
+     * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](#übung-mit-select-und-substrlowerupperconcat)
      * [Übung mit unix timestamp](#übung-mit-unix-timestamp)
      * [Übung mit Dateformat](#übung-mit-dateformat)
+     * [Übung join - 2 tables - 1:1](#übung-join---2-tables---1:1)
      * [Übung - Refresher Tag 2 - morgens - SELECT](#übung---refresher-tag-2---morgens---select)
      * [Übung - Refresher Tag 3 - morgens - SELECT](#übung---refresher-tag-3---morgens---select)
 
   1. TIPPS & TRICKS 
-     * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](#cheatsheet---auf-dem-system-zurechtfinden---1.-sichtung)
+     * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](#cheatsheet---auf-dem-system-zurechtfinden---1-sichtung)
      * [Cheatsheet für Selects](#cheatsheet-für-selects)
 
 
@@ -672,6 +677,82 @@ Variante 2: Zeige 10 ab dem 11. Film
 
 ```
 
+## GROUP BY 
+
+### Example GROUP BY / HAVING
+
+
+### What does it do ?
+
+```
+Group By aggregates data (data sets) 
+Example: So if something appears multiple times, e.g a first name, 
+it will only appears once. 
+
+```
+
+### Example GROUP BY 
+
+```
+SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name 
+```
+
+### Example 1 GROUP BY 
+
+```
+-- Ich möchte alle Schauspieler die mit dem nachnamen A anfangen 
+```
+
+### Exercise 
+
+```
+DB: sakila
+Table: film  
+
+Gruppiere alle filme nach rental_rate und gibt die jeweilige anzahl aus 
+d.h. 
+z.B. (wert nicht korrekt - weil nicht überprüft 
+
+preis. anzahl 
+0.99.  4 
+2.99.  50 
+
+```
+
+
+### What does HAVING do 
+
+```
+Step 1: 
+First MySQL reads all the data based on WHERE 
+
+Step 2: 
+Then it aggregates the data (GROUP BY) and filters it by HAVING 
+```
+
+### Example Having 
+
+
+  * Simple: WHERE for GroupBy (because where does not work here)
+  * Example 
+
+```
+SELECT last_name, COUNT(last_name) 
+FROM sakila.actor
+GROUP BY last_name
+HAVING count(last_name) > 2
+```
+ 
+### Exercise 
+
+```
+Gruppiere alle actor 
+o mit nachname, und anzahl nachname (felder die wir ausgeben) 
+o Gebe nur die actor aus, deren nachname mit J anfängt
+
+
+```
+
 ## JOINS 
 
 ### Überblick über JOINS
@@ -736,6 +817,27 @@ FROM customer c
 LEFT JOIN actor a 
 ON c.last_name = a.last_name
 ORDER BY c.last_name;
+```
+
+### Example join - 2 tables - 1:1
+
+
+### Example Join über 2 Tabellen (1:1) 
+
+```
+SELECT a.*,c.* FROM customer c JOIN address a ON c.address_id = a.address_id; 
+SELECT c.first_name,c.last_name,a.postal_code FROM customer c JOIN address a ON c.address_id = a.address_id; 
+
+```
+### Exercise über 2 Tabellen (1:1) 
+
+```
+DB: sakila
+Tables: store,address  
+Feld: address_id 
+Zeige alle Adressen der Stores an ? (Alle Felder von store und von address
+
+
 ```
 
 ## ÜBUNGEN 
@@ -1104,6 +1206,27 @@ Weitere Spalten werden nicht benötigt.
 ```
 
  * https://www.w3schools.com/sql/func_mysql_date_format.asp
+
+### Übung join - 2 tables - 1:1
+
+
+### Example Join über 2 Tabellen (1:1) 
+
+```
+SELECT a.*,c.* FROM customer c JOIN address a ON c.address_id = a.address_id; 
+SELECT c.first_name,c.last_name,a.postal_code FROM customer c JOIN address a ON c.address_id = a.address_id; 
+
+```
+### Exercise über 2 Tabellen (1:1) 
+
+```
+DB: sakila
+Tables: store,address  
+Feld: address_id 
+Zeige alle Adressen der Stores an ? (Alle Felder von store und von address
+
+
+```
 
 ### Übung - Refresher Tag 2 - morgens - SELECT
 
