@@ -2,7 +2,7 @@
 
 ## Was ist das ? 
 
-  * Das Datum wird dargestellt als Sekunden seit 01.01.2022 
+  * Das Datum wird dargestellt als Sekunden seit 01.01.1970
 
 ## Warum ? 
 
