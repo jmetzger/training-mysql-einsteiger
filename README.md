@@ -30,6 +30,7 @@
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
      * [Beispiel mit Unix Timestamp (Umwandeln)](/select/unix-timestamp.md)  
+     * [Beispiel mit Dateformat](/select/example-dateformat.md)
    
   1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](/select/count-rows.md) 
@@ -62,6 +63,7 @@
      * [Übung - Statistik AVG](/select/statistik.md)
      * [Übung - NOT NULL / NULL](/select/example-is-null.md)
      * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](/select/example-string-functions.md)
+     * [Übung mit Dateformat](/select/example-dateformat.md)
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
 
