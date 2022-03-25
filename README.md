@@ -61,6 +61,7 @@
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
+     * [Cheatsheet für Selects](cheatsheet/select.md)
 
 
 
