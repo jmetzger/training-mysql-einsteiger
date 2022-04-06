@@ -4,7 +4,7 @@
 
 ```
 # Es kann kein Index (Eintrag im Schlagwortverzeichnis verwendet werden) 
-select YEAR(return_date),return_date from rental where YEAR(return_date) <= 2005;
+select YEAR(return_date),return_date from rental where YEAR(return_date) = 2005;
 
 # Besser: Index kann verwendet werden.
 SELECT YEAR(return_date),return_date 
@@ -24,4 +24,5 @@ select YEAR(return_date),MONTH(return_date),DAY(return_date) from rental;
 ```
 Lasst euch alle Rückgaben aus Rental anzeigen, die zwischen (inkl) dem 27. und 30. zurückgegeben wurden 
 (egal welchen Monats) 
+HINT: MONTH 
 ```
