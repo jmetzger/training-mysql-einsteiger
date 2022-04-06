@@ -22,3 +22,10 @@ SELECT 15 DIV 2 as Ergebnis;
 
 
 ```
+
+## Übung 
+
+```
+Rechne 3 Beispiele:
+z.B. 1+4, 2*5, 7/3 
+```
