@@ -33,3 +33,5 @@ UPPER, LOWER, CONCAT, SUBSTR
 ## Documentation 
 
   * https://dev.mysql.com/doc/refman/8.0/en/string-functions.html
+  * https://www.w3schools.com/sql/func_mysql_concat.asp
+  * https://www.mysqltutorial.org/sql-concat-in-mysql.aspx
