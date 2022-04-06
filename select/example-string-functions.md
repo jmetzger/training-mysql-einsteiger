@@ -1,6 +1,6 @@
 # Examples string-functions 
 
-## Example 
+## Example 1
 
 ```
 SELECT concat(title,' ',release_year,' ',description) as listeneintrag FROM film;
@@ -9,6 +9,13 @@ SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
 SELECT upper(substr(description,1,20)) from film;
 SELECT upper(substr(description,1,20)) from film;
 SELECT lower(substr(description,1,20)) from film; 
+
+```
+
+## Example 2 
+
+```
+select 'test' ' ist gut ' 'verlaufen';
 
 ```
 
