@@ -39,12 +39,12 @@ select 'test' ' ist gut ' 'verlaufen';
 -- Tabelle: actor 
 Gebt folgende Felder aus (in einer Abfrage) 
 
-o last_name gross geschrieben 
-o first_name klein geschrieben
-o ausgabe mit zusammengeklebt last_name + ' ' + first_name (ohne +) 
-o erste beiden Buchstaben vom Nachnamen. 
+o Ausgabe Spalte 1: last_name gross geschrieben 
+o Ausgabe Spalte 2: first_name klein geschrieben
+o Ausgabe Spalte 3: ausgabe mit zusammengeklebt last_name + ' ' + first_name (ohne +) 
+o Ausgabe Spalte 4: erste beiden Buchstaben vom Nachnamen. 
 
-UPPER, LOWER, CONCAT, SUBSTR  
+HINT: -> UPPER, LOWER, CONCAT, SUBSTR  
 
 
 
