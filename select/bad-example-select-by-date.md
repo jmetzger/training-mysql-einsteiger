@@ -4,6 +4,7 @@
 
 ```
 # Es kann kein Index (Eintrag im Schlagwortverzeichnis verwendet werden) 
+# Alle Rückgabe im Jahr 2005 
 select YEAR(return_date),return_date from rental where YEAR(return_date) = 2005;
 
 # Besser: Index kann verwendet werden.
