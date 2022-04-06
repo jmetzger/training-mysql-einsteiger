@@ -25,5 +25,5 @@ select YEAR(return_date),MONTH(return_date),DAY(return_date) from rental;
 ```
 Lasst euch alle Rückgaben aus Rental anzeigen, die zwischen (inkl) dem 27. und 30. zurückgegeben wurden 
 (egal welchen Monats) 
-HINT: MONTH 
+HINT: DAY
 ```
