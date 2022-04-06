@@ -33,7 +33,7 @@ oder < 90000 und > 50000
 ## Übung 3
 
 ```
-Lass Euch alle Einträge aus dem inventory mit between im Bereich 10 bis 100 anzeigen (inkl 10 und 100) 
+Lass Euch alle Einträge aus dem inventory mit between im Bereich 10 bis 100 anzeigen (inkl 10 und 100) - inventory_id
 
 
 ```
