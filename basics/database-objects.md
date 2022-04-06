@@ -35,7 +35,7 @@ Jede Tabelle hat eine Struktur -> Columns (Felder)
 
 ```
 Die Tabelle hat eine Struktur, die bestimmt wird durch die Columns (Felder) 
-Jedes Feld (Column) hat einen Datentyp, der bestimmt welcher Daten dort rein dürfen.
+Jedes Feld (Column) hat einen Datentyp, der bestimmt welche Daten dort rein dürfen.
 z.B. Strings (varchar), oder Zahlen (z.B. INT -> Integer) 
 
 ```
