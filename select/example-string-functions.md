@@ -3,8 +3,21 @@
 ## Example 1
 
 ```
+# Zusammenkleben 
 SELECT concat(title,' ',release_year,' ',description) as listeneintrag FROM film;
 SELECT concat ('hans und lotta',' ','haben glueck');
+
+# Teilstring 
+SELECT substr('Zusammengesetztes Wort',1,2);
+
+# Kleinschreibung 
+select lower('SONNENSCHEIN');
+select lower(last_name) from actor;
+
+# Grossschreibung
+select upper('klein');
+
+# Kombiniert 
 SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
 SELECT upper(substr(description,1,20)) from film;
 SELECT upper(substr(description,1,20)) from film;
