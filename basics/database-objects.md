@@ -3,7 +3,7 @@
 ## Was sind Datenbankobjekte 
 
 ```
-Bilden eine Strutkur um Daten zu speichern 
+Bilden eine Struktur um Daten zu speichern 
 ```
 
 ## Welche gibt es ? (Klassiker)
