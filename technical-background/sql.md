@@ -10,6 +10,5 @@ enthaltenen Daten verwendet wird.
 ```
 
 ```
-Will ich Daten aus eine SQL-Datenbank brauche ich die Abfrage
-sprache SQL 
+Will ich Daten aus eine SQL-Datenbank brauche ich die Abfragesprache SQL 
 ```
