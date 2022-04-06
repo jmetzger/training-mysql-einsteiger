@@ -3,7 +3,8 @@
 ## Example 
 
 ```
-SELECT * FROM sakila.payment WHERE payment_date > '2005-05-24 22:00:01' and payment_date < '2005-05-25 22:00:01'
+USE sakila;
+SELECT * FROM payment WHERE payment_date > '2005-05-24 22:00:01' and payment_date < '2005-05-25 22:00:01'
 
 ```
 
