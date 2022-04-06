@@ -15,7 +15,7 @@
 SELECT unix_timestamp('2022-01-04');
 -- Datum auslesen und in unix timestamp umwandeln 
 SELECT last_update,unix_timestamp(last_update) from actor;
--- Aktuelles Datum als unix timestam (inkl Uhrzeit) - Systemzeit des Servers/Rechners 
+-- Aktuelles Datum als unix timestamp (inkl Uhrzeit) - Systemzeit des Servers/Rechners 
 -- Rechner auf dem MySQL - Server läuft 
 select unix_timestamp();
 
