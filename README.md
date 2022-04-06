@@ -2,7 +2,7 @@
 
 ## Agenda 
 
-  1. Technical Background 
+  1. Technischer Hintergrund
      * [Technical Structure](/technical-background/basics.md)
      * [Was ist SQL ?](/technical-background/sql.md)
      
