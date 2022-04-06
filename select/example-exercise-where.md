@@ -16,7 +16,7 @@ SELECT * FROM actor WHERE (last_name = 'Akroyd' and first_name = 'Christian') or
 ## Übung 
 
 ```
-* Alle Datensätze aus actor anzeigen bei dennen der Nachname Akroyd oder der Vorname Christian ist.
+* Alle Datensätze aus actor anzeigen bei denen der Nachname Akroyd oder der Vorname Christian ist.
 
 
 ```
