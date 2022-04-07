@@ -42,7 +42,7 @@ Step 2:
 Then it aggregates the data (GROUP BY) and filters it by HAVING 
 ```
 
-## Example Having 
+## Example Having (Simple) 
 
 
   * Simple: WHERE for GroupBy (because where does not work here)
@@ -54,7 +54,18 @@ FROM sakila.actor
 GROUP BY last_name
 HAVING count(last_name) > 2
 ```
- 
+
+## Example Having (a bit more complicated) 
+
+```
+# Step 1: Get all data wuth last_name like 'W%'
+# Step 2: Group by last_name 
+# Step 3: Only return dataset where count(last_name) --> aggregated data (HAVING) = 2 
+
+select last_name,count(last_name) from actor where last_name like 'W%' group by last_name having count(last_name) = 2;
+```
+
+
 ## Exercise 
 
 ```
