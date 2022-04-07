@@ -64,6 +64,10 @@
      * [Example join - 2 tables - 1:1](/joins/example-join.md) 
      * [Beispiel Join über 3 Tabellen](/joins/beispiel-join-ueber-3-tabellen.md)
     
+  1. UPDATE 
+     * [Update with example](/update/examples.md) 
+     * [Delete with example](/delete/examples.md)  
+    
   1. ÜBUNGEN 
      * [Uebung - Berechnung aus Feld](beispiel-mit-berechnung-aus-feldern.md) 
      * [Übung order by](/select/beispiel-order-by-mit-uebung.md)
