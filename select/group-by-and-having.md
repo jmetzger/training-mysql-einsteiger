@@ -23,11 +23,11 @@ SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name;
 
 -- Gruppiere alle filme nach rental_rate und gibt die jeweilige anzahl aus 
 -- d.h. 
--- z.B. (Wert nicht korrekt - weil nicht überprüft)
-
-preis. anzahl 
-0.99.  4 
-2.99.  50 
+-- z.B. 
+-- Preis Anzahl
+-- 4.99	336
+-- 2.99	323
+-- 0.99	341
 
 ```
 
