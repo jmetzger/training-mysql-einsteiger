@@ -66,6 +66,8 @@
     
   1. UPDATE 
      * [Update with example](/update/examples.md) 
+
+  1. DELETE 
      * [Delete with example](/delete/examples.md)  
     
   1. ÜBUNGEN 
