@@ -88,6 +88,7 @@
   1. Datentypen 
      * [Integer - Ganzzahlen](/datatypes/int.md)
      * [Strings - varchar](/datatypes/varchar.md)
+     * [Text](https://www.mysqltutorial.org/mysql-text/)
 
   1. Variablen 
      * [Beispiel mit Abfrage und User-Variable](/variables/example-query.md)
