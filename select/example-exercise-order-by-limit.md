@@ -1,4 +1,4 @@
-# Example Limit (combined with order by
+# Beispiel Limit (combined with order by)
 
 ## What does it do ? 
 
@@ -7,10 +7,11 @@ From your results of your query only shows a subset
 
 ```
 
-## Example 
+## Beispiel 
 
 ```
-SELECT * from actor ORDER BY last_name DESC limit 3;
+# Eine Zahl: d.h. beginnend ab 0. Datensatz (Datensatz Numero 1) und 3 Ergebnisse 
+SELECT * FROM actor ORDER BY last_name DESC LIMIT 3;
 ```
 
 
