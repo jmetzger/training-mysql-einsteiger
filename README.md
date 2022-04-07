@@ -2,9 +2,10 @@
 
 ## Agenda 
 
-  1. Technischer Hintergrund
+  1. Technischer Hintergrund / Allgemeines 
      * [Technical Structure](/technical-background/basics.md)
      * [Was ist SQL ?](/technical-background/sql.md)
+     * [Wofür brauche ich MySQL - Anwendungsbeispiele](/technical-background/projects.md)
      
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
