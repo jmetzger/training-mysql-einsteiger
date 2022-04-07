@@ -107,7 +107,7 @@ SELECT FLOOR(12.56);
 SELECT CEIL(12.3);
 ```
 
-## GROUP (GRUPPIEREN)
+## GROUP (GRUPPIEREN) - SELECT .. FROM .. WHERE .. GROUP BY .. HAVING .. ORDER BY .. LIMIT 
 
 ```
 SELECT last_name,COUNT(last_name) as cnt FROM actor GROUP BY last_name;
