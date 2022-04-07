@@ -89,6 +89,9 @@
      * [Integer - Ganzzahlen](/datatypes/int.md)
      * [Strings - varchar](/datatypes/varchar.md)
 
+  1. Variablen 
+     * [Beispiel mit Abfrage und User-Variable](/variables/example-query.md)
+
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
      * [Cheatsheet für Selects](cheatsheet/select.md)
