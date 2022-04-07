@@ -26,11 +26,12 @@
   1. IS NULL / IS NOT NULL 
      * [Beispiel und Übung mit IS NULL / IS NOT NULL](/select/example-is-null.md)
    
-  1. DATUM (DATETIME oder dier Unix Timestamp)
+  1. DATUM (DATETIME,STR_TO_DATE oder der Unix Timestamp)
      * [Beispiel mit select by date](/select/example-select-by-date.md)
      * [Schlechtes Beispiel mit select by date](/select/bad-example-select-by-date.md)
      * [Beispiel mit Unix Timestamp (Umwandeln)](/select/unix-timestamp.md)  
      * [Beispiel mit Dateformat](/select/example-dateformat.md)
+     * [Beispiel String in Date umwandeln](/select/str-to-date.md) 
    
   1. COUNT / STATISTIK  
      * [Zählen von Datensätzen](/select/count-rows.md) 
