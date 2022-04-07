@@ -7,7 +7,8 @@
      * [Was ist SQL ?](/technical-background/sql.md)
      * [Wofür brauche ich MySQL - Anwendungsbeispiele](/technical-background/projects.md)
      * [Excel vs. MySQL](/technical-background/excel-vs-mysql.md)
-     * [Wie starte ich ? (Workbench - Installation)](/installation-mysql-windows-8.md)
+     * [Wie starte ich ? (Windows: MYSQL -Server/Workbench - Installation)](/installation-mysql-windows-8.md)
+     * [Installation osx (Mac)](/installation-mysql-osx.md)
      
   1. Grundlagen 
      * [Was sind Datenobjekte und welche gibt es ?](/basics/database-objects.md) 
