@@ -13,3 +13,24 @@ SELECT FLOOR(12.56);
 SELECT CEIL(12.3);
 
 ```
+
+## Exercise 
+
+```
+1. Übung 
+
+-- Db: sakila
+-- Table: film 
+-- Field: length 
+
+Lass Dir die durchscnittliche Länge aller Filme, kaufmännisch gerundet auf volle Minuten anzeigen
+
+2. Übung 
+
+-- Db.: sakila 
+-- Table: film 
+
+Berechne die Summe aller replacement_cost(s) in film und runde dieser auf die nächste voller Zahl auf. 
+HINT: SUM 
+
+```
