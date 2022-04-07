@@ -11,5 +11,5 @@ SELECT first_name,last_name FROM actor ORDER BY last_name DESC, first_name;
 
 ```
 1. Wir sortieren alle Einträge film - Tabelle 
-2. rental_rate absteigend, Titel aufsteigend, release_year absteigend 
+2. rental_rate absteigend, Titel aufsteigend 
 ```
