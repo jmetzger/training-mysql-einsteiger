@@ -44,6 +44,12 @@
   1. NUMERISCHE FUNKTIONEN 
      * [Abrunden / Aufrunden / Kaufmännisch Runden](/select/functions-round-ceil-floor.md)  
    
+  1. WEITERE STRINGFUNKTIONEN
+     * [Überblick der Stringfunktionen](https://dev.mysql.com/doc/refman/8.0/en/string-functions.html)
+     * [CHAR_LENGTH und LENGTH](/select/char_length_length.md)
+     * [Replace - Zeichen ersetzen](/select/replace.md) 
+   
+   
   1. ORDER BY (Sortierung)   
      * [Beispiel und Übung order by](/select/beispiel-order-by-mit-uebung.md)
 
