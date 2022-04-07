@@ -9,6 +9,12 @@ it will only appears once.
 
 ```
 
+## Syntax 
+
+```
+SELECT .. FROM .. WHERE .. GROUP BY .. HAVING .. ORDER BY .. LIMIT
+```
+
 ## Example GROUP BY 
 
 ```
