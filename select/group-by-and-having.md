@@ -23,7 +23,7 @@ Table: film
 
 Gruppiere alle filme nach rental_rate und gibt die jeweilige anzahl aus 
 d.h. 
-z.B. (wert nicht korrekt - weil nicht überprüft 
+z.B. (Wert nicht korrekt - weil nicht überprüft)
 
 preis. anzahl 
 0.99.  4 
