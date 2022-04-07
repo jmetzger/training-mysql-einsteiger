@@ -10,13 +10,14 @@ select first_name,'=>' as ' wird zu : ', replace(first_name,'CHRISTIAN','PETER')
 ## Übung 
 
 ```
-Db: sakila
-table: film 
+-- Db: sakila
+-- table: film 
 
-Lese alle replacement_cost aus (Feld 1), (Feld 2:) multipliziere diese mit 2 ( * 2 ) und Ersetze das Decimaltrennzeichen "." -> durch. "," 
-Beispiel 
+-- Lese alle replacement_cost aus (Feld 1), (Feld 2:) multipliziere diese mit 2 ( * 2 ) und Ersetze das Decimaltrennzeichen "." -> durch. "," 
+-- Beispiel 
 
-2.99  5,98 
+-- 2.99  5,98 
+
 
 
 ```
