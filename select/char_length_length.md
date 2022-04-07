@@ -29,6 +29,7 @@ z.B. PETERSON,DAN 12
 HINT: Verwende zum Zusammenkleben möglich CONCAT_WS 
 ```
 
+* https://www.w3schools.com/sql/func_mysql_concat_ws.asp
 
 
 
