@@ -30,7 +30,7 @@ Lass Dir die durchscnittliche Länge aller Filme, kaufmännisch gerundet auf vol
 -- Db.: sakila 
 -- Table: film 
 
-Berechne die Summe aller replacement_cost(s) in film und runde dieser auf die nächste voller Zahl auf. 
+Berechne die Summe aller replacement_cost(s) in film und runde dieser auf die nächste voller Zahl ohne Nachkommastellen auf. 
 HINT: SUM 
 
 ```
