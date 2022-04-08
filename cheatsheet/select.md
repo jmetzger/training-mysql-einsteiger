@@ -119,7 +119,7 @@ GROUP BY last_name
 HAVING count(last_name) > 2
 ```
 
-## JOINS 
+## JOINS - SELECT .. FROM .. JOIN ... ON ... JOIN ... ON ... WHERE .. GROUP BY .. HAVING .. ORDER BY .. LIMIT 
 
 ```
 -- JOIN über 2 Tabellen 
