@@ -65,6 +65,7 @@
      * [Beispiel Join über 3 Tabellen](/joins/beispiel-join-ueber-3-tabellen.md)
      * [Beispiel Left join](/joins/example-leftjoin.md)
      * [Beispiel 2 Tabellen vergleichen](/joins/beispiel-2-tabellen-vergleichen.md) 
+     * [Beispiel komplexer Join](/joins/example-complex-join.md)
     
   1. UPDATE 
      * [Update with example](/update/examples.md) 
