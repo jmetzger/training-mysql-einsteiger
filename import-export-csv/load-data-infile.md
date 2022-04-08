@@ -41,6 +41,18 @@ IGNORE 1 ROWS
 SET geburtsdatum = STR_TO_DATE(@geburtsdatum, '%d.%m.%Y');
 ```
 
+```
+# Das funktioniert nicht: Error 1290
+LOAD DATA INFILE 'C:\ProgramData\MySQL\MySQL Server 8.0\Uploads\mysql - daten.csv'
+INTO TABLE mitarbeiter 
+FIELDS TERMINATED BY ',' ENCLOSED BY '"' 
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS 
+(name, vorname, @geburtsdatum)
+SET geburtsdatum = STR_TO_DATE(@geburtsdatum, '%d.%m.%Y');
+```
+
+
 ## Reference: 
 
   * https://www.mysqltutorial.org/import-csv-file-mysql-table/
