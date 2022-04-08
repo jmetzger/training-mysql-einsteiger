@@ -27,3 +27,15 @@ Tables: film, film_category
 Zeigt alle category_id ' s aus der Tabelle film_category für den jeweiligen film an. 
 
 ```
+
+## Exercise for Step 2 (Schritt 2) 
+
+```
+-- Erweiterung von Schritt 1 
+Db: sakila
+Tables: film, film_category, category 
+
+Erweitere die Abfrage aus Step 1:
+o zeige jetzt auch noch mit Hilfe eines weiteren Joins die Kategorie (name) an. 
+
+```
