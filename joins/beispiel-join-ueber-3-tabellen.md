@@ -17,3 +17,13 @@ JOIN film f
 ON fa.film_id = f.film_id;
 
 ```
+
+## Exercise for Step 1 (Schritt 1) 
+
+```
+Db: sakila
+Tables: film, film_category 
+
+Zeigt alle category_id ' s aus der Tabelle film_category für den jeweiligen film an. 
+
+```
