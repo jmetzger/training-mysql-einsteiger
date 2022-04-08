@@ -35,3 +35,4 @@ SET geburtsdatum = STR_TO_DATE(@geburtsdatum, '%d.%m.%Y');
 ## Reference: 
 
   * https://www.mysqltutorial.org/import-csv-file-mysql-table/
+  * https://www.w3schools.com/sql/func_mysql_str_to_date.asp
