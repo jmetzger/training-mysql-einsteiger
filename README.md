@@ -104,6 +104,7 @@
      * [Export von csv-daten aus der Workbench](/import-export-csv/workbench-export.md)
      * [Import von csv-daten mit der Workbench](/import-export-csv/workbench-import.md)
      * [Import von csv-daten als SQL-Befehl in der Workbench](/import-export-csv/load-data-infile.md)
+     * [Dealing with charset in Excel (CSV)](/import-export-csv/dealing-with-charset.md)
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
