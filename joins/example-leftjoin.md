@@ -15,7 +15,7 @@ DB: sakila
 Tables: address,store  
 Feld: address_id 
 
-Zeigt alle addressen an und bei allen addressen wo es keinen store gibt NULL 
+Zeige all Adressen an (address) und bei den Adressen, wo es keinen Store gibt NULL 
 (LEFT JOIN) 
 
 
