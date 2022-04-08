@@ -102,6 +102,7 @@
 
   1. CSV export/import 
      * [Export von csv-daten aus der Workbench](/import-export-csv/workbench-export.md)
+     * [Import von csv-daten mit der Workbench](/import-export-csv/workbench-import.md)
 
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
