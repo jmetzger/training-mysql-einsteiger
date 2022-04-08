@@ -100,6 +100,9 @@
   1. Variablen 
      * [Beispiel mit Abfrage und User-Variable](/variables/example-query.md)
 
+  1. CSV export/import 
+     * [Export von csv-daten aus der Workbench](/import-export-csv/workbench-export.md)
+
   1. TIPPS & TRICKS 
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
      * [Cheatsheet für Selects](cheatsheet/select.md)
