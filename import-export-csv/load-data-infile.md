@@ -15,6 +15,15 @@ SET expired_date = STR_TO_DATE(@expired_date, '%m/%d/%Y');
 ## Adjusting to our example (MySQL 8, SQL executed in Workbench
 
 ```
+# Vorarbeiten, Tabelle erstellen 
+CREATE TABLE `mitarbeiter` (
+  `mitarbeiter_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `vorname` varchar(45) NOT NULL,
+  `geburtsdatum` date DEFAULT NULL,
+  PRIMARY KEY (`mitarbeiter_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
 Nachname, Vorname, Geburtsdatum
 -- IGNORE 1 ROWS - simple does not use this first line 
 Mustermann,Max,12.03.1976
