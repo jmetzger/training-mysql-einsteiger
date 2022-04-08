@@ -78,17 +78,17 @@ SELECT MAX(replacement_cost) as am_teuersten,MIN(replacement_cost) FROM sakila.f
 ## SORTIERUNG / LIMIT 
 
 ```
--- Mit Bedingung und Sortierreihenfolge 
+-- WHERE/ORDER BY 
 select FELD from TABELLE WHERE BEDINGUNG ORDER BY FELD1,FELD2
 select first_name,last_name from actor where last_name like 'A%' order by first_name,last_name 
 
--- Nur Limit 
+-- LIMIT
 select FELD from tabelle limit 0,30; -- Ab Datensatz 1 der Ergebnismenge   
 select * from actor limit 30 -- Ab Datensatz 
 
 -- WHERE/ORDER BY/LIMIT 
 SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 0,10 
-SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab dem 5. Datensatz der Ergebnismenge 
+SELECT feld FROM tabelle WHERE bedingung ORDER BY FELD1,FELD2 LIMIT 5,10 -- Ab dem 6. Datensatz der Ergebnismenge 
 ```
 
 
@@ -100,7 +100,7 @@ SELECT amount,1 as 'Preiserhoehung um',amount + 1 as preiserhoehung FROM payment
 -- Kaufmännisch runden 
 SELECT ROUND(1.56,1);
 -- Abschneiden
-SELECT truncate(1.56,1);
+SELECT TRUNCATE(1.56,1);
 -- FLOOR() -> abrunden zum nächsten Integer  
 SELECT FLOOR(12.56);
 -- CEIL() - Aufrunden zum nächsten Integer 
