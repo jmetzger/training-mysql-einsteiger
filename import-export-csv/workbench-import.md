@@ -3,6 +3,18 @@
 ## Prerequisites
 
  * You must in table and have the data listed 
+ * Eventually you need structure already 
+
+```
+CREATE TABLE `film3` (
+  `film_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `rental_rate` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`film_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+```
 
 ## Reference:
 
