@@ -2,9 +2,9 @@
 
 ## Wann ? 
 
-  * Wann immer ich Daten persistent Speicher möchte und von vielorts gleichzeitig darauf zugreifen möchte 
+  * Wann immer ich Daten persistent speichern möchte und von vielorts gleichzeitig darauf zugreifen möchte 
   * Client - Server - Architektur 
-  * Wenn ich schnell auf Daten zugreifen möchte. 
+  * Wenn ich schnell auf eine große Menge von Daten zugreifen möchte. 
 
 ## Beispiele - Bereiche 
 
@@ -13,19 +13,18 @@
 1. CMS (Content Management System)  
    o Wordpress
    o Typo3. 
-1. Intranet-Anwednungen 
+1. Intranet-Anwendnungen 
    o Zeiterfassung 
    o Ticketsysteme (Jira -> Datenbank) 
 1. Shops 
    o Amazon.de
-   o bootsladen 
-   o xtcommerce 
-1. Login - Userdaten verwalten 
+   o shopify  
+1. Login - Userdaten verwalten (optional)  
    o Apache-Webserver (Webseiten) - geschützter privater Bereich 
    o Mailserver - postfix (Nutzerdaten in MySQL speichern)     
 1. Plattformen 
    o Facebook, Twitter, Youtube, Wikipedia 
 1. Verarbeitung 
-   o Flugticket-Software. text-datei -> mysql -> anfragen an ein backend (Zusatzdaten geliefert) -> Datei geschrieben   
+   o Flugticket-Software. text-datei -> mysql -> Anfragen an ein Backend (Zusatzdaten geliefert) -> Datei geschrieben   
    
  
