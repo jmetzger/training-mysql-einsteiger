@@ -20,7 +20,6 @@ select upper('klein');
 # Kombiniert 
 SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
 SELECT upper(substr(description,1,20)) from film;
-SELECT upper(substr(description,1,20)) from film;
 SELECT lower(substr(description,1,20)) from film; 
 
 ```
