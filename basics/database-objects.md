@@ -27,7 +27,7 @@ Im Filesystem finden man diese unterhalb der Datenbank mit
 dem entsprechenden der Tabelle:
 z.B. sakila\actor.ibd 
 
-Jede Tabelle hat eine Struktur -> Columns (Felder) 
+Jede Tabelle hat eine feststehenden Struktur -> Columns (Felder) 
 
 ```
 
