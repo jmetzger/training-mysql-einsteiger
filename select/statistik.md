@@ -10,7 +10,12 @@ SELECT MAX(replacement_cost) as am_teuersten,MIN(replacement_cost) FROM sakila.f
 ## Exercise 
 
 ```
-Was sind die durchnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
+Db: sakila
+Tabelle: film
+Field/Column: rental_rate 
+
+Was sind die durchschnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
 AVG() wird hier benötigt 
+
 
 ```
