@@ -84,7 +84,7 @@
      * [Übung mit select und not in](/select/example-select-not-in.md) 
      * [Übung mit select by date](/select/example-select-by-date.md)
      * [Übung mit select by day](/select/bad-example-select-by-date.md)
-     * [Übung - Zählen vpon Datensätzen](/select/count-rows.md)
+     * [Übung - Zählen von Datensätzen](/select/count-rows.md)
      * [Übung - Statistik AVG](/select/statistik.md)
      * [Übung - NOT NULL / NULL](/select/example-is-null.md)
      * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](/select/example-string-functions.md)
