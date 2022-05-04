@@ -3,9 +3,9 @@
 ## Agenda 
 
   1. Technischer Hintergrund / Allgemeines 
+     * [Wofür brauche ich MySQL - Anwendungsbeispiele](/technical-background/projects.md)
      * [Technical Structure](/technical-background/basics.md)
      * [Was ist SQL ?](/technical-background/sql.md)
-     * [Wofür brauche ich MySQL - Anwendungsbeispiele](/technical-background/projects.md)
      * [Excel vs. MySQL](/technical-background/excel-vs-mysql.md)
      * [Wie starte ich ? (Windows: MYSQL -Server/Workbench - Installation)](/installation-mysql-windows-8.md)
      * [Installation osx (Mac)](/installation-mysql-osx.md)
