@@ -3,7 +3,7 @@
 ## Step-By-Step 
 
 ```
-1. Lade den Installater von mysql herunter (Windows):
+1. Lade den Installer von mysql herunter (Windows):
 https://dev.mysql.com/downloads/installer/
 
 2. Ich führe den Installer aus (diese installiert auch die MySQL Workbench) 
