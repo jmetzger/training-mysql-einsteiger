@@ -33,8 +33,8 @@ O Schnell mal etwas aufsetzen. (Brauche nur Excel)
 O Sortieren nach Spalte ist einfach 
 O Anpassen von Formeln etc.
 O Leicht anpassbar (löschen) 
-…. aber nur für überschaubare Datenbanken 
-O Tabelle integrieren in andere Dokumente, die sich dann automatisch aktivieren 
+…. aber nur für überschaubare Datenmengen
+O Tabelle integrieren in andere Dokumente, die sich dann automatisch aktualisieren
 O Bildliche Gestaltung (Farblichkeit, Diagramme), Links einfügen  
 
 MySQL - Nachteile 
@@ -43,7 +43,7 @@ MySQL - Nachteile
 O Komplexer aufzusetzen als Excel 
 O Ein wenig schwieriger Daten zu optimieren 
 O Hürde: SQL - Sprache erlernen müssen
-O Von Hause kein Interface. 
+O Von Hause aus kein Interface. 
 
 MySQL - Vorteile 
 ==============
