@@ -94,6 +94,9 @@
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
 
+  1. Datenbanken und Tabellen anlegen, verändern und löschen 
+     * [Datenbanken anlegen und löschen](/create-and-drop-databases.md)
+
   1. Datentypen 
      * [Integer - Ganzzahlen](/datatypes/int.md)
      * [Strings - varchar](/datatypes/varchar.md)
