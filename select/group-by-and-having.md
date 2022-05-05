@@ -71,7 +71,7 @@ having gezaehlt > 2;
 ## Example Having (a bit more complicated) 
 
 ```
-# Step 1: Get all data wuth last_name like 'W%'
+# Step 1: Get all data with last_name like 'W%'
 # Step 2: Group by last_name 
 # Step 3: Only return dataset where count(last_name) --> aggregated data (HAVING) = 2 
 
