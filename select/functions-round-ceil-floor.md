@@ -25,6 +25,9 @@ SELECT CEIL(12.3);
 
 Lass Dir die durchscnittliche Länge aller Filme, kaufmännisch gerundet auf volle Minuten anzeigen
 
+HINT: AVG(),ROUND()
+
+
 2. Übung 
 
 -- Db.: sakila 
