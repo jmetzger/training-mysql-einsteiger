@@ -1,4 +1,15 @@
-# varchar - String - Datentyp
+# varchar - String - Daten
+
+## Wie ?
+
+```
+varchar(n)
+
+n von 0 bis 65535 
+
+```
+
+## Beispiel 
 
 ```
 Beispiel:
