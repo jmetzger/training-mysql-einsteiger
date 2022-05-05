@@ -119,6 +119,7 @@
      * [Cheatsheet für Selects](cheatsheet/select.md)
      * [Restore auf der Kommandozeile (counterpart zu backup)](/backups-restore/restore.md)
      * [MYSQL-Workbench disable safe-mode](/workbench-disable-safe-mode.md)
+     * [Datenbank mit mysql workbench exportieren](mysql-workbench-export.md)
 
   1. Documentation 
      * https://dev.mysql.com/downloads/windows/installer/8.0.html
