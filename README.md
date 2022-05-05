@@ -117,6 +117,7 @@
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](cheatsheet/ueberblick.md) 
      * [Cheatsheet für Selects](cheatsheet/select.md)
      * [Restore auf der Kommandozeile (counterpart zu backup)](/backups-restore/restore.md)
+     * [MYSQL-Workbench disable safe-mode](/workbench-disable-safe-mode.md)
 
   1. Documentation 
      * https://dev.mysql.com/downloads/windows/installer/8.0.html
