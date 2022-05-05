@@ -32,3 +32,13 @@ Dann -> 2. Apply
 Dann -> Finish (Jetzt führt er es erst aus) 
 
 ```
+
+## Schritt 2: Weitere Felder 
+
+
+```
+titel - varchar(60) - NOT NULL (NN) 
+startdatum - DATE - NOT NULL (NN) - Default 2 
+tage - TINYINT - NOT NULL (NN) 
+
+```
