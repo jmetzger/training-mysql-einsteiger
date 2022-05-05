@@ -20,3 +20,13 @@ Wichtig: Wenn ihr mit Sakila arbeitet wollt, die Documentation -> Beispieldaten 
 
 
 ```
+
+## Testdaten -> sakila 
+
+```
+Installer -> Documentation -> Examples -> und dann letzte MySQL- Version auswählen
+
+Auch nachträglich -> einfach Installer nochmal starten und Add - Button drücken
+dort dann Documentation -> Examples 
+```
+
