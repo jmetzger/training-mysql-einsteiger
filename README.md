@@ -96,6 +96,7 @@
 
   1. Datenbanken und Tabellen anlegen, verändern und löschen 
      * [Datenbanken anlegen und löschen](/create-and-drop-databases.md)
+     * [Übung - Tabelle kurs anlegen](/uebung/tabelle-kurs.md)
 
   1. Datentypen 
      * [Integer - Ganzzahlen](/datatypes/int.md)
