@@ -56,9 +56,16 @@ Then it aggregates the data (GROUP BY) and filters it by HAVING
 
 ```
 SELECT last_name, COUNT(last_name) 
-FROM sakila.actor
+FROM actor
 GROUP BY last_name
 HAVING count(last_name) > 2
+
+# or use it with alias from the field
+select last_name, count(last_name) as gezaehlt
+from actor
+group by last_name
+having gezaehlt > 2;
+
 ```
 
 ## Example Having (a bit more complicated) 
