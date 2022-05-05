@@ -41,4 +41,9 @@ titel - varchar(60) - NOT NULL (NN)
 startdatum - DATE - NOT NULL (NN) - Default 2 
 tage - TINYINT - NOT NULL (NN) 
 
+ALTER TABLE kurs
+ADD COLUMN `titel` VARCHAR(60) NOT NULL AFTER `kurs_id`,
+ADD COLUMN `startdatum` DATE NOT NULL AFTER `titel`,
+ADD COLUMN `tage` TINYINT NOT NULL DEFAULT 2 AFTER `startdatum`;
+
 ```
