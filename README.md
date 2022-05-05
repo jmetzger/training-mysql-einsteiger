@@ -98,6 +98,7 @@
      * [Datenbanken anlegen und löschen](/create-and-drop-databases.md)
      * [Übung - Tabelle kurs anlegen](/uebung/tabelle-kurs.md)
      * [Übung - Daten in kurs einfügen](/uebung/daten-insert.md)
+     * [Übung - Daten updaten](/uebung/daten-updaten.md)
 
   1. Datentypen 
      * [Integer - Ganzzahlen](/datatypes/int.md)
