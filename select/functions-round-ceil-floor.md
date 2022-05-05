@@ -34,6 +34,6 @@ HINT: AVG(),ROUND()
 -- Table: film 
 
 Berechne die Summe aller replacement_cost(s) in film und runde dieser auf die nächste voller Zahl ohne Nachkommastellen auf. 
-HINT: SUM 
+HINT: SUM(),CEIL()
 
 ```
