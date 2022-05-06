@@ -32,6 +32,8 @@ select * from actor_b;
 ## Übung 
 
 ```
+Ausgehend von der Tabelle: film 
+
 A. 
 Erstelle ein view, das nur den title und die 2 ersten Buchstaben des Titels anzeigt,
 mit dem Name film_short. 
