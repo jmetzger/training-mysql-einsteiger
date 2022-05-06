@@ -99,6 +99,3 @@ select * from population_logs;
 
 ```
 
-## Ref:
-
-  * https://mariadb.com/kb/en/trigger-overview/
