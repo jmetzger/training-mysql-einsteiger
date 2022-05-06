@@ -93,6 +93,7 @@
      * [Übung join - 2 tables - 1:1](/joins/example-join.md)
      * [Übung - Refresher Tag 2 - morgens - SELECT](/select/uebung-tag-2-morgens.md)
      * [Übung - Refresher Tag 3 - morgens - SELECT](/select/uebung-tag-3-morgens.md)
+     * [Optional: Übung megajoin](/uebung-mega-join.md)
 
   1. Datenbanken und Tabellen anlegen, verändern und löschen, Daten einfügen 
      * [Datenbanken anlegen und löschen](/create-and-drop-databases.md)
