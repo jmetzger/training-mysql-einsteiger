@@ -15,7 +15,7 @@ SELECT customer.first_name,customer.last_name,address.postal_code FROM customer 
 DB: sakila
 Tables: store,address  
 Feld: address_id 
-Zeige alle Adressen der Stores an ? (Alle Felder von store und von address)
+Zeige alle Adressen der Stores an (Alle Felder von store und von address)
 
 
 ```
