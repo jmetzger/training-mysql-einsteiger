@@ -3,9 +3,9 @@
 
 ## Agenda
   1. Technischer Hintergrund / Allgemeines 
+     * [Wofür brauche ich MySQL - Anwendungsbeispiele](#wofür-brauche-ich-mysql---anwendungsbeispiele)
      * [Technical Structure](#technical-structure)
      * [Was ist SQL ?](#was-ist-sql-)
-     * [Wofür brauche ich MySQL - Anwendungsbeispiele](#wofür-brauche-ich-mysql---anwendungsbeispiele)
      * [Excel vs. MySQL](#excel-vs-mysql)
      * [Wie starte ich ? (Windows: MYSQL -Server/Workbench - Installation)](#wie-starte-ich--windows:-mysql--serverworkbench---installation)
      * [Installation osx (Mac)](#installation-osx-mac)
@@ -84,7 +84,7 @@
      * [Übung mit select und not in](#übung-mit-select-und-not-in)
      * [Übung mit select by date](#übung-mit-select-by-date)
      * [Übung mit select by day](#übung-mit-select-by-day)
-     * [Übung - Zählen vpon Datensätzen](#übung---zählen-vpon-datensätzen)
+     * [Übung - Zählen von Datensätzen](#übung---zählen-von-datensätzen)
      * [Übung - Statistik AVG](#übung---statistik-avg)
      * [Übung - NOT NULL / NULL](#übung---not-null--null)
      * [Übung mit select und SUBSTR,LOWER,UPPER,CONCAT](#übung-mit-select-und-substrlowerupperconcat)
@@ -93,6 +93,13 @@
      * [Übung join - 2 tables - 1:1](#übung-join---2-tables---1:1)
      * [Übung - Refresher Tag 2 - morgens - SELECT](#übung---refresher-tag-2---morgens---select)
      * [Übung - Refresher Tag 3 - morgens - SELECT](#übung---refresher-tag-3---morgens---select)
+     * [Optional: Übung megajoin](#optional:-übung-megajoin)
+
+  1. Datenbanken und Tabellen anlegen, verändern und löschen, Daten einfügen 
+     * [Datenbanken anlegen und löschen](#datenbanken-anlegen-und-löschen)
+     * [Übung - Tabelle kurs anlegen](#übung---tabelle-kurs-anlegen)
+     * [Übung - Daten in kurs einfügen](#übung---daten-in-kurs-einfügen)
+     * [Übung - Daten updaten](#übung---daten-updaten)
 
   1. Datentypen 
      * [Integer - Ganzzahlen](#integer---ganzzahlen)
@@ -112,6 +119,14 @@
      * [Cheatsheet - Auf dem System zurechtfinden - 1. Sichtung](#cheatsheet---auf-dem-system-zurechtfinden---1-sichtung)
      * [Cheatsheet für Selects](#cheatsheet-für-selects)
      * [Restore auf der Kommandozeile (counterpart zu backup)](#restore-auf-der-kommandozeile-counterpart-zu-backup)
+     * [MYSQL-Workbench disable safe-mode](#mysql-workbench-disable-safe-mode)
+     * [Datenbank mit mysql workbench exportieren](#datenbank-mit-mysql-workbench-exportieren)
+     * [Datenbank mit mysql workbench importieren](#datenbank-mit-mysql-workbench-importieren)
+     * [Information schema in der Workbench aktivieren](#information-schema-in-der-workbench-aktivieren)
+
+  1. Optional (Views & Triggers) 
+     * [Views](#views)
+     * [Triggers](#triggers)
 
   1. Documentation 
      * https://dev.mysql.com/downloads/windows/installer/8.0.html
@@ -129,6 +144,38 @@
 
 ## Technischer Hintergrund / Allgemeines 
 
+### Wofür brauche ich MySQL - Anwendungsbeispiele
+
+
+### Wann ? 
+
+  * Wann immer ich Daten persistent speichern möchte und von vielorts gleichzeitig darauf zugreifen möchte 
+  * Client - Server - Architektur 
+  * Wenn ich schnell auf eine große Menge von Daten zugreifen möchte. 
+
+### Beispiele - Bereiche 
+
+1. Infrastruktur 
+   o Radius - Server 
+1. CMS (Content Management System)  
+   o Wordpress
+   o Typo3. 
+1. Intranet-Anwendnungen 
+   o Zeiterfassung 
+   o Ticketsysteme (Jira -> Datenbank) 
+1. Shops 
+   o Amazon.de
+   o shopify  
+1. Login - Userdaten verwalten (optional)  
+   o Apache-Webserver (Webseiten) - geschützter privater Bereich 
+   o Mailserver - postfix (Nutzerdaten in MySQL speichern)     
+1. Plattformen 
+   o Facebook, Twitter, Youtube, Wikipedia 
+1. Verarbeitung 
+   o Flugticket-Software. text-datei -> mysql -> Anfragen an ein Backend (Zusatzdaten geliefert) -> Datei geschrieben   
+   
+ 
+
 ### Technical Structure
 
 
@@ -140,48 +187,15 @@
 ```
 SQL - Structured Query Language -> Strukturierte Abfragesprache 
 Es ist eine standardisierte Programmiersprache 
-die zur Verwaltung relationale Datenbanken 
-und zum Durchführen verschiedener mit den darin
+die zur Verwaltung relationaler Datenbanken 
+und zum Durchführen verschiedener Operationen mit den darin
 enthaltenen Daten verwendet wird.
 
 ```
 
 ```
-Will ich Daten aus eine SQL-Datenbank brauche ich die Abfragesprache SQL 
+Will ich Daten aus einer SQL-Datenbank bekommen, brauche ich die Abfragesprache SQL 
 ```
-
-### Wofür brauche ich MySQL - Anwendungsbeispiele
-
-
-### Wann ? 
-
-  * Wann immer ich Daten persistent Speicher möchte und von vielorts gleichzeitig darauf zugreifen möchte 
-  * Client - Server - Architektur 
-  * Wenn ich schnell auf Daten zugreifen möchte. 
-
-### Beispiele - Bereiche 
-
-1. Infrastruktur 
-   o Radius - Server 
-1. CMS (Content Management System)  
-   o Wordpress
-   o Typo3. 
-1. Intranet-Anwednungen 
-   o Zeiterfassung 
-   o Ticketsysteme (Jira -> Datenbank) 
-1. Shops 
-   o Amazon.de
-   o bootsladen 
-   o xtcommerce 
-1. Login - Userdaten verwalten 
-   o Apache-Webserver (Webseiten) - geschützter privater Bereich 
-   o Mailserver - postfix (Nutzerdaten in MySQL speichern)     
-1. Plattformen 
-   o Facebook, Twitter, Youtube, Wikipedia 
-1. Verarbeitung 
-   o Flugticket-Software. text-datei -> mysql -> anfragen an ein backend (Zusatzdaten geliefert) -> Datei geschrieben   
-   
- 
 
 ### Excel vs. MySQL
 
@@ -219,8 +233,8 @@ O Schnell mal etwas aufsetzen. (Brauche nur Excel)
 O Sortieren nach Spalte ist einfach 
 O Anpassen von Formeln etc.
 O Leicht anpassbar (löschen) 
-…. aber nur für überschaubare Datenbanken 
-O Tabelle integrieren in andere Dokumente, die sich dann automatisch aktivieren 
+…. aber nur für überschaubare Datenmengen
+O Tabelle integrieren in andere Dokumente, die sich dann automatisch aktualisieren
 O Bildliche Gestaltung (Farblichkeit, Diagramme), Links einfügen  
 
 MySQL - Nachteile 
@@ -229,7 +243,7 @@ MySQL - Nachteile
 O Komplexer aufzusetzen als Excel 
 O Ein wenig schwieriger Daten zu optimieren 
 O Hürde: SQL - Sprache erlernen müssen
-O Von Hause kein Interface. 
+O Von Hause aus kein Interface. 
 
 MySQL - Vorteile 
 ==============
@@ -259,7 +273,7 @@ O Grosse Datenmengen, d.h. ich komme mit Excel nicht weiter bzw. Geht nicht oder
 ### Step-By-Step 
 
 ```
-1. Lade den Installater von mysql herunter (Windows):
+1. Lade den Installer von mysql herunter (Windows):
 https://dev.mysql.com/downloads/installer/
 
 2. Ich führe den Installer aus (diese installiert auch die MySQL Workbench) 
@@ -276,6 +290,16 @@ Wichtig: Wenn ihr mit Sakila arbeitet wollt, die Documentation -> Beispieldaten 
 
 
 ```
+
+### Testdaten -> sakila 
+
+```
+Installer -> Documentation -> Examples -> und dann letzte MySQL- Version auswählen
+
+Auch nachträglich -> einfach Installer nochmal starten und Add - Button drücken
+dort dann Documentation -> Examples 
+```
+
 
 ### Installation osx (Mac)
 
@@ -322,7 +346,7 @@ Im Filesystem finden man diese unterhalb der Datenbank mit
 dem entsprechenden der Tabelle:
 z.B. sakila\actor.ibd 
 
-Jede Tabelle hat eine Struktur -> Columns (Felder) 
+Jede Tabelle hat eine feststehenden Struktur -> Columns (Felder) 
 
 ```
 
@@ -461,7 +485,7 @@ select first_name as vorname,last_name as nachname from actor;
 ### Übung 
 
 ```
-1. Lasst Euch mit einem SQL-Befehl (select) alle Zeile aus der Tabelle Film anzeigen
+1. Lasst Euch mit einem SQL-Befehl (select) alle Zeilen aus der Tabelle Film anzeigen
 2. Lasst Euch aus der Tabelle nur die Spalten title und die rental_rate anzeigen und benennt die Spalten (alias) in  der Ausgabe in Titel und Verleihgebuehr um.
 ```
 
@@ -566,6 +590,9 @@ SELECT * FROM actor WHERE first_name IN ('JOE','ED','JENNIFER');
 ```
 SELECT * FROM actor WHERE last_name like 'D%';
 
+-- Starts with D and ends with S 
+select * from actor where last_name like 'D%S';
+
 ```
 
 ### Exercise 
@@ -655,7 +682,6 @@ select upper('klein');
 
 ## Kombiniert 
 SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
-SELECT upper(substr(description,1,20)) from film;
 SELECT upper(substr(description,1,20)) from film;
 SELECT lower(substr(description,1,20)) from film; 
 
@@ -751,13 +777,13 @@ return_date
 ```
 ## Es kann kein Index (Eintrag im Schlagwortverzeichnis verwendet werden) 
 ## Alle Rückgabe im Jahr 2005 
-select YEAR(return_date),return_date from rental where YEAR(return_date) = 2005;
+select YEAR(rental_date),return_date from rental where YEAR(rental_date) = 2005;
 
 ## Besser: Index kann verwendet werden.
 SELECT YEAR(return_date),return_date 
 FROM rental 
-WHERE return_date >= '2005-01-01 00:00:01' 
-AND return_date <= '2005-12-31 23:59:59';
+WHERE rental_date >= '2005-01-01 00:00:01' 
+AND rental_date <= '2005-12-31 23:59:59';
 ```
 
 ### Example 2:
@@ -837,6 +863,31 @@ Weitere Spalten werden nicht benötigt.
 
 ### Beispiel String in Date umwandeln
 
+
+### Beispiel: 
+
+```
+## Das Ziel ist immer das bekannte Format 
+## YYYY-MM-DD, aber das macht selbständig unter Haube,
+## Wenn ich ihm sage, wie mein Ursprungsformat aussieht 
+
+SELECT STR_TO_DATE("August 10 2017", "%M %d %Y");
+
+```
+
+### Übung 
+
+```
+Wandle das Datum in ein MYSQL-Datumsformat um mit STR_TO_DATE 
+12.04.2022 
+
+```
+
+
+### Referenz:
+
+ * https://www.w3schools.com/sql/func_mysql_str_to_date.asp
+
 ## COUNT / STATISTIK  
 
 ### Zählen von Datensätzen
@@ -869,8 +920,13 @@ SELECT MAX(replacement_cost) as am_teuersten,MIN(replacement_cost) FROM sakila.f
 ### Exercise 
 
 ```
-Was sind die durchnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
+Db: sakila
+Tabelle: film
+Field/Column: rental_rate 
+
+Was sind die durchschnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
 AVG() wird hier benötigt 
+
 
 ```
 
@@ -904,13 +960,16 @@ SELECT CEIL(12.3);
 
 Lass Dir die durchscnittliche Länge aller Filme, kaufmännisch gerundet auf volle Minuten anzeigen
 
+HINT: AVG(),ROUND()
+
+
 2. Übung 
 
 -- Db.: sakila 
 -- Table: film 
 
 Berechne die Summe aller replacement_cost(s) in film und runde dieser auf die nächste voller Zahl ohne Nachkommastellen auf. 
-HINT: SUM 
+HINT: SUM(),CEIL()
 
 ```
 
@@ -963,11 +1022,43 @@ HINT: Verwende zum Zusammenkleben möglich CONCAT_WS
 ### Beispiel 
 
 ```
+
+SELECT REPLACE('Hallo Weltenbummler Weltenentdecker','Welt','Erd');
+SELECT REPLACE('Jones','o','e');
+
 select first_name,'=>' as ' wird zu : ', replace(first_name,'CHRISTIAN','PETER') from actor where first_name like 'C%';
 
 ```
 
-### Übung 
+### Beispiel (Erweitert) 
+
+```
+select first_name,'wird zu:',replace(first_name,'CHRISTIAN','PETER') as modified from actor where replace(first_name,'CHRISTIAN','PETER') != first_name;
+
+## performanter:
+select first_name,'wird zu:',replace(first_name,'CHRISTIAN','PETER') as modified from actor where first_name = 'CHRISTIAN';
+
+```
+
+
+### Übung: 
+
+```
+Gebe all Adressen aus, bei denen die Adresse das Wort Drive enthält 
+(vorne, hinten, Mitte)
+
+Zeige folgende Felder an:
+
+Feld1: address_id, 
+Feld2: address, 
+Feld3: (modifizierte Adresse: ersetze Drive -> Weg) als neue_adresse ausgeben
+
+Hint: replace() 
+
+```
+
+
+### Übung (hat nix mit dem Thema zu tun) 
 
 ```
 -- Db: sakila
@@ -1022,6 +1113,9 @@ From your results of your query only shows a subset
 
 ```
 ## Eine Zahl: d.h. beginnend ab 0. Datensatz (Datensatz Numero 1) und 3 Ergebnisse 
+## Long version 
+SELECT * FROM actor ORDER BY last_name DESC LIMIT 0,3;
+## Short version
 SELECT * FROM actor ORDER BY last_name DESC LIMIT 3;
 
 ## Beginne mit Datensatz 3 und dann 10 Ergebnisse.
@@ -1104,15 +1198,22 @@ Then it aggregates the data (GROUP BY) and filters it by HAVING
 
 ```
 SELECT last_name, COUNT(last_name) 
-FROM sakila.actor
+FROM actor
 GROUP BY last_name
 HAVING count(last_name) > 2
+
+## or use it with alias from the field
+select last_name, count(last_name) as gezaehlt
+from actor
+group by last_name
+having gezaehlt > 2;
+
 ```
 
 ### Example Having (a bit more complicated) 
 
 ```
-## Step 1: Get all data wuth last_name like 'W%'
+## Step 1: Get all data with last_name like 'W%'
 ## Step 2: Group by last_name 
 ## Step 3: Only return dataset where count(last_name) --> aggregated data (HAVING) = 2 
 
@@ -1214,7 +1315,7 @@ SELECT customer.first_name,customer.last_name,address.postal_code FROM customer 
 DB: sakila
 Tables: store,address  
 Feld: address_id 
-Zeige alle Adressen der Stores an ? (Alle Felder von store und von address)
+Zeige alle Adressen der Stores an (Alle Felder von store und von address)
 
 
 ```
@@ -1292,15 +1393,29 @@ Zeige all Adressen an (address) und bei den Adressen, wo es keinen Store gibt NU
 ### Zeige alle Zeilen an, bei dem einen Wert in einem Feld in beiden Tabellen vorkommt. 
 
 ```
--- Wert soll jeweils im Feld last_name vorkommen 
+-- Wert soll jeweils im Feld last_name und first_name vorkommen 
 -- Vorbereitung (Simulation) 
 create table testtabelle as select * from actor where last_name like 'A%';
-SELECT a.*,t.* FROM actor a JOIN testtabelle t ON a.last_name = t.last_name; 
+SELECT a.*,t.* FROM actor a JOIN testtabelle t ON a.last_name = t.last_name AND a.first_name = t.last_name; 
+
+```
+### Übung:
+
+```
+Lasse alle Kunden ausgeben, die auch gleichzeitig Schauspieler sind (anhand Vorname, Nachname)
+Hint: actor, customer, first_name, last_name 
+
+
+
 
 ```
 
+
 ### Beispiel komplexer Join
 
+
+
+### Beispiel 
 
 ```
 select f.rental_rate,count(f.rental_rate)
@@ -1314,6 +1429,16 @@ AND f.rental_rate > 0.99
 GROUP BY f.rental_rate
 ORDER BY f.rental_rate DESC;
 ```
+
+### Übung 
+
+```
+Gib alle Filme aus, die der category Family angehören
+und deren rental_rate = 2.99 ist. 
+Gruppiere sie nach den replacement_cost.
+Gibt folgende Felder aus:
+   replacment_cost und die Anzahl replacement_cost
+```   
 
 ## UPDATE 
 
@@ -1396,6 +1521,9 @@ From your results of your query only shows a subset
 
 ```
 ## Eine Zahl: d.h. beginnend ab 0. Datensatz (Datensatz Numero 1) und 3 Ergebnisse 
+## Long version 
+SELECT * FROM actor ORDER BY last_name DESC LIMIT 0,3;
+## Short version
 SELECT * FROM actor ORDER BY last_name DESC LIMIT 3;
 
 ## Beginne mit Datensatz 3 und dann 10 Ergebnisse.
@@ -1464,6 +1592,9 @@ SELECT * FROM actor WHERE first_name IN ('JOE','ED','JENNIFER');
 
 ```
 SELECT * FROM actor WHERE last_name like 'D%';
+
+-- Starts with D and ends with S 
+select * from actor where last_name like 'D%S';
 
 ```
 
@@ -1561,13 +1692,13 @@ return_date
 ```
 ## Es kann kein Index (Eintrag im Schlagwortverzeichnis verwendet werden) 
 ## Alle Rückgabe im Jahr 2005 
-select YEAR(return_date),return_date from rental where YEAR(return_date) = 2005;
+select YEAR(rental_date),return_date from rental where YEAR(rental_date) = 2005;
 
 ## Besser: Index kann verwendet werden.
 SELECT YEAR(return_date),return_date 
 FROM rental 
-WHERE return_date >= '2005-01-01 00:00:01' 
-AND return_date <= '2005-12-31 23:59:59';
+WHERE rental_date >= '2005-01-01 00:00:01' 
+AND rental_date <= '2005-12-31 23:59:59';
 ```
 
 ### Example 2:
@@ -1584,7 +1715,7 @@ Lasst euch alle Rückgaben aus Rental anzeigen, die zwischen (inkl) dem 27. und 
 HINT: DAY
 ```
 
-### Übung - Zählen vpon Datensätzen
+### Übung - Zählen von Datensätzen
 
 
 ### Example 
@@ -1614,8 +1745,13 @@ SELECT MAX(replacement_cost) as am_teuersten,MIN(replacement_cost) FROM sakila.f
 ### Exercise 
 
 ```
-Was sind die durchnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
+Db: sakila
+Tabelle: film
+Field/Column: rental_rate 
+
+Was sind die durchschnittlichen Leihgebühren für alle Film, die mit dem Titel "T" anfangen.
 AVG() wird hier benötigt 
+
 
 ```
 
@@ -1667,7 +1803,6 @@ select upper('klein');
 
 ## Kombiniert 
 SELECT concat('Ausgabe: ',substr(description,1,20)) as listeneintrag FROM film;
-SELECT upper(substr(description,1,20)) from film;
 SELECT upper(substr(description,1,20)) from film;
 SELECT lower(substr(description,1,20)) from film; 
 
@@ -1783,7 +1918,7 @@ SELECT customer.first_name,customer.last_name,address.postal_code FROM customer 
 DB: sakila
 Tables: store,address  
 Feld: address_id 
-Zeige alle Adressen der Stores an ? (Alle Felder von store und von address)
+Zeige alle Adressen der Stores an (Alle Felder von store und von address)
 
 
 ```
@@ -1804,9 +1939,9 @@ und hier nur die ersten 10 sortiert nach Nachname
 
 ```
 addresses:
-- Alle Adressen die im district QLD, Alberta, Queens sind
-- Sortierung nach postal_code
-- nur die ersten 10 davon anziegen
+- Alle Adressen die im district California,Attika,Nantou sind
+- Sortierung nach postal_code (aufsteigend)
+- nur die ersten 10 davon anzeigen
 
 ```
 
@@ -1820,7 +1955,7 @@ addresses:
 ```
 -- Datenbank: sakila
 -- Table: payment 
--- - Gebe den höchsten, den niedrigsten und den mittleren Zahlbetrag aus
+-- - Gebe den höchsten, den niedrigsten und den mittleren Zahlbetrag (payment) aus
 -- für alle Zahlungen (payment_date) vor dem 01.07.2005 (2005-07-01) 
 -- RUNDE den mittleren Zahlbetrag kaufmännisch (ROUND) mit 2 Nachkommastellen. 
 
@@ -1842,6 +1977,130 @@ Tabelle: language
 
 ```
 
+
+### Optional: Übung megajoin
+
+
+```
+-- Grosse übung 
+Gebt alle Verleihdatensätze (rental) aus und zwar 
+o mit dem zugehörigen Kunden (Vorname, Nachname) 
+o klebt beides zusammen (concat) -> als langname 
+o mit dem zugehörigen mitarbeiter (der hat es verliehn) -> nur den vornamen ausgaben als
+mitarbeiter_vorname 
+o gebt den zugehörigen film title aus (inventory -> film_id)
+o in welchem ort wurde der Film ausgeliehn ? -> inventory -> store -> address store_id -> address 
+```
+
+## Datenbanken und Tabellen anlegen, verändern und löschen, Daten einfügen 
+
+### Datenbanken anlegen und löschen
+
+
+### Beispiel 
+
+```
+## Datenbank anlegen 
+create schema training;
+create database training;
+
+## Datenbank löschen 
+drop schema training;
+drop database training;
+```
+
+### Übung.
+
+```
+a.) Erstelle die Datenbank testdaten und lösche sie danach wieder
+b.) Lege die Datenbank training an. (wenn noch nicht vorhanden) 
+
+
+```
+
+
+### Übung - Tabelle kurs anlegen
+
+
+### Schritt 1:
+
+```
+Tabelle 'kurs' anlegen mit dem Feld 
+
+kurs_id 
+  o smallint oder smallint(10) - Auswahl in MySQL workbench 
+  o Haken bei PK (primary key - Primärschlüssel - nur 1x pro Tabelle möglich) 
+  o Haken bei NN (not null, kurs_id immer gesetzt sein muss) 
+  o Haken bei AI (Auto_increment - automatisches Hochzählen bei Anlage eines neuen Datensatzes)
+  o Haken bei UN (Unsigned - d.h. nur positiver Wertbereich 0 bis ....)
+
+## Warum smallint 
+## Wir nehmen an, dass wir nicht mehr als 65000 kurs haben, jeder Kurs hat 
+## eine eindeutige id, tinyint mit 0 bis 255 (unsigned wäre uns zu klein) 
+
+Dann kommt -> Apply 
+
+## Er zeigt mir dann das SQL-Statement an:
+## Backticks macht er immer, brauchen wir aber nicht `
+## nur benötigt wenn Leerzeichne im Tabellennamen -> ABER NICHT empfohlen.
+
+CREATE TABLE `training`.`kurs` (
+  `kurs_id` SMALLINT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`kurs_id`));
+
+Dann -> 2. Apply 
+
+
+Dann -> Finish (Jetzt führt er es erst aus) 
+
+```
+
+### Schritt 2: Weitere Felder 
+
+
+```
+titel - varchar(60) - NOT NULL (NN) 
+startdatum - DATE - NOT NULL (NN) - Default 2 
+tage - TINYINT - NOT NULL (NN) 
+
+ALTER TABLE kurs
+ADD COLUMN `titel` VARCHAR(60) NOT NULL AFTER `kurs_id`,
+ADD COLUMN `startdatum` DATE NOT NULL AFTER `titel`,
+ADD COLUMN `tage` TINYINT NOT NULL DEFAULT 2 AFTER `startdatum`;
+
+```
+
+### Übung - Daten in kurs einfügen
+
+
+```
+INSERT INTO kurs (titel,startdatum) VALUES ('HipHop Extended','2022-10-01');
+INSERT INTO kurs (titel,startdatum) VALUES ('HipHop Extended','2022-10-01'),('HipHop Extended 2','2022-10-01'),('HipHop Extended 3','2022-10-01');
+
+```
+
+### Übung - Daten updaten
+
+
+### Beispiel:
+
+```
+update kurs set startdatum='2023-07-01' where titel like 'Erste%';
+```
+
+### Übung 
+
+```
+1. Ändere den Datensatz mit der kurs_id 1 und ändere dort das startdatum. 
+
+2. Ändere einen Datensatz mit Hilfe des Titel und verändere dort die Tage 
+where titel = 
+
+
+
+
+
+```
 
 ## Datentypen 
 
@@ -1875,6 +2134,17 @@ BIGINT
 
 ### Strings - varchar
 
+
+### Wie ?
+
+```
+varchar(n)
+
+n von 0 bis 65535 
+
+```
+
+### Beispiel 
 
 ```
 Beispiel:
@@ -1923,7 +2193,7 @@ order by last_name desc, first_name;
 ```
 Exportiere (aus workbench) im csv format die tabelle film mit folgenden Kriterien.
 - Alle Filme die mit dem titel T anfangen. 
-- Ausgabe nur: title, rental_rate. 
+- Ausgabe nur: film_id,title, rental_rate. 
 
 ```
 
@@ -1942,6 +2212,23 @@ CREATE TABLE `film3` (
   `rental_rate` decimal(4,2) NOT NULL,
   PRIMARY KEY (`film_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+```
+
+### Exercise 
+
+```
+Erstelle eine neue Tabelle:
+CREATE TABLE `film3` (
+  `film_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `rental_rate` decimal(4,2) NOT NULL,
+  PRIMARY KEY (`film_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+Importiere die csv-daten aus der letzten Übung 
 
 
 ```
@@ -1965,7 +2252,7 @@ IGNORE 1 ROWS
 SET expired_date = STR_TO_DATE(@expired_date, '%m/%d/%Y');
 ```
 
-### Adjusting to our example (MySQL 8, SQL executed in Workbench
+### Adjusting to our example (MySQL 8, SQL executed in Workbench)
 
 ```
 ## Vorarbeiten, Tabelle erstellen 
@@ -2209,6 +2496,247 @@ ON fa.film_id = f.film_id;
 ## in cmd 
 ## cd <in das bin-verzeichnis von mysql>
 mysql -uroot -ppassword testdaten < C:\Users\Admin\Documents\dumps\Dump20220408.sql
+```
+
+### MYSQL-Workbench disable safe-mode
+
+
+```
+You also can disable safe mode in MySQL Workbench, go to Edit -> Preferences -> SQL Editor, and uncheck "Safe Updates" check box
+
+After that reconnect.
+
+
+Referenz:
+https://www.geeksengine.com/database/manage-table/safe-update.php#:~:text=You%20also%20can%20disable%20safe,%22Safe%20Updates%22%20check%20box.
+
+
+
+```
+
+### Datenbank mit mysql workbench exportieren
+
+
+```
+Menu -> Server -> Data Export 
+
+Datenbank auswählen.
+Objects to export -> Alles auswählen (ist sicherer)
+Export -> Export to self-contained file (besser transportabel, wenn die komplette datenbank wieder eingespielt) 
+Haken bei Include Create Schema
+
+-> Start export 
+
+
+Sicherung liegt in Documents/dumps  -< mit Zeitstempel und Endung .sql 
+
+
+
+```
+
+### Datenbank mit mysql workbench importieren
+
+
+```
+Menu -> Server -> Data Import 
+
+Import from self-contained file 
+File auswählen (sql-file) 
+
+Start Import 
+
+```
+
+### Information schema in der Workbench aktivieren
+
+
+```
+Edit -> Preferences -> SQL Editor and then check the box "Show Metadata and Internal Schemas"
+
+## Optional (Views & Triggers) 
+
+### Views
+
+
+### Einfaches Beispiel 
+
+```
+use sakila;
+CREATE VIEW actor_vorname AS SELECT first_name AS vorname FROM actor;
+select * from actor_vorname;
+select * from actor_vorname where vorname like 'A%';
+```
+
+### Über View updaten wenn Updatable 
+
+```
+use sakila;
+UPDATE actor_vorname SET vorname='BRANGELINA' WHERE vorname = 'ANGELINA';
+```
+
+### Neue Felder, sind NICHT automatisch im View: 
+
+```
+alter table actor add column city varchar(45) default 'Hildesheim';
+## city is not nicht im view
+select * from actor_b; 
+
+## erst wenn ich das create oder alter statement ausführen 
+alter view actor_b as select * from actor where last_name like 'B%';
+select * from actor_b; 
+
+```
+
+### Übung 
+
+```
+Ausgehend von der Tabelle: film 
+
+A. 
+Erstelle ein view, das nur den title und die 2 ersten Buchstaben des Titels anzeigt,
+mit dem Name film_short. 
+
+Nenne die felder: title_lang und title_short 
+
+B. 
+Gibt mit hilfe des title_lang - feldes Titel aus die mit "A%" beginnen 
+
+```
+
+### Triggers
+
+
+### Create the structure 
+
+```
+create table countries (
+    country_id int auto_increment,
+    name varchar(50) not null,
+    primary key(country_id) 
+);
+
+INSERT INTO countries (name) values ('Germany'), ('Austria'); 
+
+create table country_stats(
+    country_id int,
+    year int,
+    population int,
+    primary key (country_id, year),
+    foreign key(country_id)
+	references countries(country_id)
+);
+
+INSERT INTO country_stats (country_id, year, population) values (1,2020,100000);
+
+
+create table population_logs(
+    log_id int auto_increment,
+    country_id int not null,
+    year int not null,
+    old_population int not null,
+    new_population int not null,
+    updated_at timestamp default current_timestamp,
+    primary key(log_id)
+);
+
+```
+
+### Create the trigger 
+
+```
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+
+```
+
+### Create trigger (the same) but with BEGIN/END - Block 
+
+```
+delimiter //
+create trigger before_country_stats_update 
+    before update on country_stats
+    for each row
+
+    BEGIN
+    SET @anfang = 1;
+    insert into population_logs(
+        country_id, 
+        year, 
+        old_population, 
+        new_population
+    )
+    values(
+        old.country_id,
+        old.year,
+        old.population,
+        new.population
+    );
+    END//
+
+```
+
+### Run a test 
+
+```
+update 
+    country_stats
+set 
+    population = 1352617399
+where 
+    country_id = 1 and 
+    year = 2020;
+
+-- what's the new result 
+
+select * from population_logs;
+
+```
+
+
+### Exercise 
+
+```
+-- Database: training
+CREATE DATABASE IF NOT EXISTS training; 
+use training;
+
+CREATE TABLE animals (id mediumint(9) 
+NOT NULL AUTO_INCREMENT, 
+name char(30) NOT NULL, 
+PRIMARY KEY (`id`));
+
+CREATE TABLE animal_count (animals int);
+
+INSERT INTO animal_count (animals) VALUES(0);
+
+CREATE TRIGGER increment_animal 
+AFTER INSERT ON animals 
+FOR EACH ROW 
+UPDATE animal_count SET animal_count.animals = animal_count.animals+1;
+
+
+-- Jetzt testen 
+SELECT * FROM animal_count;
+INSERT INTO animals (name) VALUES('aardvark');
+INSERT INTO animals (name) VALUES('baboon');
+SELECT * FROM animal_count;
+
+
+-- Reference: 
+-- https://mariadb.com/kb/en/trigger-overview/
 ```
 
 ## Documentation 
