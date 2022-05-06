@@ -12,7 +12,7 @@ IGNORE 1 ROWS
 SET expired_date = STR_TO_DATE(@expired_date, '%m/%d/%Y');
 ```
 
-## Adjusting to our example (MySQL 8, SQL executed in Workbench
+## Adjusting to our example (MySQL 8, SQL executed in Workbench)
 
 ```
 # Vorarbeiten, Tabelle erstellen 
