@@ -122,6 +122,10 @@
      * [Datenbank mit mysql workbench exportieren](mysql-workbench-export.md)
      * [Datenbank mit mysql workbench importieren](mysql-workbench-import.md)
 
+  1. Optional (Views & Triggers) 
+     * [Views](views.md)
+     * [Triggers](triggers.md)
+
   1. Documentation 
      * https://dev.mysql.com/downloads/windows/installer/8.0.html
      * https://www.mysqltutorial.org/
