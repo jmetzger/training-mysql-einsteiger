@@ -5,7 +5,7 @@
 ```
 -- Datenbank: sakila
 -- Table: payment 
--- - Gebe den höchsten, den niedrigsten und den mittleren Zahlbetrag aus
+-- - Gebe den höchsten, den niedrigsten und den mittleren Zahlbetrag (payment) aus
 -- für alle Zahlungen (payment_date) vor dem 01.07.2005 (2005-07-01) 
 -- RUNDE den mittleren Zahlbetrag kaufmännisch (ROUND) mit 2 Nachkommastellen. 
 
