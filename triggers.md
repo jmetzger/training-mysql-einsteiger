@@ -99,3 +99,36 @@ select * from population_logs;
 
 ```
 
+
+## Exercise 
+
+```
+-- Database: training
+CREATE DATABASE IF NOT EXISTS training; 
+use training;
+
+CREATE TABLE animals (id mediumint(9) 
+NOT NULL AUTO_INCREMENT, 
+name char(30) NOT NULL, 
+PRIMARY KEY (`id`));
+
+CREATE TABLE animal_count (animals int);
+
+INSERT INTO animal_count (animals) VALUES(0);
+
+CREATE TRIGGER increment_animal 
+AFTER INSERT ON animals 
+FOR EACH ROW 
+UPDATE animal_count SET animal_count.animals = animal_count.animals+1;
+
+
+-- Jetzt testen 
+SELECT * FROM animal_count;
+INSERT INTO animals (name) VALUES('aardvark');
+INSERT INTO animals (name) VALUES('baboon');
+SELECT * FROM animal_count;
+
+
+-- Reference: 
+-- https://mariadb.com/kb/en/trigger-overview/
+```
