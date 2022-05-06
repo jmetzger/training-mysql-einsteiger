@@ -13,6 +13,6 @@
 ```
 Exportiere (aus workbench) im csv format die tabelle film mit folgenden Kriterien.
 - Alle Filme die mit dem titel T anfangen. 
-- Ausgabe nur: title, rental_rate. 
+- Ausgabe nur: film_id,title, rental_rate. 
 
 ```
