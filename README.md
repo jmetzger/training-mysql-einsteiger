@@ -122,6 +122,7 @@
      * [MYSQL-Workbench disable safe-mode](/workbench-disable-safe-mode.md)
      * [Datenbank mit mysql workbench exportieren](mysql-workbench-export.md)
      * [Datenbank mit mysql workbench importieren](mysql-workbench-import.md)
+     * [Information schema in der Workbench aktivieren](/information_schema-workbench.md)
 
   1. Optional (Views & Triggers) 
      * [Views](views.md)
